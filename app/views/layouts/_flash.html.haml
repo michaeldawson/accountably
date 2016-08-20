@@ -1,0 +1,7 @@
+- flash.each do |name, msg|
+  .alert{ class: 'alert-' + name }
+    .container-fluid
+      .row
+        .col-md-12
+          %button.close{ data: { dismiss: 'alert' } } &times;
+          = (msg.is_a?(Array) ? msg.to_sentence : msg.to_s).html_safe

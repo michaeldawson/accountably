@@ -1,3 +1,6 @@
 %h1 My accounts
-- @accounts.each do |account|
+= link_to new_account_path do
+  %i.ion-ios-plus-outline
+
+- accounts.each do |account|
   = account.name
