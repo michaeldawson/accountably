@@ -1,3 +1,3 @@
-#h1 New budget
-= simple_form_for budget, html: { class: 'add_remove_fields' } do |form|
-  = link_to_add_fields 'Add an item', form, :buckets
+.container
+  %h3 Setup budget
+  = render 'form'

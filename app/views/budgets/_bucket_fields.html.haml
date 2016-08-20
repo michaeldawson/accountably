@@ -1,4 +1,5 @@
-%fieldset
-  = f.input :name
+%fieldset.clearfix
+  = form.input :name, label: false, placeholder: 'Name'
+  = form.input :amount, label: false, placeholder: 'Amount'
   = link_to '#', class: 'remove_fields' do
     %i.ion-ios-close-outline

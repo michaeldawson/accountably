@@ -11,7 +11,23 @@ feature 'Budgets' do
       scenario "I'm taken to the new budget page, where I can setup the budget" do
         visit root_path
 
-        expect(page).to have_content 'New budget'
+        expect(page).to have_content 'Setup budget'
+
+        select 'weekly', from: 'Cycle length'
+
+        fill_in 'Name', with: 'Rent'
+        fill_in 'Amount', with: 100
+
+        click_on 'Save'
+
+        expect(page).to have_content('Budget was saved')
+
+        budget = Budget.last
+        bucket = budget.buckets.last
+
+        expect(budget.user).to eq(@user)
+        expect(bucket.name).to eq('Rent')
+        expect(bucket.amount).to eq(100)
       end
     end
   end

@@ -1,0 +1,7 @@
+= simple_form_for budget, html: { class: 'add_remove_fields' } do |form|
+  = form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
+  = form.label 'Items'
+  = form.fields_for :buckets do |bucket_form|
+    = render 'bucket_fields', form: bucket_form
+  = link_to_add_fields 'Add an item', form, :buckets
+  = form.submit 'Save'

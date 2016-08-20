@@ -5,6 +5,20 @@ class BudgetsController < ApplicationController
     redirect_to new_budget_path and return unless user_has_budget?
   end
 
+  def new
+    budget.buckets.build if budget.buckets.empty?
+  end
+
+  def create
+    if budget.save
+      flash[:notice] = 'Budget was saved'
+      redirect_to budgets_path
+    else
+      flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
+      render :new
+    end
+  end
+
   private
 
   def user_has_budget?
@@ -18,6 +32,14 @@ class BudgetsController < ApplicationController
 
   def budget_params
     return nil unless params.key?(:budget)
-    params.require(:budget).permit(buckets_attributes: [:name, :amount])
+    default_budget_params.merge(params.require(:budget).permit(*permitted_budget_attributes))
+  end
+
+  def default_budget_params
+    { user: current_user }
+  end
+
+  def permitted_budget_attributes
+    [:cycle_length, buckets_attributes: [:name, :amount]]
   end
 end
