@@ -1,0 +1,14 @@
+$base_font_size: 15px;
+$base_font_weight: 300;
+$bold_font_weight: 400;
+$serif_font_weight: 300;
+$header_font_weight: 700;
+$mofo_font_family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serif_font_family: 'Merriweather',Georgia,Cambria,"Times New Roman",Times,serif;
+
+$sans_font: $base_font_weight $base_font_size 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bold_font: $bold_font_weight $base_font_size 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$serif_font: $serif_font_weight $base_font_size $serif_font_family;
+$mofo_font: $base_font_size $mofo_font_family;
+$header_font: $header_font_weight $base_font_size 'Montserrat', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$script_font: $base_font_size 'Dancing Script', cursive;
