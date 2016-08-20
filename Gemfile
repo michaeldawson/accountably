@@ -8,7 +8,7 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'devise'
+gem 'devise', git: 'git@github.com:plataformatec/devise.git' # Only until 4.2.0 is released
 gem 'simple_form'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
