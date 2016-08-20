@@ -1,4 +1,4 @@
-$(document).on('ready page:load page:restore', function() {
+$(document).on('ready turbolinks:load', function() {
   $('.add_remove_fields').addRemoveFields();
 });
 

@@ -1,0 +1,12 @@
+%h1 Budget
+= link_to 'edit', edit_budget_path(budget)
+
+%table.table
+  %thead
+    %th Name
+    %th Amount
+  %tbody
+    - budget.buckets.each do |bucket|
+      %tr
+        %td= bucket.name
+        %td= bucket.amount

@@ -3,6 +3,7 @@ class BudgetsController < ApplicationController
 
   def index
     redirect_to new_budget_path and return unless user_has_budget?
+    redirect_to budget_path(current_user.budget)
   end
 
   def new
@@ -12,7 +13,17 @@ class BudgetsController < ApplicationController
   def create
     if budget.save
       flash[:notice] = 'Budget was saved'
-      redirect_to budgets_path
+      redirect_to budget_path(budget)
+    else
+      flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
+      render :new
+    end
+  end
+
+  def update
+    if budget.update(budget_params)
+      flash[:notice] = 'Budget was updated'
+      redirect_to budget_path(budget)
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
       render :new
@@ -22,11 +33,12 @@ class BudgetsController < ApplicationController
   private
 
   def user_has_budget?
-    current_user.budgets.exists?
+    current_user.budget.present?
   end
 
   helper_method :budget
   def budget
+    @budget ||= Budget.find(params[:id]) if params.key?(:id)
     @budget ||= Budget.new(budget_params)
   end
 
@@ -40,6 +52,6 @@ class BudgetsController < ApplicationController
   end
 
   def permitted_budget_attributes
-    [:cycle_length, buckets_attributes: [:name, :amount]]
+    [:cycle_length, buckets_attributes: [:id, :name, :amount, :_destroy]]
   end
 end
