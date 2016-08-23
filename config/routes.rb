@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'buckets/show'
+
   get 'budgets/index'
 
   root to: 'budgets#index'
@@ -6,4 +8,5 @@ Rails.application.routes.draw do
 
   resources :accounts
   resources :budgets
+  resources :buckets
 end
