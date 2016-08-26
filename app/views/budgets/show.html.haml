@@ -7,8 +7,10 @@
     %thead
       %th Name
       %th Amount
+      %th Balance
     %tbody
       - budget.buckets.each do |bucket|
         %tr
           %td= link_to bucket.name, bucket
           %td= bucket.amount
+          %td= bucket.balance
