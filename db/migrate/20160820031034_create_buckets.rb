@@ -4,6 +4,7 @@ class CreateBuckets < ActiveRecord::Migration
       t.references :budget, index: true, foreign_key: true
       t.string :name
       t.integer :amount
+      t.integer :balance
 
       t.timestamps null: false
     end
