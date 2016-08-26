@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:plataformatec/devise.git
+  remote: git://github.com/plataformatec/devise.git
   revision: 4c3838bb759ec741558ecf86bd6cf01465043e4c
   specs:
     devise (4.2.0)
@@ -118,6 +118,7 @@ GEM
       iniparse (~> 1.4)
     parser (2.3.0.7)
       ast (~> 2.2)
+    pg (0.18.1)
     pkg-config (1.1.7)
     powerpack (0.1.1)
     rack (1.6.4)
@@ -232,6 +233,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   overcommit
+  pg
   rails (= 4.2.6)
   rspec-rails
   rubocop
