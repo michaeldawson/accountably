@@ -15,3 +15,4 @@
 //= require turbolinks
 //= require_tree ./lib
 //= require_tree ./functions
+//= require_tree ./app

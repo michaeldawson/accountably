@@ -1,0 +1,6 @@
+<% if resource.valid? %>
+  Turbolinks.clearCache()
+  Turbolinks.visit("<%= controller.after_sign_in_path_for(resource) %>", { action: 'replace' })
+<% else %>
+  $('form#new_user').replaceWith("<%=j render 'users/registrations/form' %>")
+<% end %>
