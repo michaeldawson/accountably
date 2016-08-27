@@ -1,6 +1,5 @@
 .container
-  %h1
-    Budget - total: #{number_to_currency budget.total} #{budget.cycle_length}
+  %h3 Budget - total: #{number_to_currency budget.total} #{budget.cycle_length}
   = link_to 'edit', edit_budget_path(budget)
 
   %table.table

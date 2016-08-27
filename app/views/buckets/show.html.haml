@@ -1,6 +1,5 @@
 .container
-  = link_to 'Back', bucket.budget
-  %h1.bucket= bucket.name
+  %h3.bucket= bucket.name
   = link_to 'Edit', edit_bucket_path(bucket)
   = simple_form_for(transaction) do |form|
     = form.hidden_field :bucket_id, value: bucket.id

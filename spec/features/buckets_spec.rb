@@ -17,7 +17,7 @@ feature 'Buckets' do
     scenario 'I can view the page for a bucket' do
       visit budget_path(@budget)
       click_on 'Things'
-      expect(page).to have_css('h1.bucket')
+      expect(page).to have_css('h3.bucket')
     end
 
     scenario 'I can edit a bucket' do
