@@ -1,4 +1,4 @@
-= simple_form_for budget, html: { class: 'add_remove_fields' } do |form|
+= simple_form_for budget, remote: true, html: { class: 'add_remove_fields' } do |form|
   = form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
   = form.label 'Items'
   = form.fields_for :buckets do |bucket_form|

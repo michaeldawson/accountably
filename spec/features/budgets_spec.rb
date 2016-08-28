@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Budgets' do
+feature 'Budgets', js: true do
   describe 'Creating a new budget' do
     context 'when logged in as a user without a budget' do
       before :each do
