@@ -1,5 +1,5 @@
 class Transaction < ActiveRecord::Base
-  belongs_to :bucket
+  belongs_to :bucket, inverse_of: :transactions
 
   validates :bucket, presence: true
   validates :occurred_at, presence: true

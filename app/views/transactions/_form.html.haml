@@ -1,0 +1,7 @@
+= simple_form_for(transaction) do |form|
+  = form.hidden_field :bucket_id, value: bucket.id
+  .row
+    .col-sm-4= form.input :occurred_at, as: :date, label: 'Date'
+    .col-sm-4= form.input :description
+    .col-sm-4= form.input :amount
+  = form.submit 'Save'

@@ -34,18 +34,5 @@ feature 'Buckets' do
       expect(bucket.amount).to eq(1000)
       expect(bucket.balance).to eq(-100)
     end
-
-    scenario 'I can add transactions to a bucket' do
-      visit bucket_path(bucket)
-      fill_in 'Description', with: 'A new transaction'
-      fill_in 'Amount', with: 100
-
-      expect {
-        click_on 'Save'
-        expect(page).to have_content 'Transaction was saved'
-      }.to change {
-        bucket.reload.balance
-      }.by(-100)
-    end
   end
 end
