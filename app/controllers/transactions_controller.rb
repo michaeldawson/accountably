@@ -1,4 +1,8 @@
 class TransactionsController < ApplicationController
+  def new
+    transaction. = Time.now
+  end
+
   def create
     transaction.amount *= -1
 

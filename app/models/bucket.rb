@@ -5,4 +5,9 @@ class Bucket < ActiveRecord::Base
   validates :budget, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :balance, presence: true
+
+  def apply_budgeted_amount!
+    self.balance += amount
+    self.save!
+  end
 end
