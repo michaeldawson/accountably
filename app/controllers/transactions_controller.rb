@@ -7,7 +7,7 @@ class TransactionsController < ApplicationController
     transaction.amount *= -1
 
     if transaction.save
-      flash[:notice] = 'Transaction was saved'
+      flash[:success] = 'Transaction was saved'
       redirect_to transaction.bucket
     else
       flash[:error] = "Sorry, that didn't work."

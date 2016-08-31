@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   def create
     if account.save
-      flash[:notice] = 'Account created'
+      flash[:success] = 'Account created'
       redirect_to account_path(account)
     else
       flash[:error] = 'Nope'

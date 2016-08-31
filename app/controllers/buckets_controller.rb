@@ -1,7 +1,7 @@
 class BucketsController < ApplicationController
   def update
     if bucket.update(bucket_attributes)
-      flash[:notice] = 'Bucket was updated'
+      flash[:success] = 'Bucket was updated'
       redirect_to bucket
     else
       flash[:error] = "Sorry, that didn't work"

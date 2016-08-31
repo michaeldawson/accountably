@@ -12,7 +12,7 @@ class BudgetsController < ApplicationController
 
   def create
     if budget.save
-      flash[:notice] = 'Budget was saved'
+      flash[:success] = 'Budget was saved'
       redirect_to budget_path(budget)
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
@@ -22,7 +22,7 @@ class BudgetsController < ApplicationController
 
   def update
     if budget.update(budget_params)
-      flash[:notice] = 'Budget was updated'
+      flash[:success] = 'Budget was updated'
       redirect_to budget_path(budget)
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
