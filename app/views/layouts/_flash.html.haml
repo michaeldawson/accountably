@@ -1,5 +1,5 @@
-- flash.each do |name, msg|
-  .alert{ class: 'alert-' + name }
+- flash.each do |type, msg|
+  .alert{ class: 'alert-' + flash_class(type) }
     .container-fluid
       .row
         .col-md-12

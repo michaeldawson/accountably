@@ -8,12 +8,15 @@ feature 'Budgets', js: true do
         login_as @user
       end
 
-      scenario "I'm taken to the new budget page, where I can setup the budget" do
+      scenario "I can set up a budget, with a defined cycle length, and a pay day" do
+        payday = Time.current.to_date
+
         visit root_path
 
         expect(page).to have_content 'Setup budget'
 
         select 'weekly', from: 'Cycle length'
+        fill_in 'First pay day', with: payday.strftime("%d/%m/%Y")
 
         fill_in 'Name', with: 'Rent'
         fill_in 'Amount', with: 100

@@ -6,6 +6,7 @@ RSpec.describe Budget, type: :model do
     {
       user: User.new,
       cycle_length: 'weekly',
+      first_pay_day: Time.current.to_date,
       buckets: buckets
     }
   }

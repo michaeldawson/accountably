@@ -1,5 +1,7 @@
 = simple_form_for budget, remote: true, html: { class: 'add_remove_fields' } do |form|
-  = form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
+  .row
+    .col-sm-4= form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
+    .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker
   = form.label 'Items'
   = form.fields_for :buckets do |bucket_form|
     = render 'bucket_fields', form: bucket_form

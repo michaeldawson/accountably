@@ -1,7 +1,9 @@
 %fieldset.clearfix
-  = form.hidden_field :id
-  = form.input :name, label: false, placeholder: 'Name'
-  = form.input :amount, label: false, placeholder: 'Amount'
-  = form.hidden_field :_destroy
-  = link_to '#', class: 'remove_fields' do
-    %i.ion-ios-close-outline
+  .row
+    = form.hidden_field :id
+    .col-sm-4= form.input :name, label: false, placeholder: 'Name'
+    .col-sm-4= form.input :amount, label: false, placeholder: 'Amount'
+    .col-sm-4
+      = form.hidden_field :_destroy
+      = link_to '#', class: 'remove_fields' do
+        %i.ion-ios-close-outline

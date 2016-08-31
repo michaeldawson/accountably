@@ -12,7 +12,7 @@ class BudgetsController < ApplicationController
 
   def create
     if budget.save
-      flash[:success] = 'Budget was saved'
+      flash[:notice] = 'Budget was saved'
       redirect_to budget_path(budget)
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
@@ -22,7 +22,7 @@ class BudgetsController < ApplicationController
 
   def update
     if budget.update(budget_params)
-      flash[:success] = 'Budget was updated'
+      flash[:notice] = 'Budget was updated'
       redirect_to budget_path(budget)
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
@@ -52,6 +52,6 @@ class BudgetsController < ApplicationController
   end
 
   def permitted_budget_attributes
-    [:cycle_length, buckets_attributes: [:id, :name, :amount, :_destroy]]
+    [:cycle_length, :first_pay_day, buckets_attributes: [:id, :name, :amount, :_destroy]]
   end
 end

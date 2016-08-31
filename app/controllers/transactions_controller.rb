@@ -1,13 +1,9 @@
 class TransactionsController < ApplicationController
-  def new
-    transaction. = Time.now
-  end
-
   def create
-    transaction.amount *= -1
+    transaction.amount *= -1 if transaction.valid?
 
     if transaction.save
-      flash[:success] = 'Transaction was saved'
+      flash[:notice] = 'Transaction was saved'
       redirect_to transaction.bucket
     else
       flash[:error] = "Sorry, that didn't work."
@@ -22,6 +18,6 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:bucket_id, :amount, :description) if params.key?(:transaction)
+    params.require(:transaction).permit(:bucket_id, :amount, :description, :effective_date) if params.key?(:transaction)
   end
 end

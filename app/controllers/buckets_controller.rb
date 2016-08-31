@@ -1,7 +1,7 @@
 class BucketsController < ApplicationController
   def update
     if bucket.update(bucket_attributes)
-      flash[:success] = 'Bucket was updated'
+      flash[:notice] = 'Bucket was updated'
       redirect_to bucket
     else
       flash[:error] = "Sorry, that didn't work"
@@ -22,6 +22,6 @@ class BucketsController < ApplicationController
 
   helper_method :transaction
   def transaction
-    @transaction ||= Transaction.new
+    @transaction ||= Transaction.new(effective_date: Time.current.to_date)
   end
 end

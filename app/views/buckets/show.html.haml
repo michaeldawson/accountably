@@ -1,9 +1,12 @@
 .container
-  %h3.bucket= bucket.name
+  %h3.bucket #{bucket.name} #{number_to_currency(bucket.balance)} available
   = link_to 'Edit', edit_bucket_path(bucket)
+
+  %hr
+  %h4 New transaction
   = render 'transactions/form'
 
-  %hr/
+  %hr
 
   %table.table
     %thead
