@@ -13,6 +13,6 @@
     %tbody
       - bucket.transactions.each do |transaction|
         %tr
-          %td= transaction.occurred_at
+          %td= transaction.effective_date
           %td= transaction.description
           %td= transaction.amount

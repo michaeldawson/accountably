@@ -2,7 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :bucket, inverse_of: :transactions
 
   validates :bucket, presence: true
-  validates :occurred_at, presence: true
+  validates :effective_date, presence: true
   validates :description, presence: true
   validates :amount, presence: true
 

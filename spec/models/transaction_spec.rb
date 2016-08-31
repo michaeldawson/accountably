@@ -5,7 +5,7 @@ RSpec.describe Transaction, type: :model do
   let(:valid_attributes) {
     {
       bucket: Bucket.new,
-      occurred_at: Time.now,
+      effective_date: Time.now,
       description: "Hey! I'm a transaction",
       amount: 100
     }
@@ -22,7 +22,7 @@ RSpec.describe Transaction, type: :model do
     end
 
     it 'should not be valid without a date' do
-      valid_attributes[:occurred_at] = nil
+      valid_attributes[:effective_date] = nil
       expect(transaction).not_to be_valid
     end
 
