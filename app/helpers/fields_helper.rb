@@ -7,7 +7,7 @@ module FieldsHelper
       render(association.to_s.singularize + '_fields', form: builder)
     end
 
-    data = { id: id, fields: fields.gsub("\n", '') }
-    link_to(name, '#', class: 'add_fields', data: data )
+    data = { id: id, fields: fields.delete("\n") }
+    link_to(name, '#', class: 'add_fields', data: data)
   end
 end

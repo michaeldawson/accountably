@@ -9,7 +9,8 @@ feature 'Buckets' do
           FactoryGirl.create(:bucket, name: 'Things', amount: 100)
         ]
       )
-      login_as (@user = FactoryGirl.create(:user))
+      @user = FactoryGirl.create(:user)
+      login_as @user
     end
 
     let(:bucket) { @budget.buckets.first }

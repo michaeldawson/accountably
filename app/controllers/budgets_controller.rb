@@ -2,12 +2,13 @@ class BudgetsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    redirect_to new_budget_path and return unless user_has_budget?
+    redirect_to new_budget_path && return unless user_has_budget?
     redirect_to budget_path(current_user.budget)
   end
 
   def new
-    budget.buckets.build if budget.buckets.empty?
+    redirect_to root_path and return if user_has_budget?
+    budget.accounts.build if budget.accounts.empty?
   end
 
   def create

@@ -5,7 +5,7 @@ RSpec.describe Transaction, type: :model do
   let(:valid_attributes) {
     {
       bucket: Bucket.new,
-      effective_date: Time.now,
+      effective_date: Time.current,
       description: "Hey! I'm a transaction",
       amount: 100
     }

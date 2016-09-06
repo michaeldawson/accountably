@@ -18,6 +18,10 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction).permit(:bucket_id, :amount, :description, :effective_date) if params.key?(:transaction)
+    params.require(:transaction).permit(*permitted_transaction_attributes) if params.key?(:transaction)
+  end
+
+  def permitted_transaction_attributes
+    [:bucket_id, :amount, :description, :effective_date]
   end
 end

@@ -1,5 +1,5 @@
 class Budget < ActiveRecord::Base
-  CYCLE_LENGTHS = %w(weekly fortnightly monthly)
+  CYCLE_LENGTHS = %w(weekly fortnightly monthly).freeze
 
   belongs_to :user
   has_many :buckets, inverse_of: :budget
@@ -9,7 +9,7 @@ class Budget < ActiveRecord::Base
   validates :first_pay_day, presence: true
   validates :cycle_length, inclusion: { in: CYCLE_LENGTHS }
 
-  accepts_nested_attributes_for :buckets, allow_destroy: true, reject_if: Proc.new { |attrs| attrs['name'].blank? }
+  accepts_nested_attributes_for :buckets, allow_destroy: true, reject_if: proc { |attrs| attrs['name'].blank? }
 
   def total
     buckets.sum(:amount).to_f
