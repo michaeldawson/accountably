@@ -1,0 +1,48 @@
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - db/migrate/*
+    - bin/*
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false
+
+Performance/RedundantMerge:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+# We relax method line length restrictions to 25 from the recommended 10
+Metrics/MethodLength:
+  CountComments: false
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 20
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/CaseIndentation:
+  # Valid values are: case, end
+  IndentWhenRelativeTo: end
+
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/DotPosition:
+  EnforcedStyle: leading

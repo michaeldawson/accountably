@@ -1,0 +1,33 @@
+exclude: 'app/assets/stylesheets/*/lib/**'
+
+# The following changes have been added so Overcommit and Hound have the same scss linter settings. It overrides their default configuration discrepancies.
+linters:
+  HexLength:
+    enabled: false # Hound's scss-lint configuration
+
+  LeadingZero:
+    style: include_zero # Hound's scss-lint configuration
+
+  NestingDepth:
+    max_depth: 5 # Overcommit's scss-lint configuration
+
+  PlaceholderInExtend:
+    enabled: true # Overcommit's scss-lint configuration
+
+  PropertyCount:
+    enabled: true # Hound's scss-lint configuration
+
+  SelectorDepth:
+    max_depth: 5 # Overcommit's scss-lint configuration
+
+  StringQuotes:
+    style: single_quotes # Overcommit's scss-lint configuration
+
+  IdSelector:
+    enabled: false
+
+  BorderZero:
+    enabled: false
+
+  NameFormat:
+    enabled: false
