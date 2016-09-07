@@ -8,8 +8,8 @@
       %th Amount
       %th Balance
     %tbody
-      - budget.buckets.each do |bucket|
+      - budget.accounts.each do |account|
         %tr
-          %td= link_to bucket.name, bucket
-          %td= bucket.amount
-          %td= bucket.balance
+          %td= link_to account.name, account
+          %td= account.amount
+          %td= account.balance

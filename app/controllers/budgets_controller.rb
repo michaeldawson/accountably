@@ -2,7 +2,7 @@ class BudgetsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    redirect_to new_budget_path && return unless user_has_budget?
+    redirect_to new_budget_path and return unless user_has_budget?
     redirect_to budget_path(current_user.budget)
   end
 
@@ -53,6 +53,6 @@ class BudgetsController < ApplicationController
   end
 
   def permitted_budget_attributes
-    [:cycle_length, :first_pay_day, buckets_attributes: [:id, :name, :amount, :_destroy]]
+    [:cycle_length, :first_pay_day, accounts_attributes: [:id, :name, :amount, :_destroy]]
   end
 end

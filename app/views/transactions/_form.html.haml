@@ -1,5 +1,5 @@
 = simple_form_for(transaction) do |form|
-  = form.hidden_field :bucket_id, value: bucket.id
+  = form.hidden_field :account_id, value: account.id
   .row
     .col-sm-4= form.input :effective_date, as: :date, label: 'Date'
     .col-sm-4= form.input :description

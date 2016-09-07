@@ -1,38 +1,27 @@
 class AccountsController < ApplicationController
-  before_action :authenticate_user!
-
-  def create
-    if account.save
-      flash[:notice] = 'Account created'
-      redirect_to account_path(account)
+  def update
+    if account.update(account_attributes)
+      flash[:notice] = 'Account was updated'
+      redirect_to account
     else
-      flash[:error] = 'Nope'
-      render :new
+      flash[:error] = "Sorry, that didn't work"
+      render 'edit'
     end
   end
 
   private
 
-  helper_method :accounts
-  def accounts
-    @accounts ||= current_user.accounts
-  end
-
   helper_method :account
   def account
-    @account ||= Account.find(params[:id]) if params.key?(:id)
-    @account ||= Account.new(account_params)
+    @account ||= Account.find(params[:id])
   end
 
-  def account_params
-    default_account_params.merge(submitted_account_params) if params.key?(:account)
+  def account_attributes
+    params.require(:account).permit(:name, :amount, :balance)
   end
 
-  def submitted_account_params
-    params.require(:account).permit(:name)
-  end
-
-  def default_account_params
-    { user: current_user }
+  helper_method :transaction
+  def transaction
+    @transaction ||= Transaction.new(effective_date: Time.current.to_date)
   end
 end

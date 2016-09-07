@@ -1,8 +1,0 @@
-.container
-  %h3.bucket Editing #{bucket.name}
-  = simple_form_for(bucket) do |form|
-    = form.hidden_field :id, value: bucket.id
-    = form.input :name
-    = form.input :amount
-    = form.input :balance
-    = form.submit 'Save'

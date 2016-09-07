@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
 
     if transaction.save
       flash[:notice] = 'Transaction was saved'
-      redirect_to transaction.bucket
+      redirect_to transaction.account
     else
       flash[:error] = "Sorry, that didn't work."
       redirect_to request.referrer || root_path
@@ -22,6 +22,6 @@ class TransactionsController < ApplicationController
   end
 
   def permitted_transaction_attributes
-    [:bucket_id, :amount, :description, :effective_date]
+    [:account_id, :amount, :description, :effective_date]
   end
 end

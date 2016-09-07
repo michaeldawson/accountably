@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :account do
-    sequence(:name) { |n| "Account#{n}" }
-    association :user
+    association(:budget)
+    name 'MyString'
+    amount 1
   end
 end

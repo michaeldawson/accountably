@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Budgets', js: true do
-  describe 'Creating a new budget' do
+  describe 'setup' do
     context 'when logged in as a user without a budget' do
       before :each do
         @user = FactoryGirl.create(:user)

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'buckets/show'
+  get 'accounts/show'
 
   get 'budgets/index'
 
@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   resources :accounts
   resources :budgets
-  resources :buckets
+  resources :accounts
   resources :transactions
 end

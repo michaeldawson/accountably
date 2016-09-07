@@ -3,7 +3,7 @@
     .col-sm-4= form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
     .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker
   = form.label 'Items'
-  = form.fields_for :buckets do |bucket_form|
-    = render 'bucket_fields', form: bucket_form
-  = link_to_add_fields 'Add an item', form, :buckets
+  = form.fields_for :accounts do |account_form|
+    = render 'account_fields', form: account_form
+  = link_to_add_fields 'Add an item', form, :accounts
   = form.submit 'Save'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe BucketsController, type: :controller do
+RSpec.describe AccountsController, type: :controller do
   describe 'GET #show' do
     it 'returns http success' do
       get :show

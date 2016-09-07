@@ -14,16 +14,6 @@
 ActiveRecord::Schema.define(version: 20160823083834) do
 
   create_table "accounts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.integer  "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
-
-  create_table "buckets", force: :cascade do |t|
     t.integer  "budget_id"
     t.string   "name"
     t.integer  "amount"
@@ -32,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160823083834) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "buckets", ["budget_id"], name: "index_buckets_on_budget_id"
+  add_index "accounts", ["budget_id"], name: "index_accounts_on_budget_id"
 
   create_table "budgets", force: :cascade do |t|
     t.integer  "user_id"
@@ -45,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160823083834) do
   add_index "budgets", ["user_id"], name: "index_budgets_on_user_id"
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "bucket_id"
+    t.integer  "account_id"
     t.string   "description"
     t.datetime "effective_date"
     t.integer  "amount"
@@ -53,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160823083834) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "transactions", ["bucket_id"], name: "index_transactions_on_bucket_id"
+  add_index "transactions", ["account_id"], name: "index_transactions_on_account_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

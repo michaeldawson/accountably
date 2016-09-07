@@ -7,10 +7,10 @@ RSpec.describe Budget, type: :model do
       user: User.new,
       cycle_length: 'weekly',
       first_pay_day: Time.current.to_date,
-      buckets: buckets
+      accounts: accounts
     }
   }
-  let(:buckets) { [Bucket.new(name: 'Rent', amount: 1000)] }
+  let(:accounts) { [Account.new(name: 'Rent', amount: 1000)] }
 
   describe 'Validation' do
     it 'should be valid with valid attributes' do
@@ -32,23 +32,23 @@ RSpec.describe Budget, type: :model do
       expect(budget).not_to be_valid
     end
 
-    it 'should not be valid without at least one bucket' do
-      valid_attributes[:buckets] = []
+    it 'should not be valid without at least one account' do
+      valid_attributes[:accounts] = []
       expect(budget).not_to be_valid
     end
   end
 
   describe '#apply!' do
-    let(:buckets) {
+    let(:accounts) {
       [
-        Bucket.new(name: 'Rent', amount: 1000),
-        Bucket.new(name: 'Cocaine', amount: 2000)
+        Account.new(name: 'Rent', amount: 1000),
+        Account.new(name: 'Cocaine', amount: 2000)
       ]
     }
 
-    it 'increments each bucket by its amount' do
-      buckets.each do |bucket|
-        expect(bucket).to receive(:apply_budgeted_amount!)
+    it 'increments each account by its amount' do
+      accounts.each do |account|
+        expect(account).to receive(:apply_budgeted_amount!)
       end
 
       budget.apply!

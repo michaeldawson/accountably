@@ -1,0 +1,8 @@
+.container
+  %h3.account Editing #{account.name}
+  = simple_form_for(account) do |form|
+    = form.hidden_field :id, value: account.id
+    = form.input :name
+    = form.input :amount
+    = form.input :balance
+    = form.submit 'Save'

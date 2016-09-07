@@ -4,7 +4,7 @@ RSpec.describe Transaction, type: :model do
   let(:transaction) { Transaction.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      bucket: Bucket.new,
+      account: Account.new,
       effective_date: Time.current,
       description: "Hey! I'm a transaction",
       amount: 100
@@ -16,8 +16,8 @@ RSpec.describe Transaction, type: :model do
       expect(transaction).to be_valid
     end
 
-    it 'should not be valid without a bucket' do
-      valid_attributes[:bucket] = nil
+    it 'should not be valid without a account' do
+      valid_attributes[:account] = nil
       expect(transaction).not_to be_valid
     end
 
@@ -38,13 +38,13 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe 'Callbacks' do
-    it 'negative values decrement the bucket balance on create' do
+    it 'negative values decrement the account balance on create' do
       valid_attributes[:amount] = -100
 
       expect {
         transaction.save
       }.to change {
-        transaction.bucket.balance
+        transaction.account.balance
       }.by(-100)
     end
   end

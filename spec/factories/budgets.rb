@@ -4,7 +4,7 @@ FactoryGirl.define do
     cycle_length 'fortnightly'
     first_pay_day { Time.current.to_date }
     after(:build) do |budget|
-      budget.buckets = build_list :bucket, 1, budget: budget if budget.buckets.empty?
+      budget.accounts = build_list :account, 1, budget: budget if budget.accounts.empty?
     end
   end
 end

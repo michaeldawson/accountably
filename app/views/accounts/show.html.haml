@@ -1,1 +1,21 @@
-%h3= account.name
+.container
+  %h3.account #{account.name} #{number_to_currency(account.balance)} available
+  = link_to 'Edit', edit_account_path(account)
+
+  %hr
+  %h4 New transaction
+  = render 'transactions/form'
+
+  %hr
+
+  %table.table
+    %thead
+      %th Date
+      %th Description
+      %th Amount
+    %tbody
+      - account.transactions.each do |transaction|
+        %tr
+          %td= transaction.effective_date
+          %td= transaction.description
+          %td= transaction.amount

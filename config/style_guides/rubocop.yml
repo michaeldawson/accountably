@@ -20,6 +20,12 @@ Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*'
 
+Style/AndOr:
+  Enabled: false
+
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
 # We relax method line length restrictions to 25 from the recommended 10
 Metrics/MethodLength:
   CountComments: false
