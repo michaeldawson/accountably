@@ -11,13 +11,9 @@ class Budget < ActiveRecord::Base
 
   accepts_nested_attributes_for :accounts, allow_destroy: true, reject_if: proc { |attrs| attrs['name'].blank? }
 
+  after_create -> { PayDay.create!(budget: self, effective_date: first_pay_day) }
+
   def total
     accounts.sum(:amount).to_f
-  end
-
-  def apply!
-    Bucket.transaction do
-      buckets.each(&:apply_budgeted_amount!)
-    end
   end
 end

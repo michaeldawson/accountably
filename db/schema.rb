@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823083834) do
+ActiveRecord::Schema.define(version: 20160908074905) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "budget_id"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 20160823083834) do
   end
 
   add_index "budgets", ["user_id"], name: "index_budgets_on_user_id"
+
+  create_table "pay_days", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.date     "effective_date"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "pay_days", ["budget_id"], name: "index_pay_days_on_budget_id"
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "account_id"

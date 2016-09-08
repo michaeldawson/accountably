@@ -37,21 +37,4 @@ RSpec.describe Budget, type: :model do
       expect(budget).not_to be_valid
     end
   end
-
-  describe '#apply!' do
-    let(:accounts) {
-      [
-        Account.new(name: 'Rent', amount: 1000),
-        Account.new(name: 'Cocaine', amount: 2000)
-      ]
-    }
-
-    it 'increments each account by its amount' do
-      accounts.each do |account|
-        expect(account).to receive(:apply_budgeted_amount!)
-      end
-
-      budget.apply!
-    end
-  end
 end
