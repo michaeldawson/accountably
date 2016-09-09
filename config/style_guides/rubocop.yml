@@ -27,6 +27,9 @@ Style/AndOr:
 Style/TrailingCommaInLiteral:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 # We relax method line length restrictions to 25 from the recommended 10
 Metrics/MethodLength:
   CountComments: false
