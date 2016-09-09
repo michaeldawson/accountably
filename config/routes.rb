@@ -9,5 +9,8 @@ Rails.application.routes.draw do
   resources :accounts
   resources :budgets
   resources :accounts
-  resources :transactions
+  namespace :transaction do
+    resources :expenses
+    resources :incomes
+  end
 end

@@ -22,6 +22,6 @@ class AccountsController < ApplicationController
 
   helper_method :transaction
   def transaction
-    @transaction ||= Transaction.new(effective_date: Time.current.to_date)
+    @transaction ||= Transaction::Expense.new(effective_date: Time.current.to_date)
   end
 end

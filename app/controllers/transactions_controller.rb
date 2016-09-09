@@ -1,7 +1,5 @@
 class TransactionsController < ApplicationController
   def create
-    transaction.amount *= -1 if transaction.valid?
-
     if transaction.save
       flash[:notice] = 'Transaction was saved'
       redirect_to transaction.account
@@ -32,12 +30,6 @@ class TransactionsController < ApplicationController
   end
 
   private
-
-  helper_method :transaction
-  def transaction
-    @transaction ||= Transaction.find(params[:id]) if params.key?(:id)
-    @transaction ||= Transaction.new(transaction_params)
-  end
 
   def transaction_params
     params.require(:transaction).permit(*permitted_transaction_attributes) if params.key?(:transaction)

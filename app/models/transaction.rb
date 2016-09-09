@@ -7,9 +7,15 @@ class Transaction < ActiveRecord::Base
   validates :description, presence: true
   validates :amount, presence: true
 
+  before_save -> { raise "Can't directly instantiate a transaction" if self.class == Transaction }
+
   before_create :apply
   def apply
-    account.balance += amount
+    account.balance += effective_amount
     account.save
+  end
+
+  def effective_amount
+    raise NotImplementedError
   end
 end

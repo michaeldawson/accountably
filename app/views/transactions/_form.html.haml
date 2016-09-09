@@ -1,4 +1,4 @@
-= simple_form_for(transaction) do |form|
+= simple_form_for transaction, as: :transaction do |form|
   - if transaction.new_record?
     = form.hidden_field :account_id, value: account.id
   .row

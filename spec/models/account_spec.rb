@@ -37,14 +37,14 @@ RSpec.describe Account, type: :model do
   end
 
   describe '#spent_this_cycle' do
-    context 'with debit transactions in this cycle and outside of this cycle' do
+    context 'with expenses in this cycle and outside of this cycle' do
       let(:cycle) { 1.week.ago..Time.current }
 
-      let!(:transaction_1) {
-        FactoryGirl.create(:transaction, account: account, effective_date: cycle.first - 1.day, amount: 100)
+      let!(:expense_1) {
+        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.first - 1.day, amount: 100)
       }
-      let!(:transaction_2) {
-        FactoryGirl.create(:transaction, account: account, effective_date: cycle.first + 1.day, amount: 120)
+      let!(:expense_2) {
+        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.first + 1.day, amount: 120)
       }
 
       before :each do
@@ -53,7 +53,7 @@ RSpec.describe Account, type: :model do
 
       it 'returns the sum of those transactions' do
         allow(account.budget).to receive(:current_cycle).and_return(cycle)
-        expect(account.spent_this_cycle).to eq(transaction_2.amount)
+        expect(account.spent_this_cycle).to eq(expense_2.amount)
       end
     end
   end

@@ -45,14 +45,18 @@ ActiveRecord::Schema.define(version: 20160908074905) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "account_id"
+    t.integer  "source_id"
+    t.string   "source_type"
     t.string   "description"
     t.datetime "effective_date"
     t.integer  "amount"
+    t.string   "type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
   add_index "transactions", ["account_id"], name: "index_transactions_on_account_id"
+  add_index "transactions", ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

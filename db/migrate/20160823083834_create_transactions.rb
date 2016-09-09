@@ -6,6 +6,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.string :description
       t.datetime :effective_date
       t.integer :amount
+      t.string :type
 
       t.timestamps null: false
     end

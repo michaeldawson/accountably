@@ -27,9 +27,9 @@ feature 'Transactions' do
     }.by(-100)
   end
 
-  context 'when a account has transactions' do
+  context 'when a account has expenses' do
     before :each do
-      @transaction = FactoryGirl.create(:transaction, account: account, description: 'Something wot I bought')
+      @transaction = FactoryGirl.create(:expense_transaction, account: account, description: 'Something wot I bought')
     end
 
     scenario "I can see them on the account's page" do
@@ -65,7 +65,7 @@ feature 'Transactions' do
     end
 
     scenario 'I can delete the transaction', js: true do
-      visit edit_transaction_path(@transaction)
+      visit edit_transaction_expense_path(@transaction)
 
       expect {
         find('i.ion-ios-close-outline').click

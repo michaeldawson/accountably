@@ -16,7 +16,7 @@ class PayDay < ActiveRecord::Base
   private
 
   def payday_transaction(account)
-    Transaction.new(
+    Transaction::Income.new(
       account: account,
       description: 'payday',
       amount: account.amount,
