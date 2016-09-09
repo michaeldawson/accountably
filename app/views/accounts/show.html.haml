@@ -8,14 +8,18 @@
 
   %hr
 
-  %table.table
+  %table.table.account-transactions
     %thead
       %th Date
       %th Description
       %th Amount
+      %th
     %tbody
       - account.transactions.each do |transaction|
         %tr
           %td= transaction.effective_date
           %td= transaction.description
           %td= transaction.amount
+          %td
+            = link_to edit_transaction_path(transaction) do
+              %i.ion-edit

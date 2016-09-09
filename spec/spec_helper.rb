@@ -12,7 +12,7 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.javascript_driver = ENV['DRIVER'] || :chrome
+Capybara.javascript_driver = ENV['DRIVER'].try(:to_sym) || :chrome
 
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller

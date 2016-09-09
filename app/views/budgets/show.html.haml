@@ -7,9 +7,11 @@
       %th Name
       %th Amount
       %th Balance
+      %th Spent this #{budget.cycle_length}
     %tbody
       - budget.accounts.each do |account|
         %tr
           %td= link_to account.name, account
           %td= account.amount
           %td= account.balance
+          %td= account.spent_this_cycle

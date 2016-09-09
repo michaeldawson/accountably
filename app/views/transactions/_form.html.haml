@@ -1,7 +1,12 @@
 = simple_form_for(transaction) do |form|
-  = form.hidden_field :account_id, value: account.id
+  - if transaction.new_record?
+    = form.hidden_field :account_id, value: account.id
   .row
-    .col-sm-4= form.input :effective_date, as: :date, label: 'Date'
+    .col-sm-4= form.input :effective_date, as: :date_picker, label: 'Date'
     .col-sm-4= form.input :description
     .col-sm-4= form.input :amount
   = form.submit 'Save'
+  - unless transaction.new_record?
+    .pull-right
+      = link_to transaction, method: :delete do
+        %i.ion-ios-close-outline
