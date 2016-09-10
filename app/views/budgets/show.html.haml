@@ -5,13 +5,15 @@
   %table.table
     %thead
       %th Name
-      %th Amount
-      %th Balance
-      %th Spent this #{budget.cycle_length}
+      %th Budgeted
+      %th Spent
+      %th Available
     %tbody
       - budget.accounts.each do |account|
         %tr
           %td= link_to account.name, account
-          %td= account.amount
-          %td= account.balance
-          %td= account.current_spend.spent
+          %td= number_to_currency account.amount
+          %td= number_to_currency account.current_cycle.spent
+          %td= number_to_currency account.balance
+        %tr.current_cycle
+          %td{ colspan: 4 }= render 'accounts/cycle_graph', account_cycle: account.current_cycle

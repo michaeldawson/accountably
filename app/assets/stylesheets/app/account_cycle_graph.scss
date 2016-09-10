@@ -1,0 +1,33 @@
+.table > tbody > tr.current_cycle td {
+  padding: 0;
+}
+
+.account-cycle-graph {
+  height: 20px;
+  width: 100%;
+  position: relative;
+
+  > div {
+    height: 100%;
+    opacity: 0.45;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &.overspent {
+    > div {
+      background: $red
+    }
+  }
+
+  .spent {
+    background: $blue
+  }
+  .available {
+    background: $light_grey
+  }
+  .on-track {
+    background: $green
+  }
+}

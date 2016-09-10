@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :balance, presence: true
 
-  def current_spend
-    AccountSpend.new(self, budget.current_cycle)
+  def current_cycle
+    @current_cycle ||= AccountCycle.new(self, budget.current_cycle)
   end
 end

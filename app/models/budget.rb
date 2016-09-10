@@ -25,7 +25,7 @@ class Budget < ActiveRecord::Base
   private
 
   def current_cycle_start
-    pay_days.order(:effective_date).last&.effective_date || first_pay_day
+    @current_cycle_start ||= pay_days.order(:effective_date).last&.effective_date || first_pay_day
   end
 
   def current_cycle_end

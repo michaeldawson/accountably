@@ -17,7 +17,7 @@
     %tbody
       - account.transactions.each do |transaction|
         %tr
-          %td= transaction.effective_date
+          %td= transaction.effective_date.strftime('%d/%m/%Y')
           %td= transaction.description
           %td= transaction.amount
           %td

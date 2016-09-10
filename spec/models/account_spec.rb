@@ -36,10 +36,10 @@ RSpec.describe Account, type: :model do
     end
   end
 
-  describe '#current_spend' do
+  describe '#current_cycle' do
     it 'returns the current account spend' do
-      current_spend = account.current_spend
-      expect(current_spend).to be_a(AccountSpend)
+      current_cycle = account.current_cycle
+      expect(current_cycle).to be_a(AccountCycle)
     end
   end
 end
