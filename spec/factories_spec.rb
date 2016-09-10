@@ -1,11 +1,13 @@
 require 'spec_helper'
 
-FactoryGirl.factories.map(&:name).each do |factory_name|
-  describe "The #{factory_name} factory" do
+FactoryGirl.factories.each do |factory|
+  next if factory.instance_variable_get(:@aliases).include?(:skip_validation)
+
+  describe "The #{factory.name} factory" do
     it 'is valid' do
-      factory = FactoryGirl.build(factory_name)
-      factory.valid?
-      expect(factory.errors).to be_empty
+      factory_instance = FactoryGirl.build(factory.name)
+      factory_instance.valid?
+      expect(factory_instance.errors).to be_empty
     end
   end
 end

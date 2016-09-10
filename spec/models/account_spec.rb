@@ -4,7 +4,7 @@ RSpec.describe Account, type: :model do
   let(:account) { Account.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      budget: Budget.new,
+      budget: FactoryGirl.build(:budget_without_accounts),
       amount: 100,
       balance: 0
     }
@@ -36,25 +36,10 @@ RSpec.describe Account, type: :model do
     end
   end
 
-  describe '#spent_this_cycle' do
-    context 'with expenses in this cycle and outside of this cycle' do
-      let(:cycle) { 1.week.ago..Time.current }
-
-      let!(:expense_1) {
-        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.first - 1.day, amount: 100)
-      }
-      let!(:expense_2) {
-        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.first + 1.day, amount: 120)
-      }
-
-      before :each do
-        account.save!
-      end
-
-      it 'returns the sum of those transactions' do
-        allow(account.budget).to receive(:current_cycle).and_return(cycle)
-        expect(account.spent_this_cycle).to eq(expense_2.amount)
-      end
+  describe '#current_spend' do
+    it 'returns the current account spend' do
+      current_spend = account.current_spend
+      expect(current_spend).to be_a(AccountSpend)
     end
   end
 end
