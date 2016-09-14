@@ -1,5 +1,6 @@
 class PayDay < ActiveRecord::Base
-  belongs_to :budget
+  belongs_to :budget, inverse_of: :pay_days
+  has_many :transactions, as: :source, class_name: 'Transaction::Income'
 
   validates :budget, presence: true
   validates :effective_date, presence: true
@@ -16,9 +17,8 @@ class PayDay < ActiveRecord::Base
   private
 
   def payday_transaction(account)
-    Transaction::Income.new(
+    transactions.build(
       account: account,
-      description: 'payday',
       amount: account.amount,
       effective_date: effective_date
     )

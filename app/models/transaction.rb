@@ -4,7 +4,6 @@ class Transaction < ActiveRecord::Base
 
   validates :account, presence: true
   validates :effective_date, presence: true
-  validates :description, presence: true
   validates :amount, presence: true
 
   before_save -> { raise "Can't directly instantiate a transaction" if self.class == Transaction }
