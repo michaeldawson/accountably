@@ -12,14 +12,15 @@ gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
 gem 'simple_form'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'capybara'
+gem 'selenium-webdriver'
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'zeus'
 end
 
