@@ -11,7 +11,7 @@ RSpec.describe Bank::Account, type: :model do
   describe '#adapter' do
     context 'with a valid adapter type' do
       it 'returns an instance of the bank adapter' do
-        expect(bank_account.adapter).to eq(Bank::Adapter::NAB)
+        expect(bank_account.adapter).to eq(Bank::Adapter::Selenium::NAB)
       end
     end
   end

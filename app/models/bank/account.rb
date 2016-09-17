@@ -8,7 +8,7 @@ module Bank
     validates :adapter_type, inclusion: { in: VALID_ADAPTER_TYPES }
 
     def adapter
-      @adapter ||= Object.const_get("Bank::Adapter::#{adapter_type}")
+      @adapter ||= "Bank::Adapter::Selenium::#{adapter_type}".constantize
     end
   end
 end

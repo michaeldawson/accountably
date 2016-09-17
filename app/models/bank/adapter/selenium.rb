@@ -1,8 +1,6 @@
 module Bank
   module Adapter
     class Selenium
-      include Gizmo::Helpers
-
       def login
         raise NotImplementedError
       end
