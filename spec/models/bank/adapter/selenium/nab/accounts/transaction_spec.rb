@@ -1,5 +1,8 @@
-RSpec.describe Bank::Adapter::Selenium::NAB::Transactions::Transaction do
-  let(:transaction) { Bank::Adapter::Selenium::NAB::Transactions::Transaction.new(bank_account, raw_data) }
+require 'spec_helper'
+require 'bank/adapter/selenium/nab/account/transaction'
+
+RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
+  let(:transaction) { Bank::Adapter::Selenium::NAB::Account::Transaction.new(bank_account, raw_data) }
   let(:bank_account) { FactoryGirl.build_stubbed(:bank_account) }
 
   describe '#parse!' do
@@ -12,7 +15,7 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Transactions::Transaction do
             expect{
               transaction.parse!
             }.to change {
-              Transaction.count
+              ::Transaction.count
             }.by(1)
           end
         end
@@ -23,10 +26,10 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Transactions::Transaction do
           end
 
           it "doesn't create a duplicate transaction" do
-            expect{
+            expect {
               transaction.parse!
             }.not_to change {
-              Transaction.count
+              ::Transaction.count
             }
           end
         end

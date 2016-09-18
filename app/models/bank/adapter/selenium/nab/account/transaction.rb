@@ -2,7 +2,7 @@ module Bank
   module Adapter
     class Selenium
       class NAB
-        class Accounts
+        class Account
           class Transaction
             def initialize(bank_account, raw_data)
               @bank_account = bank_account
@@ -10,7 +10,7 @@ module Bank
             end
 
             def parse!
-              transaction_klass.find_or_create!(transaction_attributes)
+              transaction_klass.find_or_create_by!(transaction_attributes)
             end
 
             private
@@ -18,7 +18,7 @@ module Bank
             attr_reader :bank_account, :raw_data
 
             def transaction_klass
-              debit_amount.zero? ? Transaction::Expense : Transaction::Income
+              debit_amount.zero? ? ::Transaction::Expense : ::Transaction::Income
             end
 
             def transaction_attributes
@@ -26,12 +26,13 @@ module Bank
                 source: bank_account,
                 effective_date: effective_date,
                 description: description,
-                amount: [debit_amount, credit_amount].reject(&:zero?).first.abs
+                amount: [debit_amount, credit_amount].reject(&:zero?).first.abs,
+                account: bank_account.budget.default_account
               }
             end
 
             def effective_date
-              Date.parse(raw_data[0])
+              Time.zone.parse(raw_data[0])
             end
 
             def description

@@ -2,7 +2,7 @@ module Bank
   module Adapter
     class Selenium
       class NAB
-        class Accounts
+        class Account
           def initialize(session)
             @session = session
           end
