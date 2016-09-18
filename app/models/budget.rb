@@ -23,6 +23,10 @@ class Budget < ActiveRecord::Base
     current_cycle_start..current_cycle_end
   end
 
+  def default_account
+    @default_account ||= accounts.find_by(default: true) || accounts.create!(default_account_attributes)
+  end
+
   private
 
   def current_cycle_start
@@ -39,5 +43,9 @@ class Budget < ActiveRecord::Base
     when 'fortnightly' then 1.fortnight
     when 'monthly' then 1.month
     end
+  end
+
+  def default_account_attributes
+    { default: true, name: 'Uncategorised', amount: 0, balance: 0 }
   end
 end

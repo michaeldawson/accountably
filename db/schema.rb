@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(version: 20160917024640) do
     t.string   "name"
     t.integer  "amount"
     t.integer  "balance",    default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.boolean  "default",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   add_index "accounts", ["budget_id"], name: "index_accounts_on_budget_id"

@@ -4,7 +4,7 @@ RSpec.describe Budget, type: :model do
   let(:budget) { Budget.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      user: User.new,
+      user: FactoryGirl.build_stubbed(:user),
       cycle_length: 'weekly',
       first_pay_day: Time.current.to_date,
       accounts: accounts
@@ -35,6 +35,40 @@ RSpec.describe Budget, type: :model do
     it 'should not be valid without at least one account' do
       valid_attributes[:accounts] = []
       expect(budget).not_to be_valid
+    end
+  end
+
+  describe '#default_account' do
+    context 'when the budget has a default account' do
+      before :each do
+        budget.save!
+      end
+
+      let!(:default_account) { FactoryGirl.create(:account, budget: budget, default: true) }
+
+      it 'returns that account' do
+        expect(budget.default_account).to eq(default_account)
+      end
+    end
+
+    context "when the budget doesn't have a default account" do
+      before :each do
+        budget.save!
+      end
+
+      it 'creates a new account' do
+        expect {
+          budget.default_account
+        }.to change {
+          Account.count
+        }.by(1)
+
+        account = Account.last
+        expect(account.amount).to eq(0)
+        expect(account.balance).to eq(0)
+        expect(account.name).to eq('Uncategorised')
+        assert account.default
+      end
     end
   end
 

@@ -5,6 +5,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.string :name
       t.integer :amount
       t.integer :balance, default: 0
+      t.boolean :default, null: false, default: false
 
       t.timestamps null: false
     end
