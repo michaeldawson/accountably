@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'bank/adapter/selenium/nab/account/transaction'
 
 RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
-  let(:transaction) { Bank::Adapter::Selenium::NAB::Account::Transaction.new(bank_account, raw_data) }
+  let(:transaction) { Bank::Adapter::Selenium::NAB::Account::Transaction.new(raw_data, bank_account) }
   let(:bank_account) { FactoryGirl.build_stubbed(:bank_account) }
 
   describe '#parse!' do
@@ -17,6 +17,9 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
             }.to change {
               ::Transaction.count
             }.by(1)
+
+            transaction = Transaction.last
+            expect(transaction.effective_date).to eq(DateTime.parse('17/09/2016').in_time_zone)
           end
         end
 

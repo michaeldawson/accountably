@@ -4,12 +4,13 @@ module Bank
       class NAB
         class Account
           class Transaction
-            def initialize(bank_account, raw_data)
-              @bank_account = bank_account
+            def initialize(raw_data, bank_account)
               @raw_data = raw_data
+              @bank_account = bank_account
             end
 
             def parse!
+              return false if amount.zero?
               transaction_klass.find_or_create_by!(transaction_attributes)
             end
 
@@ -26,13 +27,13 @@ module Bank
                 source: bank_account,
                 effective_date: effective_date,
                 description: description,
-                amount: [debit_amount, credit_amount].reject(&:zero?).first.abs,
-                account: bank_account.budget.default_account
+                amount: amount.abs,
+                account: account
               }
             end
 
             def effective_date
-              Time.zone.parse(raw_data[0])
+              DateTime.strptime(raw_data[0], '%d %b %y')
             end
 
             def description
@@ -45,6 +46,14 @@ module Bank
 
             def credit_amount
               raw_data[3].to_f
+            end
+
+            def amount
+              [debit_amount, credit_amount].reject(&:zero?).first.to_i
+            end
+
+            def account
+              bank_account.login.budget.default_account
             end
           end
         end
