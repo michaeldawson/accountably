@@ -3,6 +3,7 @@ class CreateBankLogins < ActiveRecord::Migration
     create_table :bank_logins do |t|
       t.references :budget, index: true
       t.text :credentials
+      t.string :adapter_type
 
       t.timestamps null: false
     end

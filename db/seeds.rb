@@ -1,5 +1,5 @@
 user = User.create!(email: 'email.michaeldawson@gmail.com', password: 'testtest')
-Budget.create!(
+budget = Budget.create!(
   user: user,
   cycle_length: 'fortnightly',
   first_pay_day: Time.current.to_date,
@@ -23,3 +23,12 @@ Budget.create!(
     Account.new(name: 'Memberships', amount: 25),
   ]
 )
+
+user_id = ENV['BANK_ACCOUNT_USER_ID']
+password = ENV['BANK_ACCOUNT_PASSWORD']
+if [user_id, password].all?(&:present?)
+  credentials = { user_id: user_id, password: password }
+  login = Bank::Login.create!(budget: budget, credentials: credentials, adapter_type: 'NAB')
+  Bank::Account.create!(login: login, name: 'Spending')
+  Bank::Account.create!(login: login, name: 'Personal Account #3490')
+end

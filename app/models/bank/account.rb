@@ -1,12 +1,11 @@
 module Bank
   class Account < ActiveRecord::Base
-    VALID_ADAPTER_TYPES = %w(NAB).freeze
     belongs_to :login, class_name: 'Bank::Login', inverse_of: :accounts
 
-    validates :adapter_type, inclusion: { in: VALID_ADAPTER_TYPES }
+    validates :login, presence: true
 
-    def adapter
-      @adapter ||= "Bank::Adapter::Selenium::#{adapter_type}".constantize
+    def reconcile
+      login.reconcile(self)
     end
   end
 end

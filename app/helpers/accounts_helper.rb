@@ -6,6 +6,8 @@ module AccountsHelper
   end
 
   def account_graph_width(account_cycle, property)
+    return 0 if account_cycle.max.zero?
+
     width = account_cycle.send(property) / account_cycle.max * 100
     "#{width}%"
   end

@@ -1,23 +1,27 @@
+require_dependency 'bank/adapter/selenium/nab/login'
+require_dependency 'bank/adapter/selenium/nab/account'
+
 module Bank
   module Adapter
     class Selenium
       class NAB < Bank::Adapter::Selenium
-        def initialize(user_id, password)
-          @user_id = user_id
-          @password = password
+        def initialize(bank_login)
+          @bank_login = bank_login
         end
 
-        def login
-          Page::Login.new(session).login(user_id, password)
-        end
-
-        def fetch_recent_transactions(account_name)
-          Page::Accounts.new(session).fetch_recent_transactions(account_name)
+        def reconcile(bank_account)
+          login unless logged_in
+          Account.new(session, bank_account).reconcile
         end
 
         private
 
-        attr_reader :user_id, :password
+        attr_reader :bank_login
+        attr_accessor :logged_in
+
+        def login
+          self.logged_in = Login.new(session, bank_login).login
+        end
       end
     end
   end

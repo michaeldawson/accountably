@@ -27,17 +27,17 @@ ActiveRecord::Schema.define(version: 20160921081844) do
     t.integer  "login_id"
     t.string   "name"
     t.datetime "sync_from"
-    t.string   "adapter_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["login_id"], name: "index_bank_accounts_on_login_id"
   end
 
   create_table "bank_logins", force: :cascade do |t|
     t.integer  "budget_id"
     t.text     "credentials"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "adapter_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["budget_id"], name: "index_bank_logins_on_budget_id"
   end
 

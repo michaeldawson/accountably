@@ -4,7 +4,6 @@ class CreateBankAccounts < ActiveRecord::Migration
       t.references :login, index: true, foreign_key: true
       t.string :name
       t.datetime :sync_from
-      t.string :adapter_type
 
       t.timestamps null: false
     end
