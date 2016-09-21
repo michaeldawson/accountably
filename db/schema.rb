@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160917024640) do
+ActiveRecord::Schema.define(version: 20160921081844) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "budget_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160917024640) do
   end
 
   create_table "bank_accounts", force: :cascade do |t|
-    t.integer  "budget_id"
+    t.integer  "login_id"
     t.string   "name"
     t.datetime "sync_from"
     t.string   "adapter_type"

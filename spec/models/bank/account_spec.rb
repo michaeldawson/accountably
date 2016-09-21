@@ -4,7 +4,7 @@ RSpec.describe Bank::Account, type: :model do
   let(:bank_account) { Bank::Account.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      budget: Budget.new,
+      login: Bank::Login.new,
       adapter_type: 'NAB'
     }
   }

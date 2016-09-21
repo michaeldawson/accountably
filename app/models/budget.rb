@@ -3,7 +3,7 @@ class Budget < ActiveRecord::Base
 
   belongs_to :user
   has_many :accounts, inverse_of: :budget
-  has_many :bank_accounts, inverse_of: :budget
+  has_many :bank_logins, inverse_of: :budget, class_name: 'Bank::Login'
   has_many :pay_days, inverse_of: :budget
 
   validates :user, presence: true

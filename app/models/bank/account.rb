@@ -1,9 +1,7 @@
 module Bank
   class Account < ActiveRecord::Base
     VALID_ADAPTER_TYPES = %w(NAB).freeze
-    self.table_name = :bank_accounts
-
-    belongs_to :budget, inverse_of: :bank_accounts
+    belongs_to :login, class_name: 'Bank::Login', inverse_of: :accounts
 
     validates :adapter_type, inclusion: { in: VALID_ADAPTER_TYPES }
 
