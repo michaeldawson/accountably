@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -21,9 +20,8 @@ ActiveRecord::Schema.define(version: 20160917024640) do
     t.boolean  "default",    default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.index ["budget_id"], name: "index_accounts_on_budget_id"
   end
-
-  add_index "accounts", ["budget_id"], name: "index_accounts_on_budget_id"
 
   create_table "bank_accounts", force: :cascade do |t|
     t.integer  "budget_id"
@@ -32,9 +30,16 @@ ActiveRecord::Schema.define(version: 20160917024640) do
     t.string   "adapter_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["login_id"], name: "index_bank_accounts_on_login_id"
   end
 
-  add_index "bank_accounts", ["budget_id"], name: "index_bank_accounts_on_budget_id"
+  create_table "bank_logins", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.text     "credentials"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["budget_id"], name: "index_bank_logins_on_budget_id"
+  end
 
   create_table "budgets", force: :cascade do |t|
     t.integer  "user_id"
@@ -42,33 +47,30 @@ ActiveRecord::Schema.define(version: 20160917024640) do
     t.string   "cycle_length"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["user_id"], name: "index_budgets_on_user_id"
   end
-
-  add_index "budgets", ["user_id"], name: "index_budgets_on_user_id"
 
   create_table "pay_days", force: :cascade do |t|
     t.integer  "budget_id"
     t.date     "effective_date"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["budget_id"], name: "index_pay_days_on_budget_id"
   end
-
-  add_index "pay_days", ["budget_id"], name: "index_pay_days_on_budget_id"
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "account_id"
-    t.integer  "source_id"
     t.string   "source_type"
+    t.integer  "source_id"
     t.string   "description"
     t.datetime "effective_date"
     t.integer  "amount"
     t.string   "type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id"
   end
-
-  add_index "transactions", ["account_id"], name: "index_transactions_on_account_id"
-  add_index "transactions", ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -83,9 +85,8 @@ ActiveRecord::Schema.define(version: 20160917024640) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
