@@ -38,14 +38,26 @@ RSpec.describe Transaction::Expense, type: :model do
   end
 
   describe 'Callbacks' do
-    it 'negative values decrement the account balance on create' do
-      valid_attributes[:amount] = -100
-
+    it 'decrements the account balance on create' do
       expect {
         expense.save
       }.to change {
         expense.account.balance
       }.by(-100)
+    end
+  end
+
+  describe 'Scopes' do
+    describe '#unreconciled' do
+      let(:budget) { FactoryGirl.create(:budget) }
+      let(:default_account) { budget.default_account }
+      let(:other_account) { FactoryGirl.create(:account, budget: budget) }
+      let!(:unreconciled_transaction) { FactoryGirl.create(:expense_transaction, account: default_account) }
+      let!(:reconciled_transaction) { FactoryGirl.create(:expense_transaction, account: other_account) }
+
+      it "returns transactions for which the account is the budget's default account" do
+        expect(budget.expenses.unreconciled).to eq([unreconciled_transaction])
+      end
     end
   end
 end

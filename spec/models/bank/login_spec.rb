@@ -8,7 +8,8 @@ RSpec.describe Bank::Login, type: :model do
       credentials: {
         user_id: 'abc123',
         password: 'foobar'
-      }
+      },
+      adapter_type: 'NAB'
     }
   }
 

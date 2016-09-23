@@ -5,6 +5,7 @@ class Budget < ActiveRecord::Base
   has_many :accounts, inverse_of: :budget
   has_many :bank_logins, inverse_of: :budget, class_name: 'Bank::Login'
   has_many :pay_days, inverse_of: :budget
+  has_many :expenses, through: :accounts
 
   validates :user, presence: true
   validates :accounts, length: { minimum: 1 }

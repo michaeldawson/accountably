@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root to: 'budgets#index'
   devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
 
+  resources :reconciliations, path: :reconcile, only: [:index, :new, :create]
   resources :accounts
   resources :budgets
   resources :accounts

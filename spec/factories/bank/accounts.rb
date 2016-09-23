@@ -3,6 +3,5 @@ FactoryGirl.define do
     association(:login, factory: :bank_login)
     name 'MyString'
     sync_from { Time.current }
-    adapter_type 'NAB'
   end
 end

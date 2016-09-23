@@ -1,4 +1,9 @@
 class TransactionsController < ApplicationController
+  def initialize(*args)
+    raise "Can't directly instantiate a transactions controller" if self.class == TransactionsController
+    super(*args)
+  end
+
   def create
     if transaction.save
       flash[:notice] = 'Transaction was saved'
