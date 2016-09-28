@@ -1,10 +1,14 @@
 class ReconciliationsController < ApplicationController
-  private
-
-  helper_method :unreconciled_transactions
-  def unreconciled_transactions
-    @unreconciled_transactions ||= Transaction::Expense.unreconciled.order(effective_date: :desc)
+  def create
+    if reconciliation.perform
+      flash[:notice] = 'Transaction was reconciled'
+      redirect_to expense.account.budget.default_account
+    else
+      redirect_to expense
+    end
   end
+
+  private
 
   helper_method :reconciliation
   def reconciliation
@@ -13,11 +17,11 @@ class ReconciliationsController < ApplicationController
 
   helper_method :expense
   def expense
-    Transaction::Expense.find(params[:expense_id])
+    Transaction::Expense.find(params[:expense_id] || reconciliation_params[:expense_id])
   end
 
   def reconciliation_params
-    params.require(:reconciliation).permit(*permitted_reconciliation_params) if params.key?(:reconciliation_params)
+    params.require(:reconciliation).permit(*permitted_reconciliation_params) if params.key?(:reconciliation)
   end
 
   def permitted_reconciliation_params

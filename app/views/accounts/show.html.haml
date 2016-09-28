@@ -1,16 +1,16 @@
 .container
   %h3.account #{account.name} #{number_to_currency(account.balance)} available
-  = link_to 'Edit', edit_account_path(account)
-
-  %hr
-  %h4 New transaction
-  = render 'transactions/form'
-
-  %hr
+  - unless account.default
+    = link_to 'Edit', edit_account_path(account)
+    %hr
+    %h4 New transaction
+    = render 'transactions/form'
+    %hr
 
   %table.table.account-transactions
     %thead
       %th Date
+      %th.hidden-xs Source
       %th Description
       %th Amount
       %th
@@ -18,7 +18,12 @@
       - account.transactions.each do |transaction|
         %tr
           %td= transaction.effective_date.strftime('%d/%m/%Y')
-          %td= transaction.description
+          %td.hidden-xs= transaction.source
+          %td
+            - if transaction.account.default
+              = link_to transaction.description, new_reconciliation_path(expense_id: transaction)
+            - else
+              = transaction.description
           %td= transaction.amount
           %td
             = link_to [:edit, transaction] do
