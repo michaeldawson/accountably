@@ -1,4 +1,6 @@
 class Transaction < ActiveRecord::Base
+  attribute :amount, :money
+
   belongs_to :account, inverse_of: :transactions
   belongs_to :source, polymorphic: true
 

@@ -1,4 +1,7 @@
 class Account < ActiveRecord::Base
+  attribute :amount, :money
+  attribute :balance, :money
+
   belongs_to :budget, inverse_of: :accounts
   has_many :transactions, inverse_of: :account
   has_many :expenses, -> { where(type: 'Transaction::Expense') }, class_name: 'Transaction::Expense'
