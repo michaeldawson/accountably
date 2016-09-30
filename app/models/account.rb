@@ -1,4 +1,4 @@
-class Account < ActiveRecord::Base
+class Account < ApplicationRecord
   attribute :amount, :money
   attribute :balance, :money
 

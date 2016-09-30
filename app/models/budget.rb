@@ -1,4 +1,4 @@
-class Budget < ActiveRecord::Base
+class Budget < ApplicationRecord
   CYCLE_LENGTHS = %w(weekly fortnightly monthly).freeze
 
   belongs_to :user

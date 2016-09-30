@@ -1,5 +1,5 @@
 module Bank
-  class Account < ActiveRecord::Base
+  class Account < ApplicationRecord
     belongs_to :login, class_name: 'Bank::Login', inverse_of: :accounts
 
     validates :login, presence: true

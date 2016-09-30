@@ -1,5 +1,5 @@
 module Bank
-  class Login < ActiveRecord::Base
+  class Login < ApplicationRecord
     VALID_ADAPTER_TYPES = %w(NAB).freeze
 
     belongs_to :budget, inverse_of: :bank_logins

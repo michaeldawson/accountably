@@ -1,4 +1,4 @@
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
   attribute :amount, :money
 
   belongs_to :account, inverse_of: :transactions

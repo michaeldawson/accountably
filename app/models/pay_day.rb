@@ -1,4 +1,4 @@
-class PayDay < ActiveRecord::Base
+class PayDay < ApplicationRecord
   belongs_to :budget, inverse_of: :pay_days
   has_many :transactions, as: :source, class_name: 'Transaction::Income'
 
