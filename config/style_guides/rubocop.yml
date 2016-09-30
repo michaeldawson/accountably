@@ -32,7 +32,7 @@ Style/FrozenStringLiteralComment:
 
 Style/TrailingCommaInArguments:
   Enabled: true
-  EnforcedStyle: consistent_comma
+  EnforcedStyleForMultiline: comma
 
 # We relax method line length restrictions to 25 from the recommended 10
 Metrics/MethodLength:

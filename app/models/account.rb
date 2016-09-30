@@ -12,6 +12,8 @@ class Account < ApplicationRecord
   validates :amount, presence: true
   validates :balance, presence: true
 
+  scope :default, -> { where(default: true) }
+
   def current_cycle
     @current_cycle ||= AccountCycle.new(self, budget.current_cycle)
   end
