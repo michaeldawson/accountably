@@ -24,6 +24,24 @@ RSpec.describe Reconciliation do
       it 'decrements the new account' do
         expect { reconciliation.perform }.to change { account2.reload.balance.dollars }.by(-1)
       end
+
+      context 'and a matching pattern' do
+        before :each do
+          reconcilation_params.merge!(matching_pattern: 'Some pattern')
+        end
+
+        it 'creates a transaction pattern for the account' do
+          expect {
+            reconciliation.perform
+          }.to change {
+            TransactionPattern.count
+          }.by(1)
+
+          transaction_pattern = TransactionPattern.last
+          expect(transaction_pattern.account).to eq(account2)
+          expect(transaction_pattern.pattern).to eq('Some pattern')
+        end
+      end
     end
   end
 end

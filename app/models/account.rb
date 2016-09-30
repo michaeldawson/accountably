@@ -6,6 +6,7 @@ class Account < ApplicationRecord
   has_many :transactions, inverse_of: :account
   has_many :expenses, -> { where(type: 'Transaction::Expense') }, class_name: 'Transaction::Expense'
   has_many :pay_day_transactions, -> { where(type: 'Transaction::Income') }, class_name: 'Transaction'
+  has_many :transaction_patterns, inverse_of: :account
 
   validates :budget, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }

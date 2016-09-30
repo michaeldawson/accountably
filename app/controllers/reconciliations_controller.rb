@@ -26,6 +26,6 @@ class ReconciliationsController < ApplicationController
   end
 
   def permitted_attributes
-    [:expense_id, :account_id, :account_pattern]
+    [:expense_id, :account_id, :matching_pattern]
   end
 end
