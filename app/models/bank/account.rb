@@ -4,8 +4,8 @@ module Bank
 
     validates :login, presence: true
 
-    def reconcile
-      login.reconcile(self)
+    def reconcile(since: nil)
+      login.reconcile(self, since: since)
     end
   end
 end

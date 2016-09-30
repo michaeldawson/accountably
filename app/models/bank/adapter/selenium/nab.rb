@@ -9,9 +9,9 @@ module Bank
           @bank_login = bank_login
         end
 
-        def reconcile(bank_account)
+        def reconcile(bank_account, since: nil)
           login unless logged_in
-          Account.new(session, bank_account).reconcile
+          Account.new(session, bank_account).reconcile(since: since)
         end
 
         private

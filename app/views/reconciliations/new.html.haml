@@ -2,7 +2,7 @@
   %h3 Reconcile
   %p= expense.description
   %p= expense.effective_date.strftime('%d/%m/%y')
-  %p= number_to_currency expense.amount.to_f / 100
+  %p= expense.amount.to_f / 100
   = simple_form_for reconciliation do |form|
     = form.hidden_field :expense_id, value: expense.id
     = form.input :account_id, as: :select, collection: Account.all

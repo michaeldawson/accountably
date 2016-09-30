@@ -10,10 +10,11 @@ module Bank
             @bank_account = bank_account
           end
 
-          def reconcile
+          def reconcile(since: nil)
             go_to_account_page
+
             loop do
-              parse_page
+              parse_page(accept_transactions_since: since)
               break unless next_page
             end
           end
@@ -26,8 +27,8 @@ module Bank
             end
           end
 
-          def parse_page
-            transaction_rows.each { |row| parse_row(row) }
+          def parse_page(accept_transactions_since: nil)
+            transaction_rows.each { |row| parse_row(row, accept_transactions_since: accept_transactions_since) }
             true
           end
 
@@ -39,8 +40,12 @@ module Bank
             session.all('#transactionHistoryTable tbody tr')
           end
 
-          def parse_row(row)
-            Transaction.new(row.all('td').map(&:text), bank_account).parse!
+          def parse_row(row, accept_transactions_since: nil)
+            Transaction.new(
+              raw_data: row.all('td').map(&:text),
+              bank_account: bank_account,
+              accept_transactions_since: accept_transactions_since
+            ).parse!
           end
 
           def next_page

@@ -1,5 +1,5 @@
 .container
-  %h3.account #{account.name} #{number_to_currency(account.balance)} available
+  %h3.account #{account.name} #{account.balance} available
   - unless account.default
     = link_to 'Edit', edit_account_path(account)
     %hr

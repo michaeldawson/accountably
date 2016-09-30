@@ -12,7 +12,7 @@ RSpec.describe Bank::Account, type: :model do
   describe '#reconcile' do
     context 'with a valid adapter type' do
       it 'fetches recent transactions for the account' do
-        expect(bank_login).to receive(:reconcile).with(bank_account)
+        expect(bank_login).to receive(:reconcile).with(bank_account, since: nil)
         bank_account.reconcile
       end
     end

@@ -4,19 +4,21 @@ module Bank
       class NAB
         class Account
           class Transaction
-            def initialize(raw_data, bank_account)
+            def initialize(raw_data:, bank_account:, accept_transactions_since: nil)
               @raw_data = raw_data
               @bank_account = bank_account
+              @accept_transactions_since = accept_transactions_since
             end
 
             def parse!
               return false if amount.zero?
+              return false if accept_transactions_since && effective_date < accept_transactions_since
               transaction_klass.find_or_create_by!(transaction_attributes)
             end
 
             private
 
-            attr_reader :bank_account, :raw_data
+            attr_reader :raw_data, :bank_account, :accept_transactions_since
 
             def transaction_klass
               debit_amount.zero? ? ::Transaction::Income : ::Transaction::Expense

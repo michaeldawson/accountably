@@ -4,6 +4,7 @@ class Budget < ActiveRecord::Base
   belongs_to :user
   has_many :accounts, inverse_of: :budget
   has_many :bank_logins, inverse_of: :budget, class_name: 'Bank::Login'
+  has_many :bank_accounts, through: :bank_logins, source: :accounts, class_name: 'Bank::Account'
   has_many :pay_days, inverse_of: :budget
   has_many :expenses, through: :accounts
 
@@ -15,11 +16,21 @@ class Budget < ActiveRecord::Base
   accepts_nested_attributes_for :accounts, allow_destroy: true, reject_if: proc { |attrs| attrs['name'].blank? }
 
   def total
-    accounts.sum(:amount).to_f
+    Money.new(accounts.sum(:amount).to_f)
+  end
+
+  def reconcile_bank_accounts_for_current_cycle
+    bank_accounts.each do |bank_account|
+      bank_account.reconcile(since: current_cycle_start)
+    end
   end
 
   def current_cycle
     current_cycle_start..current_cycle_end
+  end
+
+  def current_cycle_days_remaining
+    (current_cycle_end - Time.current.to_date).to_i
   end
 
   def default_account

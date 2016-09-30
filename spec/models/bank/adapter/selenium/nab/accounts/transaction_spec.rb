@@ -2,7 +2,9 @@ require 'spec_helper'
 require 'bank/adapter/selenium/nab/account/transaction'
 
 RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
-  let(:transaction) { Bank::Adapter::Selenium::NAB::Account::Transaction.new(raw_data, bank_account) }
+  let(:transaction) {
+    Bank::Adapter::Selenium::NAB::Account::Transaction.new(raw_data: raw_data, bank_account: bank_account)
+  }
   let(:bank_account) { FactoryGirl.build_stubbed(:bank_account) }
 
   describe '#parse!' do

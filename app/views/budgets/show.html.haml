@@ -1,5 +1,7 @@
 .container
-  %h3 Budget - total: #{number_to_currency budget.total} #{budget.cycle_length}
+  %h3 Budget - total: #{budget.total} #{budget.cycle_length}
+  %p Current cycle from #{budget.current_cycle.first} to #{budget.current_cycle.last}
+  %p #{budget.current_cycle_days_remaining} days remaining
   = link_to 'edit', edit_budget_path(budget)
 
   %table.table
@@ -12,8 +14,8 @@
       - budget.accounts.each do |account|
         %tr
           %td= link_to account.name, account
-          %td= number_to_currency account.amount
-          %td= number_to_currency account.current_cycle.spent
-          %td= number_to_currency account.balance
+          %td= account.amount
+          %td= account.current_cycle.spent
+          %td= account.balance
         %tr.current_cycle
           %td{ colspan: 4 }= render 'accounts/cycle_graph', account_cycle: account.current_cycle
