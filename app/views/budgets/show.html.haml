@@ -11,11 +11,18 @@
       %th Spent
       %th Available
     %tbody
+      %tr
+        %th Total for budget
+        %th= Money.new(budget.accounts.sum(:amount))
+        %th= budget.expenses.where(effective_date: budget.current_cycle).sum(:amount)
+        %th= Money.new(budget.accounts.sum(:balance))
+
       - budget.accounts.each do |account|
         %tr
           %td= link_to account.name, account
           %td= account.amount
-          %td= account.current_cycle.spent
-          %td= account.balance
+          %td{ class: ('red' if account.current_cycle.spent > account.amount)}
+            = account.current_cycle.spent
+          %td{ class: ('red' if account.balance.negative?)}= account.balance
         %tr.current_cycle
           %td{ colspan: 4 }= render 'accounts/cycle_graph', account_cycle: account.current_cycle

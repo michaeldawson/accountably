@@ -9,7 +9,7 @@ class Account < ApplicationRecord
   has_many :transaction_patterns, inverse_of: :account
 
   validates :budget, presence: true
-  validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :amount, presence: true
   validates :balance, presence: true
 
   def current_cycle

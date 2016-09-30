@@ -1,3 +1,7 @@
+.table td.red {
+  color: $red;
+}
+
 .table > tbody > tr.current_cycle td {
   padding: 0;
 }
