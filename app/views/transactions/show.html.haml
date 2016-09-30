@@ -1,0 +1,13 @@
+.container
+  %h3= transaction.description
+  %p= transaction.account.name
+  %p= transaction.effective_date
+  %p= transaction.amount
+
+  = simple_form_for reconciliation do |form|
+    = form.hidden_field :expense_id, value: transaction.id
+    = form.input :account_id, as: :select, collection: current_user.budget.accounts
+    = form.input :save_matching_pattern, as: :boolean, label_html: { data: { toggle: 'collapse', target: '#matching_pattern_container' } }
+    #matching_pattern_container.collapse
+      = form.input :matching_pattern, input_html: { value: transaction.description }
+    = form.submit 'Reconcile!'

@@ -4,8 +4,8 @@ class ReconciliationsController < ApplicationController
       flash[:notice] = 'Transaction was reconciled'
       redirect_to expense.account.budget.default_account
     else
-      flash[:error] = "Sorry, that didn't work"
-      redirect_back fallback_location: expense.account
+      flash[:error] = "Sorry, that didn't work: #{reconciliation.errors.full_messages.to_sentence}"
+      redirect_to expense
     end
   end
 
@@ -26,6 +26,6 @@ class ReconciliationsController < ApplicationController
   end
 
   def permitted_attributes
-    [:expense_id, :account_id, :matching_pattern]
+    [:expense_id, :account_id, :save_matching_pattern, :matching_pattern]
   end
 end

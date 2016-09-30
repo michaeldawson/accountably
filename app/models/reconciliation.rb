@@ -1,11 +1,16 @@
 class Reconciliation
   include ActiveModel::Model
 
-  attr_accessor :expense_id, :account_id, :matching_pattern
+  attr_accessor :expense_id, :account_id, :save_matching_pattern, :matching_pattern
+
+  validates :expense_id, presence: true
+  validates :account_id, presence: true
 
   def perform
+    return false unless valid?
     transfer_transaction
-    create_matching_pattern if matching_pattern.present?
+    create_matching_pattern if save_matching_pattern
+    true
   end
 
   private

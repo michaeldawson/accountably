@@ -15,13 +15,13 @@
       %th Amount
       %th
     %tbody
-      - account.transactions.each do |transaction|
+      - account.expenses.each do |transaction|
         %tr
           %td= transaction.effective_date.strftime('%d/%m/%Y')
           %td.hidden-xs= transaction.source
           %td
             - if transaction.account.default
-              = link_to transaction.description, new_reconciliation_path(expense_id: transaction)
+              = link_to transaction.description, transaction
             - else
               = transaction.description
           %td= transaction.amount

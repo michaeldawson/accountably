@@ -4,21 +4,25 @@ module Bank
       class NAB
         class Account
           class Transaction
-            def initialize(raw_data:, bank_account:, accept_transactions_since: nil)
+            def initialize(raw_data:, bank_account:, accept_transactions_since: nil, transaction_patterns: [])
               @raw_data = raw_data
               @bank_account = bank_account
               @accept_transactions_since = accept_transactions_since
+              @transaction_patterns = transaction_patterns
             end
 
             def parse!
               return false if amount.zero?
-              return false if accept_transactions_since && effective_date < accept_transactions_since
-              transaction_klass.find_or_create_by!(transaction_attributes)
+              return false if effective_date_earlier_than_threshold?
+
+              return if transaction_already_exists?
+
+              transaction_klass.create!(transaction_attributes)
             end
 
             private
 
-            attr_reader :raw_data, :bank_account, :accept_transactions_since
+            attr_reader :raw_data, :bank_account, :accept_transactions_since, :transaction_patterns
 
             def transaction_klass
               debit_amount.zero? ? ::Transaction::Income : ::Transaction::Expense
@@ -30,8 +34,19 @@ module Bank
                 effective_date: effective_date,
                 description: description,
                 amount: amount.abs,
-                account: account
+                account: best_account
               }
+            end
+
+            def transaction_already_exists?
+              transaction_klass.where(
+                **transaction_attributes.except(:effective_date, :account),
+                effective_date: effective_date_plus_or_minus_one_day,
+              ).exists?
+            end
+
+            def effective_date_plus_or_minus_one_day
+              (effective_date - 1.day)..(effective_date + 1.day)
             end
 
             def effective_date
@@ -43,24 +58,31 @@ module Bank
             end
 
             def debit_amount
-              amount_from_string(raw_data[2])
+              Money.new(raw_data[2].presence || 0)
             end
 
             def credit_amount
-              amount_from_string(raw_data[3])
+              Money.new(raw_data[3].presence || 0)
             end
 
             def amount
               [debit_amount, credit_amount].reject(&:zero?).first.to_i
             end
 
-            def account
-              bank_account.login.budget.default_account
+            def best_account
+              @best_account ||= transaction_pattern_match_account || default_account
             end
 
-            # Take a bank formatted amount, e.g. $1,195.55 DR, and return cents
-            def amount_from_string(string)
-              string.delete(',').to_f * 100
+            def effective_date_earlier_than_threshold?
+              accept_transactions_since && effective_date < accept_transactions_since
+            end
+
+            def transaction_pattern_match_account
+              transaction_patterns.detect { |pattern| pattern.matches?(description) }&.account
+            end
+
+            def default_account
+              bank_account.login.budget.default_account
             end
           end
         end

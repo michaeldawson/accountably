@@ -3,8 +3,9 @@ class Budget < ApplicationRecord
 
   belongs_to :user
   has_many :accounts, inverse_of: :budget
+  has_many :transaction_patterns, through: :accounts
   has_many :bank_logins, inverse_of: :budget, class_name: 'Bank::Login'
-  has_many :bank_accounts, through: :bank_logins, source: :accounts, class_name: 'Bank::Account'
+  has_many :bank_accounts, through: :bank_logins, inverse_of: :budget, source: :accounts, class_name: 'Bank::Account'
   has_many :pay_days, inverse_of: :budget
   has_many :expenses, through: :accounts
 

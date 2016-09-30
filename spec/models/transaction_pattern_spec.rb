@@ -25,22 +25,20 @@ RSpec.describe TransactionPattern, type: :model do
     end
   end
 
-  describe '#applies_to?' do
-    let(:transaction) { Transaction.new(description: description) }
-
+  describe '#matches?' do
     context 'for a transaction description that fully matches' do
       let(:description) { 'Some string of words' }
-      it { assert transaction_pattern.applies_to?(transaction) }
+      it { assert transaction_pattern.matches?(description) }
     end
 
     context 'for a transaction description that contains the pattern' do
       let(:description) { 'Some string of words and some other words' }
-      it { assert transaction_pattern.applies_to?(transaction) }
+      it { assert transaction_pattern.matches?(description) }
     end
 
     context "for a transaction description that doesn't contain the pattern" do
       let(:description) { 'Some string of pearls' }
-      it { assert !transaction_pattern.applies_to?(transaction) }
+      it { assert !transaction_pattern.matches?(description) }
     end
   end
 end

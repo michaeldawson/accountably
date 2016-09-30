@@ -2,9 +2,8 @@ require 'spec_helper'
 require 'bank/adapter/selenium/nab/account/transaction'
 
 RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
-  let(:transaction) {
-    Bank::Adapter::Selenium::NAB::Account::Transaction.new(raw_data: raw_data, bank_account: bank_account)
-  }
+  let(:transaction) { Bank::Adapter::Selenium::NAB::Account::Transaction.new(transaction_attributes) }
+  let(:transaction_attributes) { { raw_data: raw_data, bank_account: bank_account } }
   let(:bank_account) { FactoryGirl.build_stubbed(:bank_account) }
 
   describe '#parse!' do
@@ -14,7 +13,7 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
 
         context "when there isn't already a transaction for those details" do
           it 'creates a valid transaction' do
-            expect{
+            expect {
               transaction.parse!
             }.to change {
               ::Transaction::Expense.count
@@ -25,6 +24,22 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
             expect(transaction.amount).to eq(1199)
             expect(transaction.description).to eq('EFTPOS DEBIT')
             expect(transaction.source_id).to eq(bank_account.id)
+          end
+
+          context 'when the budget has a transaction pattern that matches the transaction description' do
+            let(:account) { FactoryGirl.build_stubbed(:account) }
+
+            before :each do
+              transaction_attributes.merge!(
+                transaction_patterns: [TransactionPattern.new(account: account, pattern: 'EFTPOS DEBIT')],
+              )
+            end
+
+            it 'creates a transaction for that account' do
+              transaction.parse!
+              expense = Transaction::Expense.last
+              expect(expense.account_id).to eq(account.id)
+            end
           end
         end
 

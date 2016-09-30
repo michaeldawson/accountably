@@ -17,6 +17,7 @@ class Transaction < ApplicationRecord
     account.save!
   end
 
+  before_destroy :revert
   def revert
     account.balance -= effective_amount
     account.save!

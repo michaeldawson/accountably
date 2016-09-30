@@ -44,8 +44,13 @@ module Bank
             Transaction.new(
               raw_data: row.all('td').map(&:text),
               bank_account: bank_account,
-              accept_transactions_since: accept_transactions_since
+              accept_transactions_since: accept_transactions_since,
+              transaction_patterns: transaction_patterns,
             ).parse!
+          end
+
+          def transaction_patterns
+            @transaction_patterns ||= bank_account.budget.transaction_patterns
           end
 
           def next_page

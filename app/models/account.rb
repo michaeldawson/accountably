@@ -11,8 +11,13 @@ class Account < ApplicationRecord
   validates :budget, presence: true
   validates :amount, presence: true
   validates :balance, presence: true
+  validate :amount_not_negative # Can't use a numericality validation as it's sometimes cast as '$x.xx'
+  def amount_not_negative
+    errors.add(:amount, "can't be negative") if amount.negative?
+  end
 
   scope :default, -> { where(default: true) }
+  scope :user, -> { where(default: false) }
 
   def current_cycle
     @current_cycle ||= AccountCycle.new(self, budget.current_cycle)

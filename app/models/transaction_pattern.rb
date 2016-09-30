@@ -7,13 +7,13 @@ class TransactionPattern < ApplicationRecord
   after_create :reconcile_all_for_budget
   def reconcile_all_for_budget
     budget.default_account.transactions.each do |transaction|
-      next unless applies_to?(transaction)
+      next unless matches?(transaction.description)
       Reconciliation.new(expense_id: transaction.id, account_id: account.id).perform
     end
   end
 
-  def applies_to?(transaction)
-    pattern_regexp.match(transaction.description)
+  def matches?(transaction_description)
+    pattern_regexp.match(transaction_description)
   end
 
   private
