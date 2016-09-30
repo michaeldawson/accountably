@@ -1,18 +1,13 @@
 require 'spec_helper'
 
 feature 'Transactions' do
-  before :each do
-    @budget = FactoryGirl.create(
-      :budget,
-      accounts: [
-        FactoryGirl.create(:account, name: 'Things', amount: 100)
-      ]
-    )
-    @user = FactoryGirl.create(:user)
-    login_as @user
-  end
+  let!(:budget) { FactoryGirl.create(:budget, accounts: [account]) }
+  let(:account) { FactoryGirl.build(:account, name: 'Things', amount: 100) }
+  let(:user) { FactoryGirl.create(:user) }
 
-  let(:account) { @budget.accounts.first }
+  before :each do
+    login_as user
+  end
 
   scenario 'I can add transactions to a account' do
     visit account_path(account)
@@ -24,28 +19,26 @@ feature 'Transactions' do
       expect(page).to have_content 'Transaction was saved'
     }.to change {
       account.reload.balance
-    }.by(-100)
+    }.by(-100.0)
   end
 
   context 'when a account has expenses' do
-    before :each do
-      @transaction = FactoryGirl.create(:expense_transaction, account: account, description: 'Something wot I bought')
-    end
+    let!(:transaction) { FactoryGirl.create(:expense_transaction, account: account, description: 'Something') }
 
     scenario "I can see them on the account's page" do
       visit account_path(account)
-      expect(page).to have_content(@transaction.description)
+      expect(page).to have_content(transaction.description)
     end
 
     scenario 'I can edit their description, effective date and amount', js: true do
       new_date = Time.current.to_date.tomorrow
       new_description = 'A new description'
-      new_amount = 100
+      new_amount = 100.0
 
       visit account_path(account)
 
       within '.account-transactions' do
-        within find('tr', text: @transaction.description) do
+        within find('tr', text: transaction.description) do
           find('i.ion-edit').click
         end
       end
@@ -58,14 +51,14 @@ feature 'Transactions' do
       click_on 'Save'
       expect(page).to have_content('Transaction was updated')
 
-      @transaction.reload
-      expect(@transaction.effective_date).to eq(new_date)
-      expect(@transaction.description).to eq(new_description)
-      expect(@transaction.amount).to eq(new_amount)
+      transaction.reload
+      expect(transaction.effective_date).to eq(new_date)
+      expect(transaction.description).to eq(new_description)
+      expect(transaction.amount).to eq(new_amount)
     end
 
     scenario 'I can delete the transaction', js: true do
-      visit edit_transaction_expense_path(@transaction)
+      visit edit_transaction_expense_path(transaction)
 
       expect {
         find('i.ion-ios-close-outline').click

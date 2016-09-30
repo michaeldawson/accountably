@@ -14,7 +14,12 @@ class Transaction < ActiveRecord::Base
   before_create :apply
   def apply
     account.balance += effective_amount
-    throw :abort unless account.save
+    account.save!
+  end
+
+  def revert
+    account.balance -= effective_amount
+    account.save!
   end
 
   def effective_amount

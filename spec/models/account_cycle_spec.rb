@@ -57,8 +57,10 @@ RSpec.describe AccountCycle do
     context 'when the cycle is current' do
       let(:cycle) { 2.days.ago..5.days.from_now }
 
-      it 'returns the full budgeted amount of the account' do
-        expect(account_spend.on_track_spend).to eq((account.amount.to_f * 2 / 7).round(2))
+      it 'returns a pro-rated amount based on how far into the cycle we are' do
+        percent_into_cycle = 2 / 7.to_f
+        expected_amount = (account.amount.to_f * percent_into_cycle)
+        expect(account_spend.on_track_spend.round(1)).to eq(expected_amount.round(1))
       end
     end
   end

@@ -8,7 +8,7 @@ RSpec.describe PayDay do
   describe '#apply!' do
     context 'with a budget with accounts' do
       before :each do
-        budget.save!
+        pay_day.save!
       end
 
       it 'creates income transactions for all accounts' do

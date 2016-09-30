@@ -20,7 +20,8 @@ class PayDay < ActiveRecord::Base
     transactions.build(
       account: account,
       amount: account.amount,
-      effective_date: effective_date
+      effective_date: effective_date,
+      source: self
     )
   end
 end

@@ -12,7 +12,7 @@ class BudgetsController < ApplicationController
   end
 
   def create
-    if budget.save
+    if budget.save && budget.pay_days.create(effective_date: budget.first_pay_day)
       flash[:notice] = 'Budget was saved'
       redirect_to budget_path(budget)
     else
@@ -45,7 +45,8 @@ class BudgetsController < ApplicationController
 
   def budget_params
     return nil unless params.key?(:budget)
-    default_budget_params.merge(params.require(:budget).permit(*permitted_budget_attributes))
+    provided_budget_params = params.require(:budget).permit(*permitted_budget_attributes).to_h
+    default_budget_params.merge(provided_budget_params)
   end
 
   def default_budget_params

@@ -3,17 +3,21 @@ class Reconciliation
 
   attr_accessor :expense_id, :account_id, :account_pattern
 
-  def initialize(*args)
-    super(*args)
-  end
-
   def perform
-    expense.update(account_id: account_id)
+    Transaction.transaction do
+      expense.revert
+      expense.update!(account: account)
+      expense.apply
+    end
   end
 
   private
 
   def expense
     @expense ||= Transaction::Expense.find(expense_id)
+  end
+
+  def account
+    @account ||= Account.find(account_id)
   end
 end

@@ -5,6 +5,8 @@ class TransactionsController < ApplicationController
   end
 
   def create
+    transaction_params.merge!(source: current_user)
+
     if transaction.save
       flash[:notice] = 'Transaction was saved'
       redirect_to transaction.account
@@ -37,10 +39,10 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(*permitted_transaction_attributes) if params.key?(:transaction)
+    @transaction_params ||= params.require(:transaction).permit(*permitted_attributes).to_h if params.key?(:transaction)
   end
 
-  def permitted_transaction_attributes
+  def permitted_attributes
     [:account_id, :amount, :description, :effective_date]
   end
 end

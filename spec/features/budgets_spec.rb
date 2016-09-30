@@ -30,9 +30,9 @@ feature 'Budgets', js: true do
 
         expect(budget.user).to eq(@user)
         expect(account.name).to eq('Rent')
-        expect(account.amount).to eq(100)
+        expect(account.amount).to eq(100.0)
 
-        expect(account.balance).to eq(100)
+        expect(account.balance).to eq(100.0)
       end
     end
 

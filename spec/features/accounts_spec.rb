@@ -32,8 +32,8 @@ feature 'Accounts' do
       account.reload
 
       expect(account.name).to eq('A new name')
-      expect(account.amount).to eq(1000)
-      expect(account.balance).to eq(-100)
+      expect(account.amount).to eq(1000.0)
+      expect(account.balance).to eq(-100.0)
     end
   end
 end

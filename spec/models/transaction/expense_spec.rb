@@ -7,7 +7,8 @@ RSpec.describe Transaction::Expense, type: :model do
       account: Account.new,
       effective_date: Time.current,
       description: "Hey! I'm an expense.",
-      amount: 100
+      amount: 100,
+      source: Bank::Account.new
     }
   }
 
@@ -38,9 +39,16 @@ RSpec.describe Transaction::Expense, type: :model do
   end
 
   describe 'Callbacks' do
+    before :each do
+      valid_attributes.merge!(
+        source: FactoryGirl.build_stubbed(:bank_account),
+        account: FactoryGirl.build(:account)
+      )
+    end
+
     it 'decrements the account balance on create' do
       expect {
-        expense.save
+        expense.save!
       }.to change {
         expense.account.balance
       }.by(-100)

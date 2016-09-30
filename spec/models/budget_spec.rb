@@ -86,6 +86,7 @@ RSpec.describe Budget, type: :model do
         before :each do
           valid_attributes[:first_pay_day] = date_in_the_past
           budget.save!
+          budget.pay_days.create!(effective_date: budget.first_pay_day)
           expect(budget.pay_days.map(&:effective_date)).to eq [date_in_the_past]
         end
 
