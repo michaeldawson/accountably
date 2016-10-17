@@ -20,6 +20,11 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+production:
+  adapter: mysql2
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+
 default: &default
   adapter: postgresql
   encoding: unicode
