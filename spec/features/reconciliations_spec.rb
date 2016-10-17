@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 feature 'Reconcilation', js: true do
+  let!(:user) { FactoryGirl.create(:user) }
+
+  before :each do
+    login_as user
+  end
+
   context 'with an uncategorised transaction' do
-    let!(:user) { FactoryGirl.create(:user) }
     let!(:budget) { FactoryGirl.create(:budget, user: user) }
     let!(:other_account) { budget.accounts.first }
     let(:transaction_params) {
@@ -18,7 +23,6 @@ feature 'Reconcilation', js: true do
       visit account_path(budget.default_account)
       click_on transaction.description
 
-      expect(page).to have_content('Reconcile')
       select other_account.name, from: 'Account'
 
       expect {

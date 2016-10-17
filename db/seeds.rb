@@ -99,10 +99,6 @@ budget = Budget.create!(
       ],
     ),
     Account.new(
-      name: 'Uncategorised',
-      amount: '0.0',
-    ),
-    Account.new(
       name: 'Public transport',
       amount: '30.0',
       transaction_patterns: [

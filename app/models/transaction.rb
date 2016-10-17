@@ -1,5 +1,5 @@
 class Transaction < ApplicationRecord
-  attribute :amount, :money
+  attribute :amount, MoneyType.new
 
   belongs_to :account, inverse_of: :transactions
   belongs_to :source, polymorphic: true

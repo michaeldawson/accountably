@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
-  attribute :amount, :money
-  attribute :balance, :money
+  attribute :amount, MoneyType.new
+  attribute :balance, MoneyType.new
 
   belongs_to :budget, inverse_of: :accounts
   has_many :transactions, inverse_of: :account
@@ -16,8 +16,8 @@ class Account < ApplicationRecord
     errors.add(:amount, "can't be negative") if amount.negative?
   end
 
-  scope :default, -> { where(default: true) }
-  scope :user, -> { where(default: false) }
+  scope :uncategorised, -> { where(default: true) }
+  scope :categorised, -> { where(default: false) }
 
   def current_cycle
     @current_cycle ||= AccountCycle.new(self, budget.current_cycle)

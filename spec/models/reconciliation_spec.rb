@@ -27,7 +27,7 @@ RSpec.describe Reconciliation do
 
       context 'and a matching pattern' do
         before :each do
-          reconcilation_params.merge!(matching_pattern: 'Some pattern')
+          reconcilation_params.merge!(save_matching_pattern: true, matching_pattern: 'Some pattern')
         end
 
         it 'creates a transaction pattern for the account' do

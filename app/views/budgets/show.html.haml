@@ -17,5 +17,5 @@
         %th= budget.expenses.where(effective_date: budget.current_cycle).sum(:amount)
         %th= Money.new(budget.accounts.sum(:balance))
 
-      = render partial: 'account', collection: budget.accounts.default
-      = render partial: 'account', collection: budget.accounts.user
+      = render partial: 'account', collection: budget.accounts.uncategorised
+      = render partial: 'account', collection: budget.accounts.categorised
