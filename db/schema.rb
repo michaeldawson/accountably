@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160930015452) do
 
   create_table "bank_logins", force: :cascade do |t|
     t.integer  "budget_id"
-    t.text     "credentials"
+    t.binary   "credentials"
     t.string   "adapter_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false

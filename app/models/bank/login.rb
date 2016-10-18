@@ -5,7 +5,7 @@ module Bank
     belongs_to :budget, inverse_of: :bank_logins
     has_many :accounts, class_name: 'Bank::Account', inverse_of: :login
 
-    attribute :credentials, EncryptedSerializedJSONType.new
+    attribute :credentials, EncryptedHashType.new
 
     validates :adapter_type, inclusion: { in: VALID_ADAPTER_TYPES }
 

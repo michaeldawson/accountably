@@ -15,6 +15,7 @@ Bundler.require(*Rails.groups)
 module Accountable
   class Application < Rails::Application
     config.assets.paths << "#{Rails}/app/assets/fonts"
+    config.autoload_paths += Dir["#{config.root}/lib/accountably/**/"]
 
     config.generators do |g|
       g.view_specs false
