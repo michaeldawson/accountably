@@ -1,10 +1,6 @@
-class BudgetsController < ApplicationController
+class BudgetController < ApplicationController
   before_action :authenticate_user!
-
-  def index
-    redirect_to new_budget_path and return unless user_has_budget?
-    redirect_to budget_path(current_user.budget)
-  end
+  before_action :require_current_budget, except: %i(new create)
 
   def new
     redirect_to root_path and return if user_has_budget?
@@ -14,7 +10,7 @@ class BudgetsController < ApplicationController
   def create
     if budget.save && budget.pay_days.create(effective_date: budget.first_pay_day)
       flash[:notice] = 'Budget was saved'
-      redirect_to budget_path(budget)
+      redirect_to budget_path
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
       render :new
@@ -24,7 +20,7 @@ class BudgetsController < ApplicationController
   def update
     if budget.update(budget_params)
       flash[:notice] = 'Budget was updated'
-      redirect_to budget_path(budget)
+      redirect_to budget_path
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
       render :new
@@ -39,8 +35,7 @@ class BudgetsController < ApplicationController
 
   helper_method :budget
   def budget
-    @budget ||= Budget.find(params[:id]) if params.key?(:id)
-    @budget ||= Budget.new(budget_params)
+    @budget ||= current_budget || Budget.new(budget_params)
   end
 
   def budget_params

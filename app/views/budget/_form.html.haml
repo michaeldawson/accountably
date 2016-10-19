@@ -1,4 +1,4 @@
-= simple_form_for budget, remote: true, html: { class: 'add_remove_fields' } do |form|
+= simple_form_for budget, url: budget_path, remote: true, html: { class: 'add_remove_fields' } do |form|
   .row
     .col-sm-4= form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
     .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker

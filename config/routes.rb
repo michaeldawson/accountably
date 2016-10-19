@@ -1,14 +1,10 @@
 Rails.application.routes.draw do
-  get 'accounts/show'
-
-  get 'budgets/index'
-
-  root to: 'budgets#index'
+  root to: 'budget#show'
   devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
 
   resources :reconciliations, path: :reconcile, only: [:index, :new, :create]
   resources :accounts
-  resources :budgets
+  resource :budget, controller: :budget
   resources :accounts
   namespace :transaction do
     resources :expenses

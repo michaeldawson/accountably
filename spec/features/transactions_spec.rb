@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 feature 'Transactions' do
-  let!(:budget) { FactoryGirl.create(:budget, accounts: [account]) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:budget) { FactoryGirl.create(:budget, user: user, accounts: [account]) }
   let(:account) { FactoryGirl.build(:account, name: 'Things', amount: 100) }
-  let(:user) { FactoryGirl.create(:user) }
 
   before :each do
     login_as user
   end
 
-  scenario 'I can add transactions to a account' do
+  scenario 'I can add transactions to a account', js: true do
     visit account_path(account)
     fill_in 'Description', with: 'A new transaction'
     fill_in 'Amount', with: 100

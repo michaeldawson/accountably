@@ -2,7 +2,7 @@
   .navbar-brand
     Accountably
   .navbar-header
-    %button.navbar-toggle.collapsed
+    %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '.navbar-collapse' } }
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
@@ -10,11 +10,13 @@
   .collapse.navbar-collapse
     %ul.nav.navbar-nav
       - if user_signed_in?
-        %li
-          = link_to 'All Accounts', accounts_path
-    %ul.nav.navbar-nav.pull-right
-      %li
-        - if user_signed_in?
-          = link_to 'Logout', destroy_user_session_path
-        - else
-          = link_to 'Login', new_user_session_path
+        %li= link_to 'All Accounts', accounts_path
+        %li.dropdown.pull-right
+          %a.dropdown-toggle{ data: { toggle: 'dropdown' }, href: 'javascript:void(0)' }
+            %i.ion-ios-settings
+            Settings
+          %ul.dropdown-menu.dropdown-menu-right
+            %li= link_to 'Manage budget', edit_budget_path
+            %li= link_to 'Logout', destroy_user_session_path
+      - else
+        %li.pull-right= link_to 'Login', new_user_session_path
