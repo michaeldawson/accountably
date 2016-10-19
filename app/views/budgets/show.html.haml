@@ -3,19 +3,3 @@
   %p Current cycle from #{budget.current_cycle.first} to #{budget.current_cycle.last}
   %p #{budget.current_cycle_days_remaining} days remaining
   = link_to 'edit', edit_budget_path(budget)
-
-  %table.table
-    %thead
-      %th Name
-      %th Budget
-      %th Spent
-      %th Available
-    %tbody
-      %tr
-        %th Total for budget
-        %th= Money.new(budget.accounts.sum(:amount))
-        %th= budget.expenses.where(effective_date: budget.current_cycle).sum(:amount)
-        %th= Money.new(budget.accounts.sum(:balance))
-
-      = render partial: 'account', collection: budget.accounts.uncategorised
-      = render partial: 'account', collection: budget.accounts.categorised

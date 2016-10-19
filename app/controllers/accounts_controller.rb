@@ -1,4 +1,7 @@
 class AccountsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_current_budget
+
   def update
     if account.update(account_attributes)
       flash[:notice] = 'Account was updated'
@@ -11,8 +14,11 @@ class AccountsController < ApplicationController
 
   private
 
-  helper_method :account
-  def account
+  helper_method def accounts
+    @accounts ||= current_budget.accounts
+  end
+
+  helper_method def account
     @account ||= Account.find(params[:id])
   end
 
@@ -20,8 +26,7 @@ class AccountsController < ApplicationController
     params.require(:account).permit(:name, :amount, :balance)
   end
 
-  helper_method :transaction
-  def transaction
+  helper_method def transaction
     @transaction ||= Transaction::Expense.new(effective_date: Time.current.to_date)
   end
 end

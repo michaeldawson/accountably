@@ -2,22 +2,21 @@ require 'spec_helper'
 
 feature 'Accounts' do
   context 'when logged in as a user with a budget' do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:budget) { FactoryGirl.create(:budget, user: user) }
+    let(:account) { budget.accounts.first }
+
     before :each do
-      @budget = FactoryGirl.create(
-        :budget,
-        accounts: [
-          FactoryGirl.create(:account, name: 'Things', amount: 100)
-        ]
-      )
-      @user = FactoryGirl.create(:user)
-      login_as @user
+      login_as user
     end
 
-    let(:account) { @budget.accounts.first }
+    scenario 'I can view all my accounts' do
+      visit accounts_path
+      expect(page).to have_content(account.name)
+    end
 
     scenario 'I can view the page for a account' do
-      visit budget_path(@budget)
-      click_on 'Things'
+      visit account_path(account)
       expect(page).to have_css('h3.account')
     end
 
