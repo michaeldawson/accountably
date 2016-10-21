@@ -10,7 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
 gem 'simple_form'
-gem 'foreman'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 gem 'capybara'
 gem 'selenium-webdriver'
