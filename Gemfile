@@ -10,10 +10,11 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
 gem 'simple_form'
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'foreman'
 
 gem 'capybara'
 gem 'selenium-webdriver'
+gem 'poltergeist', '~> 1.8'
 
 group :development, :test do
   gem 'sqlite3'
