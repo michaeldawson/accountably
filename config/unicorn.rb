@@ -4,12 +4,11 @@ shared_dir = "#{app_dir}/shared"
 working_directory app_dir
 
 # Set unicorn options
-worker_processes 1
+worker_processes ENV['WEB_CONCURRENCY'] || 1
 preload_app true
 timeout 30
 
 # Set up socket location
-listen ENV['PORT'] || 3000
 listen "#{shared_dir}/sockets/unicorn.sock", backlog: 64
 
 # Logging
