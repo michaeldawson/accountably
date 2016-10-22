@@ -6,7 +6,9 @@ module Bank
     validates :login, presence: true
 
     def reconcile(since: nil)
-      login.reconcile(self, since: since)
+      Headless.ly do
+        login.reconcile(self, since: since)
+      end
     end
   end
 end

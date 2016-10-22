@@ -12,6 +12,9 @@ require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
 
+require 'dotenv'
+Dotenv::Railtie.load
+
 module Accountable
   class Application < Rails::Application
     config.assets.paths << "#{Rails}/app/assets/fonts"

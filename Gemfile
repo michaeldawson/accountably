@@ -15,6 +15,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'capybara'
 gem 'selenium-webdriver'
 gem 'poltergeist', '~> 1.8'
+gem 'headless'
 
 group :development, :test do
   gem 'sqlite3'

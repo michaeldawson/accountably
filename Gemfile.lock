@@ -97,6 +97,7 @@ GEM
       rake (>= 10, < 12)
       rubocop (>= 0.36.0)
       sysexits (~> 1.1)
+    headless (2.3.1)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -261,6 +262,7 @@ DEPENDENCIES
   factory_girl_rails
   haml-lint
   haml-rails
+  headless
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
