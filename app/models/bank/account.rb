@@ -6,8 +6,16 @@ module Bank
     validates :login, presence: true
 
     def reconcile(since: nil)
-      Headless.ly do
+      with_headless_driver_if_available do
         login.reconcile(self, since: since)
+      end
+    end
+
+    def with_headless_driver_if_available
+      if Headless::CliUtil.application_exists?('Xvfb')
+        Headless.ly { yield }
+      else
+        yield
       end
     end
   end

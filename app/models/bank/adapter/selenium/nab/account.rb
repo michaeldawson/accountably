@@ -57,6 +57,7 @@ module Bank
             return false unless session.has_css?('#someItems')
 
             session.within '#someItems', match: :first do
+              return false unless session.has_link?('Next')
               session.click_on 'Next'
             end
 
