@@ -1,6 +1,6 @@
 %nav.navbar.navbar-default
   .navbar-brand
-    Accountably
+    = link_to 'Accountably', root_path
   .navbar-header
     %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '.navbar-collapse' } }
       %span.icon-bar
@@ -10,7 +10,8 @@
   .collapse.navbar-collapse
     %ul.nav.navbar-nav
       - if user_signed_in?
-        %li= link_to 'All Accounts', accounts_path
+        %li= link_to 'Accounts', accounts_path
+        %li= link_to 'Bank Accounts', bank_accounts_path
         %li.dropdown.pull-right
           %a.dropdown-toggle{ data: { toggle: 'dropdown' }, href: 'javascript:void(0)' }
             %i.ion-ios-settings

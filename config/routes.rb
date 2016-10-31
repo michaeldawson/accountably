@@ -10,4 +10,8 @@ Rails.application.routes.draw do
     resources :expenses
     resources :incomes
   end
+
+  namespace :bank do
+    resources :accounts
+  end
 end

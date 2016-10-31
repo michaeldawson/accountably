@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930015452) do
+ActiveRecord::Schema.define(version: 20161031232726) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "budget_id"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20160930015452) do
     t.integer  "login_id"
     t.string   "name"
     t.datetime "sync_from"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.datetime "last_reconciled"
+    t.integer  "balance"
     t.index ["login_id"], name: "index_bank_accounts_on_login_id"
   end
 

@@ -3,6 +3,8 @@ module Bank
     belongs_to :login, class_name: 'Bank::Login', inverse_of: :accounts
     has_one :budget, through: :login, inverse_of: :bank_accounts
 
+    attribute :balance, MoneyType.new
+
     validates :login, presence: true
 
     def to_s

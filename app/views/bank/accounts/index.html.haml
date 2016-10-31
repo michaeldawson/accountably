@@ -1,0 +1,19 @@
+.container
+  %h2 Bank Accounts
+  - if bank_accounts.any?
+    %table.table
+      %thead
+        %tr
+          %th Account
+          %th Balance
+          %th Last Reconciled
+      %tbody
+        - bank_accounts.each do |bank_account|
+          %tr
+            %td= bank_account.name
+            %td= bank_account.balance
+            %td
+              - if bank_account.last_reconciled
+                = bank_account.last_reconciled
+              - else
+                %i never
