@@ -5,6 +5,10 @@ module Bank
 
     validates :login, presence: true
 
+    def to_s
+      "#{name} account"
+    end
+
     def reconcile(since: nil)
       with_headless_driver_if_available do
         login.reconcile(self, since: since)

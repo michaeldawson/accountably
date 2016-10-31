@@ -15,7 +15,7 @@
       %th Amount
       %th
     %tbody
-      - account.expenses.each do |transaction|
+      - account.expenses.order(effective_date: :desc).each do |transaction|
         %tr
           %td= transaction.effective_date.strftime('%d/%m/%Y')
           %td.hidden-xs= transaction.source
