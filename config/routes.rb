@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   namespace :bank do
     resources :accounts
   end
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end

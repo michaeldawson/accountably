@@ -2,20 +2,29 @@ ruby '2.3.1'
 source 'https://rubygems.org'
 
 gem 'rails', '~>5.0.0'
+
+# Assets and views
+gem 'jquery-rails'
+gem 'turbolinks'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'haml-rails'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
-gem 'simple_form'
+
+# Configuration
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+# Auth
+gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
+gem 'simple_form'
+
+# Web scraping
 gem 'capybara'
 gem 'selenium-webdriver'
 gem 'poltergeist', '~> 1.8'
 gem 'headless'
+
+# Background jobs
+gem 'sidekiq'
 
 group :development, :test do
   gem 'sqlite3'
