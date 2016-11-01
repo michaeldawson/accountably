@@ -1,3 +1,5 @@
+- content_for :page_title, 'Budget'
+
 - total_spend = budget.expenses.where(effective_date: budget.current_cycle).sum(:amount)
 - percent_through_period = 100 - ((budget.current_cycle_days_remaining / budget.send(:cycle_as_date_delta).days.to_f) * 100).round
 

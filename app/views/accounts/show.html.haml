@@ -1,5 +1,11 @@
+- reconciling = account.default?
+- content_for :page_title, (reconciling ? 'Reconcile' : account.name)
+
 .container
-  %h3.account #{account.name} #{account.balance} available
+  - if reconciling
+    %h3 Reconcile
+  - else
+    %h3.account #{account.name} #{account.balance} available
   - unless account.default
     = link_to 'Edit', edit_account_path(account)
     %hr
