@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
 
   resources :reconciliations, path: :reconcile, only: [:index, :new, :create]
-  resources :accounts
   resource :budget, controller: :budget
-  resources :accounts
+  resources :accounts do
+    get :reconcile, on: :collection
+  end
   namespace :transaction do
     resources :expenses
     resources :incomes

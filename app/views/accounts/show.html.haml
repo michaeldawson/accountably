@@ -7,7 +7,7 @@
     = render 'transactions/form'
     %hr
 
-  %table.table.account-transactions
+  %table.table.table-striped.table-hover.account-transactions
     %thead
       %th Date
       %th.hidden-xs Source
@@ -20,10 +20,11 @@
           %td= transaction.effective_date.strftime('%d/%m/%Y')
           %td.hidden-xs= transaction.source
           %td
+            - description = transaction.description.truncate(45)
             - if transaction.account.default
-              = link_to transaction.description, transaction
+              = link_to description, transaction
             - else
-              = transaction.description
+              = description
           %td= transaction.amount
           %td
             = link_to [:edit, transaction] do

@@ -12,6 +12,11 @@ class AccountsController < ApplicationController
     end
   end
 
+  def reconcile
+    @account = current_budget.accounts.uncategorised.first
+    render 'show'
+  end
+
   private
 
   helper_method def accounts

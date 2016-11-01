@@ -19,6 +19,11 @@ feature 'Reconcilation', js: true do
     }
     let!(:transaction) { FactoryGirl.create(:expense_transaction, **transaction_params) }
 
+    scenario 'a user can view unreconciled transactions' do
+      visit reconcile_accounts_path
+      expect(page).to have_content('Some unreconciled transaction')
+    end
+
     scenario 'a user can reconcile the transaction to another account' do
       visit account_path(budget.default_account)
       click_on transaction.description
