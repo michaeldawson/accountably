@@ -1,7 +1,7 @@
 # Set path to application
-app_dir = File.expand_path('../..', __FILE__)
-shared_dir = "#{app_dir}/shared"
-working_directory app_dir
+root_dir = File.expand_path('../../..', __FILE__)
+shared_dir = "#{root_dir}/shared"
+working_directory "#{root_dir}/current"
 
 # Set unicorn options
 worker_processes ENV['WEB_CONCURRENCY'] || 1

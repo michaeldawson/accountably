@@ -36,9 +36,17 @@ group :development, :test do
 end
 
 group :development do
+  # Style guides
   gem 'overcommit', require: false
   gem 'rubocop', require: false
   gem 'haml-lint', require: false
+
+  # Deployment
+  gem 'capistrano', '~> 3.6'
+  gem 'capistrano3-env', '~> 0.1.0'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-unicorn-nginx', github: 'capistrano-plugins/capistrano-unicorn-nginx'
 end
 
 group :production do
