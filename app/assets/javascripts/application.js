@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.easy-pie-chart
 //= require_tree ./lib
 //= require_tree ./functions
 //= require_tree ./app
