@@ -27,6 +27,10 @@ class AccountsController < ApplicationController
     @account ||= Account.find(params[:id])
   end
 
+  helper_method def budget_report
+    @budget_report ||= Report::BudgetReport.new(current_budget, current_budget.current_cycle)
+  end
+
   def account_attributes
     params.require(:account).permit(:name, :amount, :balance)
   end

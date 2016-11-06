@@ -35,11 +35,4 @@ RSpec.describe Account, type: :model do
       expect(account).not_to be_valid
     end
   end
-
-  describe '#current_cycle' do
-    it 'returns the current account spend' do
-      current_cycle = account.current_cycle
-      expect(current_cycle).to be_a(AccountCycle)
-    end
-  end
 end

@@ -17,21 +17,17 @@ class Budget < ApplicationRecord
   accepts_nested_attributes_for :accounts, allow_destroy: true, reject_if: proc { |attrs| attrs['name'].blank? }
 
   def total
-    Money.new(accounts.sum(:amount).to_f)
+    accounts.sum(:amount).to_f
   end
 
   def reconcile_bank_accounts_for_current_cycle
     bank_accounts.each do |bank_account|
-      bank_account.reconcile(since: current_cycle_start)
+      bank_account.reconcile(since: current_cycle.start_date)
     end
   end
 
   def current_cycle
-    current_cycle_start..current_cycle_end
-  end
-
-  def current_cycle_days_remaining
-    (current_cycle_end - Time.current.to_date).to_i
+    @current_cycle ||= Cycle.new(current_cycle_start, cycle_length)
   end
 
   def default_account
@@ -41,19 +37,11 @@ class Budget < ApplicationRecord
   private
 
   def current_cycle_start
-    @current_cycle_start ||= pay_days.order(:effective_date).last&.effective_date || first_pay_day
+    @current_cycle_start ||= last_pay_day&.effective_date || first_pay_day
   end
 
-  def current_cycle_end
-    current_cycle_start + cycle_as_date_delta
-  end
-
-  def cycle_as_date_delta
-    case cycle_length
-    when 'weekly' then 1.week
-    when 'fortnightly' then 1.fortnight
-    when 'monthly' then 1.month
-    end
+  def last_pay_day
+    @last_pay_day ||= pay_days.order(:effective_date).last
   end
 
   def default_account_attributes

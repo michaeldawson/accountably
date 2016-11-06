@@ -76,7 +76,10 @@ RSpec.describe Budget, type: :model do
     context 'when the cycle length is weekly' do
       context 'when the first pay day is today' do
         it 'returns the period from today to next week' do
-          expect(budget.current_cycle).to eq(Time.current.to_date..(Time.current.to_date + 1.week))
+          start_date = Time.current.to_date
+          end_date = Time.current.to_date + 1.week
+
+          expect(budget.current_cycle.date_range).to eq(start_date..end_date)
         end
       end
 
@@ -91,7 +94,10 @@ RSpec.describe Budget, type: :model do
         end
 
         it 'returns the period from the last pay day onwards' do
-          expect(budget.current_cycle).to eq(date_in_the_past..(date_in_the_past + 1.week))
+          start_date = date_in_the_past
+          end_date = date_in_the_past + 1.week
+
+          expect(budget.current_cycle.date_range).to eq(start_date..end_date)
         end
       end
     end

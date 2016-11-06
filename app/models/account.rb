@@ -18,8 +18,4 @@ class Account < ApplicationRecord
 
   scope :uncategorised, -> { where(default: true) }
   scope :categorised, -> { where(default: false) }
-
-  def current_cycle
-    @current_cycle ||= AccountCycle.new(self, budget.current_cycle)
-  end
 end

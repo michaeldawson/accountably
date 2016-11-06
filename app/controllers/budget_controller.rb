@@ -33,9 +33,12 @@ class BudgetController < ApplicationController
     current_user.budget.present?
   end
 
-  helper_method :budget
-  def budget
+  helper_method def budget
     @budget ||= current_budget || Budget.new(budget_params)
+  end
+
+  helper_method def budget_report
+    @budget_report ||= Report::BudgetReport.new(budget)
   end
 
   def budget_params

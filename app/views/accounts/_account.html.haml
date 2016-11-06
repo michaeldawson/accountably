@@ -1,8 +1,7 @@
+- account_report = Report::AccountReport.new(account)
+
 %tr
   %td= link_to account.name, account
   %td= account.amount
-  %td{ class: ('red' if account.current_cycle.spent > account.amount) }
-    = account.current_cycle.spent
+  %td{ class: ('red' if account_report.over_spent?) }= account_report.spend
   %td{ class: ('red' if account.balance.negative?) }= account.balance
-%tr.current_cycle
-  %td{ colspan: 4 }= render 'accounts/cycle_graph', account_cycle: account.current_cycle

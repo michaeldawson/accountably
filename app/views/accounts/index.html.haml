@@ -10,9 +10,9 @@
     %tbody
       %tr
         %th Total for budget
-        %th= Money.new(current_budget.accounts.sum(:amount))
-        %th= current_budget.expenses.where(effective_date: current_budget.current_cycle).sum(:amount)
-        %th= Money.new(current_budget.accounts.sum(:balance))
+        %th= current_budget.total
+        %th= budget_report.spend
+        %th= budget_report.balance
 
       = render partial: 'account', collection: current_budget.accounts.uncategorised
       = render partial: 'account', collection: current_budget.accounts.categorised

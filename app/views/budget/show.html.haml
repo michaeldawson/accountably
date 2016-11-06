@@ -1,23 +1,18 @@
 - content_for :page_title, 'Budget'
 
-- total_spend = budget.expenses.where(effective_date: budget.current_cycle).sum(:amount)
-- percent_through_period = 100 - ((budget.current_cycle_days_remaining / budget.send(:cycle_as_date_delta).days.to_f) * 100).round
-- on_track_spend = (percent_through_period / 100 * budget.total.to_f).to_i
-- spend_as_percent_of_on_track_spend = ((total_spend.to_f / on_track_spend.to_f) * 100).round
-
 .container
   .row
     .col-xs-6
       .easy-pie-chart
-        .number.visits{data: { color: "#ffb848", percent: percent_through_period } }
-          %span #{percent_through_period}%
+        .number.visits{data: { color: "#ffb848", percent: budget_report.percent_through_period } }
+          %span #{budget_report.percent_through_period}%
         .title
           Through this fortnight
           %i.m-icon-swapright
     .col-xs-6
       .easy-pie-chart
-        .number.transactions{data: { percent: (spend_as_percent_of_on_track_spend > 100 ? 100 : spend_as_percent_of_on_track_spend.to_i) } }
-          %span #{spend_as_percent_of_on_track_spend}%
+        .number.transactions{data: { percent: (budget_report.ahead_of_on_track_spend? ? 100 : budget_report.spend_as_percent_of_on_track_spend) } }
+          %span #{budget_report.spend_as_percent_of_on_track_spend}%
         .title
           Of on-track spend
           %i.m-icon-swapright
@@ -26,11 +21,11 @@
 
   .row
     .col-md-4.col-sm-6
-      .dashboard-stat{ class: total_spend > budget.total ? 'red' : 'green'}
+      .dashboard-stat{ class: budget_report.over_spent? ? 'red' : 'green'}
         .visual
           %i.ion-ios-pie-outline
         .details
-          .number= total_spend
+          .number= budget_report.spend
           .desc Spent
         = link_to reconcile_accounts_path, class: 'more' do
           View unreconciled expenses
@@ -52,7 +47,7 @@
         .visual
           %i.ion-ios-cart-outline
         .details
-          .number= budget.accounts.sum(:balance)
+          .number= budget_report.balance
           .desc Available
         = link_to accounts_path, class: 'more' do
           View accounts
