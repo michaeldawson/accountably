@@ -26,7 +26,7 @@ class Report
   end
 
   def balance
-    raise NotImplementedError('Reporting on previous balances not yet supported') unless cycle.current?
+    raise NotImplementedError.new('Reporting on previous balances not yet supported') unless cycle.current?
     reportable_balance
   end
 end
