@@ -34,6 +34,12 @@ class Budget < ApplicationRecord
     @default_account ||= accounts.find_by(default: true) || accounts.create!(default_account_attributes)
   end
 
+  def create_next_pay_day
+    return pay_days.create(effective_date: first_pay_day) unless last_pay_day.present?
+    return if current_cycle.current?
+    pay_days.create(effective_date: current_cycle.end_date)
+  end
+
   private
 
   def current_cycle_start

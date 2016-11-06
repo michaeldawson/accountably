@@ -102,4 +102,60 @@ RSpec.describe Budget, type: :model do
       end
     end
   end
+
+  describe '#create_next_pay_day' do
+    context 'when there is no previous pay day' do
+      it 'creates a new pay day on the date of the first pay day' do
+        budget.save!
+
+        expect {
+          budget.create_next_pay_day
+        }.to change {
+          PayDay.count
+        }.by(1)
+
+        pay_day = PayDay.last
+        expect(pay_day.effective_date).to eq(budget.first_pay_day)
+      end
+    end
+
+    context 'when the current cycle is current' do
+      before do
+        budget.save!
+        budget.create_next_pay_day
+      end
+
+      it "doesn't create a new pay day" do
+        expect {
+          budget.create_next_pay_day
+        }.not_to change {
+          PayDay.count
+        }
+      end
+    end
+
+    context 'when the current cycle is in the past' do
+      before do
+        Timecop.freeze(3.weeks.ago) do
+          budget.save!
+          budget.create_next_pay_day
+        end
+      end
+
+      let!(:previous_cycle_end_date) { budget.current_cycle.end_date }
+
+      it 'creates a new pay day at the end date of the previous cycle' do
+        expect(budget.current_cycle).not_to be_current
+
+        expect {
+          budget.create_next_pay_day
+        }.to change {
+          PayDay.count
+        }.by(1)
+
+        pay_day = PayDay.last
+        expect(pay_day.effective_date).to eq(previous_cycle_end_date)
+      end
+    end
+  end
 end

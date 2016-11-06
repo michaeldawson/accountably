@@ -8,7 +8,7 @@ class BudgetController < ApplicationController
   end
 
   def create
-    if budget.save && budget.pay_days.create(effective_date: budget.first_pay_day)
+    if budget.save && budget.create_next_pay_day
       flash[:notice] = 'Budget was saved'
       redirect_to budget_path
     else
