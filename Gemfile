@@ -26,15 +26,6 @@ gem 'headless'
 # Background jobs
 gem 'sidekiq'
 
-group :development, :test do
-  gem 'sqlite3'
-  gem 'byebug'
-  gem 'rspec-rails'
-  gem 'database_cleaner'
-  gem 'factory_girl_rails'
-  gem 'zeus'
-end
-
 group :development do
   # Style guides
   gem 'overcommit', require: false
@@ -47,6 +38,19 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.2'
   gem 'capistrano-unicorn-nginx', github: 'capistrano-plugins/capistrano-unicorn-nginx'
+end
+
+group :development, :test do
+  gem 'sqlite3'
+  gem 'byebug'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'zeus'
+end
+
+group :test do
+  gem 'timecop'
 end
 
 group :production do
