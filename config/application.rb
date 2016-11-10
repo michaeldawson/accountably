@@ -21,8 +21,11 @@ module Accountable
     config.autoload_paths += Dir["#{config.root}/lib/accountably/**/"]
 
     config.generators do |g|
-      g.view_specs false
-      g.helper_specs false
+      g.template_engine nil
+      g.test_framework nil
+      g.assets false
+      g.helper false
+      g.stylesheets false
     end
   end
 end
