@@ -30,8 +30,9 @@ class Budget < ApplicationRecord
     @current_cycle ||= Cycle.new(current_cycle_start, cycle_length)
   end
 
+  # Transactions go into this account before they're categorised.
   def default_account
-    @default_account ||= accounts.find_by(default: true) || accounts.create!(default_account_attributes)
+    @default_account ||= accounts.uncategorised.first || accounts.uncategorised.create!(name: 'Uncategorised')
   end
 
   def create_next_pay_day
@@ -48,9 +49,5 @@ class Budget < ApplicationRecord
 
   def last_pay_day
     @last_pay_day ||= pay_days.order(:effective_date).last
-  end
-
-  def default_account_attributes
-    { default: true, name: 'Uncategorised', amount: 0, balance: 0 }
   end
 end

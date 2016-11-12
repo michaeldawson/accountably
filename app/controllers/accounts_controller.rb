@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   end
 
   def reconcile
-    @account = current_budget.accounts.uncategorised.first
+    @account = current_budget.default_account
     render 'show'
   end
 
