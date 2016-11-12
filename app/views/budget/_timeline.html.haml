@@ -1,5 +1,6 @@
-.progress
-  .progress-bar.progress-bar-info{ style: "width: #{report.percent_through_period}%" }
+- unless budget_report.past?
+  .progress
+    .progress-bar.progress-bar-info{ style: "width: #{report.percent_through_period}%" }
 
 .clearfix
   .budgetTimelineDate From #{formatted_date(report.cycle_start_date)}

@@ -4,6 +4,9 @@
 class Cycle
   attr_reader :start_date, :end_date, :length
 
+  delegate :past?, to: :end_date
+  delegate :future?, to: :start_date
+
   def initialize(start_date, length)
     @start_date = start_date.to_date
     @length = length

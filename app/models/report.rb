@@ -2,7 +2,7 @@
 # account.
 
 class Report
-  delegate :percent_through_period, to: :cycle
+  delegate :percent_through_period, :past?, :present?, to: :cycle
 
   def spend
     @spend ||= expenses.sum(:amount)
