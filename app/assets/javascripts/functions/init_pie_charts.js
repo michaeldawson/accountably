@@ -1,4 +1,4 @@
-$(document).on('ready', function() {
+function initPieCharts() {
   function colorFromPercentage(percentage) {
     var neg = percentage < 0 ? -1 : 1;
 
@@ -12,16 +12,18 @@ $(document).on('ready', function() {
   function rgbRange(number) {
     number = number < 0 ? 0 : number;
     number = number > 255 ? 255 : number;
-    return number
+    return number;
   }
 
-  function rgbToHex(R,G,B) {return toHex(R)+toHex(G)+toHex(B)}
+  function rgbToHex(R,G,B) {
+    return toHex(R)+toHex(G)+toHex(B);
+  }
+
   function toHex(n) {
-   n = parseInt(n,10);
-   if (isNaN(n)) return "00";
-   n = Math.max(0,Math.min(n,255));
-   return "0123456789ABCDEF".charAt((n-n%16)/16)
-        + "0123456789ABCDEF".charAt(n%16);
+    n = parseInt(n, 10);
+    if (isNaN(n)) return "00";
+    n = Math.max(0,Math.min(n, 255));
+    return "0123456789ABCDEF".charAt((n - n % 16) / 16) + "0123456789ABCDEF".charAt(n % 16);
   }
 
   $('.easy-pie-chart .number').each(function() {
@@ -33,5 +35,5 @@ $(document).on('ready', function() {
       lineWidth: 3,
       barColor: $this.data('color') || colorFromPercentage
     });
-  })
-})
+  });
+}

@@ -16,4 +16,5 @@
 //= require jquery.easy-pie-chart
 //= require_tree ./lib
 //= require_tree ./functions
+//= require ./page_specific_javascript
 //= require_tree ./app
