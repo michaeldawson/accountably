@@ -1,9 +1,18 @@
 = simple_form_for budget, url: budget_path, remote: true, html: { class: 'add_remove_fields' } do |form|
   .row
     .col-sm-4= form.input :cycle_length, as: :select, collection: Budget::CYCLE_LENGTHS
+    .col-sm-4= form.input :target, label: 'Target amount'
     .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker
   = form.label 'Items'
-  = form.fields_for :accounts do |account_form|
-    = render 'account_fields', form: account_form
-  = link_to_add_fields 'Add an item', form, :accounts
-  = form.submit 'Save'
+  %table.table.budgetItems
+    %thead
+      %tr
+        %th Account
+        %th Amount
+        %th
+    %tbody
+      = form.fields_for :accounts do |account_form|
+        = render 'account_fields', form: account_form
+      %tr.addFieldsContext
+        %td{ colspan: '100%' }= link_to_add_fields 'Add an item', form, :accounts
+  = form.submit 'Save', class: 'btn btn-success'

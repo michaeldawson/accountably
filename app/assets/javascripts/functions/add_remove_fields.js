@@ -15,14 +15,14 @@ $.widget('custom.addRemoveFields', {
         time   = new Date().getTime();
 
     var content   = $(this).data('fields').replace(regexp, time);
-    $(this).before(content);
+    $(this).closest('.addFieldsContext').before(content);
 
     e.preventDefault();
   },
 
   _handleRemoveFields: function(e) {
     $(this).prev('input[type=hidden]').val('1');
-    $(this).closest('fieldset').hide();
+    $(this).closest('.fieldset').hide();
     e.preventDefault();
   },
 });
