@@ -16,6 +16,7 @@ feature 'Budgets', js: true do
         expect(page).to have_content 'Setup budget'
 
         select 'weekly', from: 'Cycle length'
+        fill_in 'Total amount', with: 100
         fill_in 'First pay day', with: payday.strftime("%d/%m/%Y")
 
         fill_in 'Name', with: 'Rent'

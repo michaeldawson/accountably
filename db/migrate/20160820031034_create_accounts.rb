@@ -3,8 +3,8 @@ class CreateAccounts < ActiveRecord::Migration
     create_table :accounts do |t|
       t.references :budget, index: true, foreign_key: true
       t.string :name
-      t.integer :amount
-      t.integer :balance, default: 0
+      t.integer :amount, null: false, default: 0
+      t.integer :balance, null: false, default: 0
       t.boolean :default, null: false, default: false
 
       t.datetime :deleted_at

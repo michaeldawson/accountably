@@ -1,4 +1,6 @@
 class BudgetController < ApplicationController
+  respond_to :js
+
   before_action :authenticate_user!
   before_action :require_current_budget, except: %i(new create)
 
@@ -52,6 +54,6 @@ class BudgetController < ApplicationController
   end
 
   def permitted_budget_attributes
-    [:cycle_length, :first_pay_day, accounts_attributes: [:id, :name, :amount, :_destroy]]
+    [:cycle_length, :first_pay_day, :target, accounts_attributes: [:id, :name, :amount, :_destroy]]
   end
 end

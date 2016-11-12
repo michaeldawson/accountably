@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20160930015452) do
   create_table "accounts", force: :cascade do |t|
     t.integer  "budget_id"
     t.string   "name"
-    t.integer  "amount"
-    t.integer  "balance",    default: 0
+    t.integer  "amount",     default: 0,     null: false
+    t.integer  "balance",    default: 0,     null: false
     t.boolean  "default",    default: false, null: false
     t.datetime "deleted_at"
     t.datetime "created_at",                 null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20160930015452) do
 
   create_table "budgets", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "target"
     t.date     "first_pay_day"
     t.string   "cycle_length"
     t.datetime "created_at",    null: false

@@ -1,6 +1,8 @@
 class Budget < ApplicationRecord
   CYCLE_LENGTHS = %w(weekly fortnightly monthly).freeze
 
+  attribute :target, MoneyType.new
+
   belongs_to :user
   has_many :accounts, inverse_of: :budget
   has_many :transaction_patterns, through: :accounts
@@ -10,7 +12,7 @@ class Budget < ApplicationRecord
   has_many :expenses, through: :accounts
 
   validates :user, presence: true
-  validates :accounts, length: { minimum: 1 }
+  validates :target, presence: true
   validates :first_pay_day, presence: true
   validates :cycle_length, inclusion: { in: CYCLE_LENGTHS }
 

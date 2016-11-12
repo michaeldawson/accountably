@@ -5,12 +5,11 @@ RSpec.describe Budget, type: :model do
   let(:valid_attributes) {
     {
       user: FactoryGirl.build_stubbed(:user),
+      target: 100.0,
       cycle_length: 'weekly',
       first_pay_day: Time.current.to_date,
-      accounts: accounts
     }
   }
-  let(:accounts) { [Account.new(name: 'Rent', amount: 1000)] }
 
   describe 'Validation' do
     it 'should be valid with valid attributes' do
@@ -22,6 +21,11 @@ RSpec.describe Budget, type: :model do
       expect(budget).not_to be_valid
     end
 
+    it 'should not be valid without a target amount' do
+      valid_attributes[:target] = nil
+      expect(budget).not_to be_valid
+    end
+
     it 'should not be valid without a cycle length' do
       valid_attributes[:cycle_length] = nil
       expect(budget).not_to be_valid
@@ -29,11 +33,6 @@ RSpec.describe Budget, type: :model do
 
     it 'should not be valid with an invalid cycle length' do
       valid_attributes[:cycle_length] = 'foobar'
-      expect(budget).not_to be_valid
-    end
-
-    it 'should not be valid without at least one account' do
-      valid_attributes[:accounts] = []
       expect(budget).not_to be_valid
     end
   end
