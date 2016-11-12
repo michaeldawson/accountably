@@ -3,6 +3,8 @@ class CreateBankAccounts < ActiveRecord::Migration
     create_table :bank_accounts do |t|
       t.references :login, index: true, foreign_key: { to_table: :bank_logins }
       t.string :name
+      t.datetime :last_reconciled
+      t.integer :balance
       t.datetime :sync_from
 
       t.timestamps null: false
