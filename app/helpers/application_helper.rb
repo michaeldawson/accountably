@@ -5,4 +5,8 @@ module ApplicationHelper
       action: action_name
     }
   end
+
+  def formatted_date(date)
+    date.strftime('%a, %d %b')
+  end
 end

@@ -17,6 +17,11 @@ class Report
     ((spend / on_track_spend) * 100).round
   end
 
+  def spend_as_percent_of_budget
+    return 0 if budgeted.zero?
+    ((spend / budgeted) * 100).round
+  end
+
   def ahead_of_on_track_spend?
     spend > on_track_spend
   end

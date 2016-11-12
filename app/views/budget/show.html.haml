@@ -1,20 +1,24 @@
 - content_for :page_title, 'Budget'
 
 .container
+  = render 'timeline', report: budget_report
+
+  .margin-top-20
+
   .row
     .col-xs-6
       .easy-pie-chart
-        .number.visits{data: { color: "#ffb848", percent: budget_report.percent_through_period } }
-          %span #{budget_report.percent_through_period}%
-        .title
-          Through this fortnight
-          %i.m-icon-swapright
-    .col-xs-6
-      .easy-pie-chart
-        .number.transactions{data: { percent: (budget_report.ahead_of_on_track_spend? ? 100 : budget_report.spend_as_percent_of_on_track_spend) } }
+        .number{ data: { percent: [budget_report.spend_as_percent_of_on_track_spend, 100].min } }
           %span #{budget_report.spend_as_percent_of_on_track_spend}%
         .title
           Of on-track spend
+          %i.m-icon-swapright
+    .col-xs-6
+      .easy-pie-chart
+        .number{ data: { percent: [budget_report.spend_as_percent_of_budget, 100].min } }
+          %span #{budget_report.spend_as_percent_of_budget}%
+        .title
+          Of budget total
           %i.m-icon-swapright
 
   .margin-top-20

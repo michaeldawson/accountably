@@ -1,5 +1,7 @@
 class Report
   class BudgetReport < Report
+    delegate :start_date, :end_date, :percent_through_period, to: :cycle, prefix: true
+
     def initialize(budget, cycle = nil)
       @budget = budget
       @cycle = cycle || budget.current_cycle
