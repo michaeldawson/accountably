@@ -13,6 +13,9 @@ gem 'haml-rails'
 # Configuration
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+# Models
+gem 'paranoia', '~> 2.2'
+
 # Auth
 gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
 gem 'simple_form'

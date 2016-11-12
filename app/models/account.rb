@@ -1,4 +1,6 @@
 class Account < ApplicationRecord
+  acts_as_paranoid
+
   attribute :amount, MoneyType.new
   attribute :balance, MoneyType.new
 

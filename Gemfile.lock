@@ -160,6 +160,8 @@ GEM
     overcommit (0.37.0)
       childprocess (~> 0.5.8)
       iniparse (~> 1.4)
+    paranoia (2.2.0)
+      activerecord (>= 4.0, < 5.1)
     parser (2.3.1.4)
       ast (~> 2.2)
     poltergeist (1.11.0)
@@ -307,6 +309,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   overcommit
+  paranoia (~> 2.2)
   poltergeist (~> 1.8)
   rails (~> 5.0.0)
   rspec-rails

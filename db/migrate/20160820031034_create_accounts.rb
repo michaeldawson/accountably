@@ -7,7 +7,10 @@ class CreateAccounts < ActiveRecord::Migration
       t.integer :balance, default: 0
       t.boolean :default, null: false, default: false
 
+      t.datetime :deleted_at
       t.timestamps null: false
     end
+
+    add_index :accounts, :deleted_at
   end
 end
