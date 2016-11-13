@@ -36,4 +36,25 @@ function initPieCharts() {
       barColor: $this.data('color') || colorFromPercentage
     });
   });
+
+  var accountsPieChart = $('#accountsPieChart');
+
+  $.plot(accountsPieChart, accountsPieChart.data('chart'), {
+    series: {
+      pie: {
+        show: true,
+        combine: {
+          color: '#999',
+          threshold: 0.02
+        }
+      },
+    },
+    legend: {
+      show: false
+    },
+    grid: {
+      hoverable: true,
+      clickable: true
+    }
+  });
 }

@@ -7,6 +7,10 @@ class Report
       @cycle = cycle || budget.current_cycle
     end
 
+    def expenses_by_account
+      expenses.group(:account).sum(:amount)
+    end
+
     private
 
     attr_reader :budget, :cycle

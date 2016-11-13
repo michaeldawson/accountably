@@ -41,3 +41,8 @@
         = link_to accounts_path, class: 'more' do
           View accounts
           %i.ion-arrow-right-c
+
+  .row
+    .col-sm-8.col-sm-offset-2
+      - chart_data = budget_report.expenses_by_account.map { |k, v| { label: k.name, data: v.dollars} }
+      #accountsPieChart.plotPieChart{ data: { chart: chart_data.to_json } }

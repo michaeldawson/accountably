@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.easy-pie-chart
+//= require ./lib/flot/flot
 //= require_tree ./lib
 //= require_tree ./functions
 //= require ./page_specific_javascript

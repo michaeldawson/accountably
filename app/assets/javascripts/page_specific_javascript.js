@@ -21,7 +21,6 @@ UTIL = {
 
   runCode: function(controller, action) {
     if( APP[controller] && typeof APP[controller][action] == "function" ) {
-      console.log('running code for '+ controller + ' ' + action);
       APP[controller][action]();
     }
   }
