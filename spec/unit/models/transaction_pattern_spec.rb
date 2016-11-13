@@ -31,6 +31,11 @@ RSpec.describe TransactionPattern, type: :model do
       it { assert transaction_pattern.matches?(description) }
     end
 
+    context 'for a transaction description that fully matches with case difference' do
+      let(:description) { 'Some string of WORDS' }
+      it { assert transaction_pattern.matches?(description) }
+    end
+
     context 'for a transaction description that contains the pattern' do
       let(:description) { 'Some string of words and some other words' }
       it { assert transaction_pattern.matches?(description) }

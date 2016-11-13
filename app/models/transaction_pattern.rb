@@ -19,7 +19,7 @@ class TransactionPattern < ApplicationRecord
   private
 
   def pattern_regexp
-    Regexp.new(pattern)
+    Regexp.new(pattern, Regexp::IGNORECASE)
   end
 
   def budget
