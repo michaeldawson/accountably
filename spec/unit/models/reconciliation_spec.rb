@@ -25,9 +25,23 @@ RSpec.describe Reconciliation do
         expect { reconciliation.perform }.to change { account2.reload.balance.dollars }.by(-1)
       end
 
+      context 'and no matching pattern' do
+        before :each do
+          reconcilation_params.merge!(save_matching_pattern: '0', matching_pattern: 'String')
+        end
+
+        it "doesn't create a transaction pattern for the account" do
+          expect {
+            reconciliation.perform
+          }.not_to change {
+            TransactionPattern.count
+          }
+        end
+      end
+
       context 'and a matching pattern' do
         before :each do
-          reconcilation_params.merge!(save_matching_pattern: true, matching_pattern: 'Some pattern')
+          reconcilation_params.merge!(save_matching_pattern: '1', matching_pattern: 'Some pattern')
         end
 
         it 'creates a transaction pattern for the account' do

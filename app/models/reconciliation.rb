@@ -6,6 +6,11 @@ class Reconciliation
   validates :expense_id, presence: true
   validates :account_id, presence: true
 
+  def initialize(*args)
+    super(*args)
+    self.save_matching_pattern = save_matching_pattern.to_s.to_bool
+  end
+
   def perform
     return false unless valid?
     transfer_transaction

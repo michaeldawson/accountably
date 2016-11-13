@@ -36,6 +36,22 @@ feature 'Reconcilation', js: true do
       }.to change {
         other_account.reload.balance
       }.by(-transaction.amount)
+
+      expect(TransactionPattern.count).to be_zero
+    end
+
+    scenario 'setting a matching pattern creates a new transaction pattern' do
+      visit transaction_expense_path(transaction)
+
+      select other_account.name, from: 'Account'
+      check 'Save matching pattern'
+
+      expect {
+        click_on 'Reconcile!'
+        expect(page).to have_content('Transaction was reconciled')
+      }.to change {
+        TransactionPattern.count
+      }.by(1)
     end
   end
 end
