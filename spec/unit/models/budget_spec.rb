@@ -83,7 +83,7 @@ RSpec.describe Budget, type: :model do
       end
 
       context 'when the last pay day is some date in the past' do
-        let(:date_in_the_past) { Time.current.to_date - 3.weeks - 2.days }
+        let(:date_in_the_past) { Time.current.to_date - 1.week - 2.days }
 
         before :each do
           valid_attributes[:first_pay_day] = date_in_the_past
@@ -92,11 +92,17 @@ RSpec.describe Budget, type: :model do
           expect(budget.pay_days.map(&:effective_date)).to eq [date_in_the_past]
         end
 
-        it 'returns the period from the last pay day onwards' do
+        it 'creates a new payday, so that the current cycle is current' do
           start_date = date_in_the_past
           end_date = date_in_the_past + 1.week
 
-          expect(budget.current_cycle.date_range).to eq(start_date..end_date)
+          expect {
+            budget.current_cycle
+          }.to change {
+            PayDay.count
+          }.by(1)
+
+          expect(budget.current_cycle).to be_current
         end
       end
     end

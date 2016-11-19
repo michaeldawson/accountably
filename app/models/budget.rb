@@ -29,7 +29,12 @@ class Budget < ApplicationRecord
   end
 
   def current_cycle
-    @current_cycle ||= Cycle.new(current_cycle_start, cycle_length)
+    @current_cycle ||= Cycle.new(current_cycle_start, cycle_length).tap do |cycle|
+      while cycle.past?
+        next_pay_day = pay_days.create(effective_date: cycle.end_date)
+        cycle.start_date = next_pay_day.effective_date
+      end
+    end
   end
 
   # Transactions go into this account before they're categorised.
@@ -37,19 +42,13 @@ class Budget < ApplicationRecord
     @default_account ||= accounts.uncategorised.first || accounts.uncategorised.create!(name: 'Uncategorised')
   end
 
-  def create_next_pay_day
-    return pay_days.create(effective_date: first_pay_day) unless last_pay_day.present?
-    return if current_cycle.current?
-    pay_days.create(effective_date: current_cycle.end_date)
-  end
-
   private
 
   def current_cycle_start
-    @current_cycle_start ||= last_pay_day&.effective_date || first_pay_day
+    last_pay_day&.effective_date || first_pay_day
   end
 
   def last_pay_day
-    @last_pay_day ||= pay_days.order(:effective_date).last
+    pay_days.order(:effective_date).last
   end
 end

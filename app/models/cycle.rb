@@ -2,7 +2,7 @@
 # for each budget cycle, to make it available in reports and views.
 
 class Cycle
-  attr_reader :start_date, :end_date, :length
+  attr_accessor :start_date, :length
 
   delegate :past?, to: :end_date
   delegate :future?, to: :start_date
@@ -10,7 +10,10 @@ class Cycle
   def initialize(start_date, length)
     @start_date = start_date.to_date
     @length = length
-    @end_date ||= (start_date + length_as_date_delta).to_date
+  end
+
+  def end_date
+    (start_date + length_as_date_delta).to_date
   end
 
   def date_range
