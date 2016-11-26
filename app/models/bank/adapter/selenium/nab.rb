@@ -1,3 +1,4 @@
+require_dependency 'bank/adapter/selenium'
 require_dependency 'bank/adapter/selenium/nab/login'
 require_dependency 'bank/adapter/selenium/nab/account'
 
@@ -24,7 +25,8 @@ module Bank
         attr_accessor :logged_in
 
         def login
-          self.logged_in = Login.new(session, bank_login).login
+          success = Login.new(session: session, bank_login: bank_login).login
+          self.logged_in = success
         end
       end
     end

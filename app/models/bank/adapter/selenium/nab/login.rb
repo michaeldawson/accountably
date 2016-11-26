@@ -1,3 +1,5 @@
+require_dependency 'bank/adapter/selenium/nab'
+
 module Bank
   module Adapter
     class Selenium
@@ -5,12 +7,13 @@ module Bank
         class Login
           LOGIN_PATH = 'https://ib.nab.com.au/nabib/index.jsp'.freeze
 
-          def initialize(session, bank_login)
+          def initialize(session:, bank_login:)
             @session = session
             @bank_login = bank_login
           end
 
           def login
+            raise 'This login lacks security credentials' if bank_login.credentials.blank?
             return false unless session.current_path.blank?
 
             session.visit LOGIN_PATH

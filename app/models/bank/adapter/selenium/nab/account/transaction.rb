@@ -1,7 +1,7 @@
 module Bank
   module Adapter
     class Selenium
-      class NAB
+      class NAB < Bank::Adapter::Selenium
         class Account
           class Transaction
             def initialize(raw_data:, bank_account:, accept_transactions_since: nil, transaction_patterns: [])
