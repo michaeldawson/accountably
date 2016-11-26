@@ -3,7 +3,7 @@ class PayDay < ApplicationRecord
   has_many :transactions, as: :source, class_name: 'Transaction::Income'
 
   validates :budget, presence: true
-  validates :effective_date, presence: true
+  validates :effective_date, presence: true, uniqueness: { scope: :budget }
 
   after_create :apply!
   def apply!
