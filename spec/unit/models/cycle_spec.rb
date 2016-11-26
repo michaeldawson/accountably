@@ -39,8 +39,8 @@ RSpec.describe Cycle do
       let(:start_date) { 1.month.ago }
       let(:length) { 'fortnightly' }
 
-      it 'returns false' do
-        expect(cycle.days_remaining).to eq(false)
+      it 'returns 0' do
+        expect(cycle.days_remaining).to eq(0)
       end
     end
 

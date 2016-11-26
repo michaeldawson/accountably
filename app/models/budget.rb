@@ -37,6 +37,10 @@ class Budget < ApplicationRecord
     end
   end
 
+  def create_first_pay_day
+    pay_days.create(effective_date: first_pay_day)
+  end
+
   # Transactions go into this account before they're categorised.
   def default_account
     @default_account ||= accounts.uncategorised.first || accounts.uncategorised.create!(name: 'Uncategorised')
@@ -45,7 +49,7 @@ class Budget < ApplicationRecord
   private
 
   def current_cycle_start
-    last_pay_day&.effective_date || first_pay_day
+    (last_pay_day || create_first_pay_day).effective_date
   end
 
   def last_pay_day

@@ -25,7 +25,7 @@ class Cycle
   end
 
   def days_remaining
-    return false unless current?
+    return 0 unless current?
     (end_date.to_date - Time.current.to_date).to_i
   end
 
