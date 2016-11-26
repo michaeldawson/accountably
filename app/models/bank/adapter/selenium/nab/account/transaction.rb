@@ -12,12 +12,12 @@ module Bank
             end
 
             def parse!
-              return false if amount.zero?
+              return if amount.zero?
               return false if effective_date_earlier_than_threshold?
+              return false if transaction_already_exists?
 
-              return if transaction_already_exists?
-
-              transaction_klass.create!(transaction_attributes)
+              transaction = transaction_klass.new(transaction_attributes)
+              transaction.save
             end
 
             private

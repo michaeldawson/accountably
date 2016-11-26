@@ -11,7 +11,11 @@ module Bank
 
         def reconcile(bank_account, since: nil)
           login unless logged_in
-          Account.new(session, bank_account).reconcile(since: since)
+          account = Account.new(session: session, bank_account: bank_account)
+          account.reconcile(since: since)
+          cleanup
+
+          bank_account.update!(last_reconciled: Time.current)
         end
 
         private
