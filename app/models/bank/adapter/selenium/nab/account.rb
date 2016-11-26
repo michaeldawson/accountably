@@ -5,6 +5,10 @@ module Bank
     class Selenium
       class NAB < Bank::Adapter::Selenium
         class Account
+          ACCOUNT_ROW_SELECTOR = '#accountBalances_nonprimary_subaccounts tr'.freeze
+          TRANSACTION_ROW_SELECTOR = '#transactionHistoryTable tbody tr'.freeze
+          NEXT_PAGE_WRAPPER_SELECTOR = '#someItems'.freeze
+
           def initialize(session, bank_account)
             @session = session
             @bank_account = bank_account
@@ -20,7 +24,7 @@ module Bank
           end
 
           def go_to_account_page
-            row = session.find('#accountBalances_nonprimary_subaccounts tr', text: bank_account.name)
+            row = session.find(ACCOUNT_ROW_SELECTOR, text: bank_account.name)
 
             session.within row do
               session.click_link('Transactions')
@@ -37,7 +41,7 @@ module Bank
           attr_reader :session, :bank_account
 
           def transaction_rows
-            session.all('#transactionHistoryTable tbody tr')
+            session.all(TRANSACTION_ROW_SELECTOR)
           end
 
           def parse_row(row, accept_transactions_since: nil)
@@ -54,9 +58,9 @@ module Bank
           end
 
           def next_page
-            return false unless session.has_css?('#someItems')
+            return false unless session.has_css?(NEXT_PAGE_WRAPPER_SELECTOR)
 
-            session.within '#someItems', match: :first do
+            session.within NEXT_PAGE_WRAPPER_SELECTOR, match: :first do
               return false unless session.has_link?('Next')
               session.click_on 'Next'
             end
