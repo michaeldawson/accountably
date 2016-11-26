@@ -43,15 +43,4 @@ RSpec.describe Report::BudgetReport do
       end
     end
   end
-
-  describe '#on_track_spend' do
-    before do
-      allow(budget).to receive(:total).and_return(200)
-      allow(cycle).to receive(:percent_through_period).and_return(50)
-    end
-
-    it 'returns the total multipled by the percent through the cycle %' do
-      expect(report.on_track_spend).to eq(100)
-    end
-  end
 end
