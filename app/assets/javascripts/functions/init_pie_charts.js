@@ -31,7 +31,7 @@ function initPieCharts() {
 
     $this.easyPieChart({
       animate: 1000,
-      size: 75,
+      size: 70,
       lineWidth: 3,
       barColor: $this.data('color') || colorFromPercentage
     });
