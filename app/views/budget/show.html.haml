@@ -21,17 +21,6 @@
           %i.ion-arrow-right-c
 
     .col-md-4.col-sm-6
-      .dashboard-stat.blue
-        .visual
-          %i.ion-ios-settings
-        .details
-          .number= budget.total
-          .desc Budgeted
-        = link_to edit_budget_path, class: 'more' do
-          Manage budget
-          %i.ion-arrow-right-c
-
-    .col-md-4.col-sm-6
       .dashboard-stat.purple
         .visual
           %i.ion-ios-cart-outline
@@ -41,8 +30,3 @@
         = link_to accounts_path, class: 'more' do
           View accounts
           %i.ion-arrow-right-c
-
-  .row
-    .col-sm-8.col-sm-offset-2
-      - chart_data = budget_report.expenses_by_account.map { |k, v| { label: k.name, data: v.dollars} }
-      #accountsPieChart.plotPieChart{ data: { chart: chart_data.to_json } }
