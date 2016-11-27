@@ -16,6 +16,6 @@
             %td= bank_account.balance
             %td
               - if bank_account.last_reconciled
-                = bank_account.last_reconciled
+                = formatted_date bank_account.last_reconciled
               - else
                 %i never

@@ -10,15 +10,16 @@
         .status-title= formatted_date(budget_report.cycle_start_date)
         .status-number= formatted_date(budget_report.cycle_end_date)
 
-.margin-top-20
-
 .row
   .col-sm-4= render 'stat', number: budget_report.spend.dollars.to_i, unit: '$',
-      label: 'Spent', progress_number: '55', progress_label: 'Percent of budget',
+      label: 'Spent in total', progress_number: '55', progress_label: 'Percent of budget',
       icon_class: 'ion-ios-cart-outline'
   .col-sm-4= render 'stat', number: budget_report.balance.dollars.to_i, unit: '$',
-      label: 'Available', progress_number: '55', progress_label: 'Progress',
+      label: 'Available to spend', progress_number: '55', progress_label: 'Progress',
       icon_class: 'ion-social-usd-outline'
   .col-sm-4= render 'stat', number: 27, unit: '',
       label: 'Unreconciled Transactions', progress_number: '98', progress_label: 'Reconciled this fortnight',
       icon_class: 'ion-ios-pricetags-outline'
+
+.row
+  = render partial: 'bucket', collection: budget.accounts, as: :account
