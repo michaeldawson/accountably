@@ -1,6 +1,100 @@
 /***
 Dashboard stats
 ***/
+.dashboard-stat2.bordered {
+  border: 1px solid #e7ecf1;
+}
+
+.dashboard-stat2 {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  background: #fff;
+  padding: 15px 15px 30px;
+}
+.dashboard-stat2, .dashboard-stat2 .display {
+  margin-bottom: 20px;
+}
+
+.dashboard-stat2 .display .number {
+    float: left;
+    display: inline-block;
+}
+
+.dashboard-stat2 .display .number h3 {
+    margin: 0 0 2px;
+    padding: 0;
+    font-size: 30px;
+    font-weight: 400;
+}
+.font-green-sharp {
+    color: #2ab4c0!important;
+}
+
+.dashboard-stat2 .display .number small {
+    font-size: 13px;
+    color: #AAB5BC;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.dashboard-stat2 .display .icon {
+    display: inline-block;
+    float: right;
+}
+.dashboard-stat2 .display .icon>i {
+    color: #cbd4e0;
+    font-size: 32px;
+}
+.dashboard-stat2 .progress-info {
+    clear: both;
+}
+
+.dashboard-stat2 .progress-info .progress {
+    margin: 0;
+    height: 4px;
+    clear: both;
+    display: block;
+}
+.progress {
+    border: 0;
+    background-image: none;
+    filter: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+.progress-bar.green-sharp {
+    background: #2ab4c0!important;
+    color: #FFF!important;
+}
+.dashboard-stat2 .progress-info .status {
+    margin-top: 5px;
+    font-size: 11px;
+    color: #AAB5BC;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.dashboard-stat2 .progress-info .status .status-title {
+    float: left;
+    display: inline-block;
+}
+.dashboard-stat2 .progress-info .status .status-number {
+    float: right;
+    display: inline-block;
+}
+
+
+
 .dashboard-stat {
   margin-bottom: 25px;
 }
@@ -28,7 +122,7 @@ Dashboard stats
 .dashboard-stat .visual i {
   font-size: 55px;
   line-height: 55px;
-  color: #fff;
+  color: #AAB5BC;
 }
 
 .dashboard-stat .details {
@@ -45,7 +139,7 @@ Dashboard stats
   letter-spacing: -1px;
   margin-bottom: 5px;
   font-weight: 300;
-  color: #fff;
+  color: #AAB5BC;
 }
 
 .dashboard-stat .details .desc {
@@ -53,7 +147,7 @@ Dashboard stats
   font-size: 16px;
   letter-spacing: 0px;
   font-weight: 300;
-  color: #fff;
+  color: #AAB5BC;
 }
 
 .dashboard-stat .more {
@@ -63,7 +157,7 @@ Dashboard stats
   text-transform: uppercase;
   font-weight: 300;
   font-size: 11px;
-  color: #fff;
+  color: #AAB5BC;
   opacity: 0.7;
   filter: alpha(opacity=70);
 }
@@ -79,43 +173,43 @@ Dashboard stats
   margin-top: 1px;
   float: right;
 }
-
-.dashboard-stat.blue {
-  background-color: #27a9e3;
-}
-
-.dashboard-stat.blue .more {
-  background-color: #208dbe;
-}
-
-.dashboard-stat.green {
-  background-color: #28b779;
-}
-
-.dashboard-stat.green .more {
-  background-color: #10a062;
-}
-
-.dashboard-stat.red {
-  background-color: #e7191b;
-}
-
-.dashboard-stat.red .more {
-  background-color:#bc0d0e;
-}
-
-.dashboard-stat.yellow {
-  background-color: #ffb848;
-}
-
-.dashboard-stat.yellow .more {
-  background-color: #cb871b;
-}
-
-.dashboard-stat.purple {
-  background-color: #852b99;
-}
-
-.dashboard-stat.purple .more {
-  background-color: #6e1881;
-}
+//
+// .dashboard-stat.blue {
+//   background-color: #27a9e3;
+// }
+//
+// .dashboard-stat.blue .more {
+//   background-color: #208dbe;
+// }
+//
+// .dashboard-stat.green {
+//   background-color: #28b779;
+// }
+//
+// .dashboard-stat.green .more {
+//   background-color: #10a062;
+// }
+//
+// .dashboard-stat.red {
+//   background-color: #e7191b;
+// }
+//
+// .dashboard-stat.red .more {
+//   background-color:#bc0d0e;
+// }
+//
+// .dashboard-stat.yellow {
+//   background-color: #ffb848;
+// }
+//
+// .dashboard-stat.yellow .more {
+//   background-color: #cb871b;
+// }
+//
+// .dashboard-stat.purple {
+//   background-color: #852b99;
+// }
+//
+// .dashboard-stat.purple .more {
+//   background-color: #6e1881;
+// }
