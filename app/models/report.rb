@@ -8,17 +8,32 @@ class Report
     @spend ||= expenses.sum(:amount)
   end
 
-  def spend_as_percent_of_budget
-    return 0 if budgeted.zero?
-    ((spend / budgeted) * 100).round
+  def spend_as_percent_of_balance
+    return 0 if balance.zero?
+    ((spend / balance) * 100).round
   end
 
   def over_spent?
-    spend > budgeted
+    spend > balance
   end
 
   def balance
     raise NotImplementedError.new('Reporting on previous balances not yet supported') unless cycle.current?
-    reportable_balance
+    @balance ||= reportable_balance
+  end
+
+  private
+
+  # Subclasses must implement these methods
+  def expenses
+    raise NotImplementedError
+  end
+
+  def budgeted
+    raise NotImplementedError
+  end
+
+  def reportable_balance
+    raise NotImplementedError
   end
 end
