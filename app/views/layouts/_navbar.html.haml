@@ -1,23 +1,43 @@
-%nav.navbar.navbar-default
-  .navbar-brand
-    = link_to 'Accountably', root_path
-  .navbar-header
-    %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '.navbar-collapse' } }
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
-
-  .collapse.navbar-collapse
-    %ul.nav.navbar-nav
-      - if user_signed_in?
-        %li= link_to 'Accounts', accounts_path
-        %li= link_to 'Bank Accounts', bank_accounts_path
-        %li.dropdown.pull-right
-          %a.dropdown-toggle{ data: { toggle: 'dropdown' }, href: 'javascript:void(0)' }
+%header
+  .container-fluid
+    .nav-collapse.navbar-collapse.navbar-responsive-collapse.collapse{"aria-expanded" => "false", :style => "height: 0px;"}
+      %ul.nav.navbar-nav
+        %li.logo
+          Accountab
+          %span.ly ly
+        %li.active
+          = link_to root_path do
+            %i.ion-home
+            Dashboard
+        %li
+          = link_to accounts_path do
+            %i.ion-social-usd
+            Accounts
+        %li
+          = link_to edit_budget_path do
             %i.ion-ios-settings
-            Settings
-          %ul.dropdown-menu.dropdown-menu-right
-            %li= link_to 'Manage budget', edit_budget_path
-            %li= link_to 'Logout', destroy_user_session_path
-      - else
-        %li.pull-right= link_to 'Login', new_user_session_path
+            Budget
+
+-# %nav.navbar.navbar-default
+-#   .navbar-brand
+-#     = link_to 'Accountably', root_path
+-#   .navbar-header
+-#     %button.navbar-toggle.collapsed{ data: { toggle: 'collapse', target: '.navbar-collapse' } }
+-#       %span.icon-bar
+-#       %span.icon-bar
+-#       %span.icon-bar
+-#
+-#   .collapse.navbar-collapse
+-#     %ul.nav.navbar-nav
+-#       - if user_signed_in?
+-#         %li
+-#         %li= link_to 'Bank Accounts', bank_accounts_path
+-#         %li.dropdown.pull-right
+-#           %a.dropdown-toggle{ data: { toggle: 'dropdown' }, href: 'javascript:void(0)' }
+-#             %i.ion-ios-settings
+-#             Settings
+-#           %ul.dropdown-menu.dropdown-menu-right
+-#             %li= link_to 'Manage budget', edit_budget_path
+-#             %li= link_to 'Logout', destroy_user_session_path
+-#       - else
+-#         %li.pull-right= link_to 'Login', new_user_session_path

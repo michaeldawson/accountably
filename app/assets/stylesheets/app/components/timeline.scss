@@ -1,0 +1,29 @@
+.budget-cycle-header {
+  span {
+    margin-right: 20px;
+  }
+  .timeline {
+    padding-top: 4px;
+    .progress {
+      height: 5px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+.timeline-status {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #AAB5BC;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.timeline-status .status-title {
+    float: left;
+    display: inline-block;
+}
+.timeline-status .status-number {
+    float: right;
+    display: inline-block;
+}

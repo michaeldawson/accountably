@@ -1,0 +1,47 @@
+header {
+  .nav-collapse {
+    padding-left: 0;
+  }
+  .navbar-brand, .navbar-nav > li > a {
+    text-shadow: none;
+  }
+  ul.nav {
+    width: 100%;
+    .logo {
+      padding: 18px 30px;;
+      font: $header_font;
+      font-weight: 100;
+      font-size: 22px;
+      color: $green;
+      text-transform: uppercase;
+      .ly {
+        margin-left: -3px;
+        color: #fff;
+      }
+    }
+
+    li {
+      a {
+        font: $header_font;
+        font-size: 18px;
+        font-weight: 400;
+        padding: 22px 40px;
+        background: #39424a;
+        color: #636e77;
+        text-transform: uppercase;
+      }
+      &.active {
+        a {
+          background: #f9f9f9;
+          color: #2a3239;
+        }
+      }
+      &:hover, &:focus {
+        a {
+          background-color: $green;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

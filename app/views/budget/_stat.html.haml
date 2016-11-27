@@ -1,0 +1,18 @@
+-# number, unit, label, progress_number, progress_label
+
+.dashboard-stat2.bordered
+  .display.clearfix
+    .number
+      %h3.font-green-sharp
+        %span{"data-counter" => "counterup", "data-value" => "7800"}= number
+        %small.font-green-sharp= unit
+      %small= label
+    .icon
+      %i{ class: icon_class }
+  .progress-info
+    .progress
+      %span.progress-bar.progress-bar-success.green-sharp{:style => "width: #{progress_number}%;"}
+        %span.sr-only= progress_number
+    .status
+      .status-title= progress_label
+      .status-number #{progress_number}%
