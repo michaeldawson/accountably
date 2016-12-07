@@ -5,19 +5,15 @@
         %li.logo
           Accountab
           %span.ly ly
-        %li.active
+        %li{ class: ('active' if current_page?(root_path)) }
           = link_to root_path do
             %i.ion-home
             Dashboard
-        %li
-          = link_to accounts_path do
-            %i.ion-social-usd
-            Accounts
-        %li
+        %li{ class: ('active' if current_page?(edit_budget_path)) }
           = link_to edit_budget_path do
             %i.ion-ios-settings
             Budget
-        %li
+        %li{ class: ('active' if current_page?(bank_accounts_path)) }
           = link_to bank_accounts_path do
             %i.ion-ios-calculator-outline
             Bank Accounts

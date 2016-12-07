@@ -10,11 +10,6 @@ feature 'Accounts' do
       login_as user
     end
 
-    scenario 'I can view all my accounts' do
-      visit accounts_path
-      expect(page).to have_content(account.name)
-    end
-
     scenario 'I can view the page for a account' do
       visit account_path(account)
       expect(page).to have_css('h3.account')

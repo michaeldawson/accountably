@@ -1,7 +1,0 @@
-- account_report = Report::AccountReport.new(account)
-
-%tr
-  %td= link_to account.name, account
-  %td= account.amount
-  %td{ class: ('red' if account_report.over_spent?) }= account_report.spend
-  %td{ class: ('red' if account.balance.negative?) }= account.balance

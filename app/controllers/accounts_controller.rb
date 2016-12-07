@@ -19,10 +19,6 @@ class AccountsController < ApplicationController
 
   private
 
-  helper_method def accounts
-    @accounts ||= current_budget.accounts
-  end
-
   helper_method def account
     @account ||= Account.find(params[:id])
   end

@@ -10,6 +10,7 @@ class Report
 
   def spend_as_percent_of_balance
     return 0 if balance.zero?
+    return 100 if balance.negative?
     ((spend / balance) * 100).round
   end
 
