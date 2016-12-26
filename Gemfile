@@ -9,12 +9,16 @@ gem 'turbolinks'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'haml-rails'
+gem 'react-rails'
 
 # Configuration
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 # Models
 gem 'paranoia', '~> 2.2'
+
+# API
+gem 'jsonapi-resources'
 
 # Auth
 gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
