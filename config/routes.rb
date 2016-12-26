@@ -16,6 +16,12 @@ Rails.application.routes.draw do
     resources :accounts
   end
 
+  namespace :api do
+    namespace :int do
+      resources :accounts
+    end
+  end
+
   require 'sidekiq/web'
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     username == 'michaeldawson' && password == 'sidekiq is fun'

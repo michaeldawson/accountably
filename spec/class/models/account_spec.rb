@@ -4,7 +4,7 @@ RSpec.describe Account, type: :model do
   let(:account) { Account.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      budget: FactoryGirl.build(:budget_without_accounts),
+      budget: FactoryGirl.build(:budget),
       amount: 100,
       balance: 0
     }
