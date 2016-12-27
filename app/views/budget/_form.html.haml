@@ -4,15 +4,5 @@
     .col-sm-4= form.input :target, label: 'Total amount'
     .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker
   = form.label 'Items'
-  %table.table.budgetItems
-    %thead
-      %tr
-        %th Account
-        %th Amount
-        %th
-    %tbody
-      = form.fields_for :accounts do |account_form|
-        = render 'account_fields', form: account_form
-      %tr.addFieldsContext
-        %td{ colspan: '100%' }= link_to_add_fields 'Add an item', form, :accounts
+  
   = form.submit 'Save', class: 'btn btn-success'

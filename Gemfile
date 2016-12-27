@@ -11,6 +11,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'haml-rails'
 gem 'react-rails'
 
+gem 'rails-assets-alt', '~> 0.18.6', source: 'https://rails-assets.org'
+
 # Configuration
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 

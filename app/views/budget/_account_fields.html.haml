@@ -1,9 +1,0 @@
-%tr.fieldset
-  %td.account
-    = form.hidden_field :id
-    = form.input :name, label: false, placeholder: 'Name'
-  %td= form.input :amount, label: false, placeholder: 'Amount'
-  %td.actions
-    = form.hidden_field :_destroy
-    = link_to '#', class: 'remove_fields' do
-      %i.ion-ios-close-outline
