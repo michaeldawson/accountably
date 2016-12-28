@@ -3,16 +3,16 @@ var AccountsSource = {
     remote(state) {
       return new Promise(function (resolve, reject) {
         $.get('/api/int/accounts', function(data){
-          resolve(data.data);
+          resolve(data);
         });
       });
     },
 
-    success: AccountActions.updateAccounts, // (required)
-    error: AccountActions.updateAccountsFailed, // (required)
+    success: AccountActions.fetchAccountsSuccess,
+    error: AccountActions.fetchAccountsFailed,
+
     shouldFetch(state) {
       return true
     }
   },
-
 };

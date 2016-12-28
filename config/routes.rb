@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :int do
-      resources :accounts
+      resources :accounts, only: [:index, :update]
     end
   end
 

@@ -1,12 +1,10 @@
 (() => {
   class AccountActions {
-    updateAccounts(accounts) {
-      return accounts.map(function(account){
-        return { id: account.id, ...account.attributes };
-      })
+    fetchAccountsSuccess(accounts) {
+      return accounts;
     }
 
-    updateAccountsFailed(error) {
+    fetchAccountsFailed(error) {
       return [];
     }
 
@@ -15,6 +13,21 @@
         dispatch();
         AccountsStore.fetch()
       }
+    }
+
+    updateAccount(accountProps) {
+      var props = $.extend(true, {}, accountProps);
+
+      var id = props.id;
+      delete props.id;
+
+      $.ajax({
+        url: '/api/int/accounts/' + id,
+        method: 'PUT',
+        data: { account: props }
+      });
+
+      return accountProps;
     }
   }
 

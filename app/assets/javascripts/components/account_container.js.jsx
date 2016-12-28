@@ -4,10 +4,6 @@ class AccountContainer extends React.Component {
 
     this.state = AccountsStore.getState();
 
-    this.handleViewChange = (newAccount) => {
-      AccountActions.updateAccount(newAccount);
-    };
-
     this.handleStoreChange = (state) => {
       this.setState(state);
     }
@@ -23,15 +19,16 @@ class AccountContainer extends React.Component {
   }
 
   render() {
-    return (<div>
+    return <div>
       {
         this.state.accounts.map(function(account, index) {
           return <Account
-            name={account.name}
+            {...account}
             key={index}
+            onChange={this.handleViewChange}
           ></Account>
         })
       }
-    </div>)
+    </div>
   }
 }
