@@ -4,8 +4,8 @@
 class Cycle
   attr_accessor :start_date, :length
 
-  delegate :past?, to: :end_date
-  delegate :future?, to: :start_date
+  delegate :past?, to: :end_of_cycle
+  delegate :future?, to: :start_of_cycle
 
   def initialize(start_date, length)
     @start_date = start_date.to_date
@@ -14,6 +14,14 @@ class Cycle
 
   def end_date
     (start_date + length_as_date_delta).to_date
+  end
+
+  def start_of_cycle
+    start_date.midnight
+  end
+
+  def end_of_cycle
+    end_date.midnight
   end
 
   def date_range

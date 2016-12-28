@@ -3,6 +3,17 @@ require 'spec_helper'
 RSpec.describe Cycle do
   let(:cycle) { Cycle.new(start_date, length) }
 
+  describe '#past?' do
+    context 'when the cycle ends today' do
+      let(:length) { 'fortnightly' }
+      let(:start_date) { 2.weeks.ago }
+
+      it 'returns true' do
+        expect(cycle).to be_past
+      end
+    end
+  end
+
   describe '#current?' do
     let(:length) { 'fortnightly' }
 
