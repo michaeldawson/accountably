@@ -1,12 +1,8 @@
-module Api
+module API
   module Int
-    class BaseController < JSONAPI::ResourceController
-      abstract
-
-      def context
-        {
-          current_user: current_user
-        }
+    class BaseController < ActionController::Base
+      def current_budget
+        current_user.budget
       end
     end
   end

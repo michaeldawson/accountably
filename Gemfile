@@ -20,7 +20,7 @@ gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'paranoia', '~> 2.2'
 
 # API
-gem 'jsonapi-resources'
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Auth
 gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
