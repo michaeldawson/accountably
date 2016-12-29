@@ -7,21 +7,29 @@ class Slider extends React.Component {
     this.handleChange = (value) => {
       this.props.onChange(value);
     }
+
+    this.handleSlide = (value) => {
+      this.props.onSlide(value);
+    }
   }
 
   value() {
-    return this.props.value.replace(/[^0-9]+/g, '');
+    return this.props.value.toString().replace(/[^0-9.]+/g, '');
   }
 
   componentDidMount() {
-    console.log('init slider');
     var slider = document.getElementById(this.id),
+        sliderSlide = this.handleSlide,
         sliderChange = this.handleChange,
         value = this.value();
 
     noUiSlider.create(slider, {
     	start: [value],
-    	range: { 'min': 0, 'max': 100 }
+    	range: { 'min': 0, 'max': this.props.max }
+    });
+
+    slider.noUiSlider.on('slide', function(){
+    	sliderSlide(this.get());
     });
 
     slider.noUiSlider.on('change', function(){

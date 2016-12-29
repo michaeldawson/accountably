@@ -3,12 +3,17 @@ class Account extends React.Component {
     super();
 
     this.handleChange = () => {
-      console.log('update!');
-      AccountActions.updateAccount(this.properties());
+      var properties = this.properties();
+      AccountActions.updateAccountInAPI(properties);
+      AccountActions.updateAccountInAPI(properties);
     }
 
-    this.handleSlider = (value) => {
-      AccountActions.updateAccount({ id: 1, amount: parseInt(value) })
+    this.handleSliderSlide = (value) => {
+      AccountActions.updateAccount({ id: this._id.value, amount: parseInt(value) })
+    }
+
+    this.handleSliderChange = (value) => {
+      AccountActions.updateAccountInAPI({ id: this._id.value, amount: parseInt(value) })
     }
   }
 
@@ -55,7 +60,9 @@ class Account extends React.Component {
         <div className="col-xs-12 col-sm-6">
           <Slider
             value={this.props.amount}
-            onChange={this.handleSlider}
+            onSlide={this.handleSliderSlide}
+            onChange={this.handleSliderChange}
+            max={parseInt($('.budget_target input').val().replace(/[^0-9.]+/g, ''))}
           />
         </div>
         <div className="col-xs-2">

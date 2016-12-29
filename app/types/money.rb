@@ -9,6 +9,7 @@ class Money < Numeric
 
   delegate :to_i, :nil?, :blank?, :present?, :zero?, :presence, to: :cents
   delegate :to_f, to: :dollars
+  delegate :to_json, to: :dollars
 
   def dollars
     (cents || 0) / 100.0

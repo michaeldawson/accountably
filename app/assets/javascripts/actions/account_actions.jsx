@@ -15,18 +15,18 @@
       }
     }
 
-    updateAccount(accountProps) {
-      var props = $.extend(true, {}, accountProps);
-
-      var id = props.id;
-      delete props.id;
+    updateAccountInAPI(accountProps) {
+      var id = accountProps.id;
+      delete accountProps.id;
 
       $.ajax({
         url: '/api/int/accounts/' + id,
         method: 'PUT',
-        data: { account: props }
+        data: { account: accountProps }
       });
+    }
 
+    updateAccount(accountProps) {
       return accountProps;
     }
   }

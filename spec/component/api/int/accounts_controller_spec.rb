@@ -21,7 +21,7 @@ RSpec.describe API::Int::AccountsController, type: :controller do
               {
                 'id' => users_account.id,
                 'name' => 'Foobars',
-                'amount' => '$0.01'
+                'amount' => 1
               }
             ],
           )
