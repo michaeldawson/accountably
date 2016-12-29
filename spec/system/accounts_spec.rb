@@ -4,7 +4,7 @@ feature 'Accounts' do
   context 'when logged in as a user with a budget' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:budget) { FactoryGirl.create(:budget, user: user) }
-    let(:account) { budget.accounts.first }
+    let(:account) { FactoryGirl.create(:account, budget: budget) }
 
     before :each do
       login_as user
