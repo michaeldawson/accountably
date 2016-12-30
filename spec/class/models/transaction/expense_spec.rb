@@ -4,7 +4,7 @@ RSpec.describe Transaction::Expense, type: :model do
   let(:expense) { Transaction::Expense.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      account: Account.new,
+      bucket: Bucket.new,
       effective_date: Time.current,
       description: "Hey! I'm an expense.",
       amount: 100,
@@ -17,8 +17,8 @@ RSpec.describe Transaction::Expense, type: :model do
       expect(expense).to be_valid
     end
 
-    it 'should not be valid without a account' do
-      valid_attributes[:account] = nil
+    it 'should not be valid without a bucket' do
+      valid_attributes[:bucket] = nil
       expect(expense).not_to be_valid
     end
 
@@ -42,15 +42,15 @@ RSpec.describe Transaction::Expense, type: :model do
     before :each do
       valid_attributes.merge!(
         source: FactoryGirl.build_stubbed(:bank_account),
-        account: FactoryGirl.build(:account)
+        bucket: FactoryGirl.build(:bucket),
       )
     end
 
-    it 'decrements the account balance on create' do
+    it 'decrements the bucket balance on create' do
       expect {
         expense.save!
       }.to change {
-        expense.account.balance
+        expense.bucket.balance
       }.by(-100)
     end
   end
@@ -58,12 +58,12 @@ RSpec.describe Transaction::Expense, type: :model do
   describe 'Scopes' do
     describe '#unreconciled' do
       let(:budget) { FactoryGirl.create(:budget) }
-      let(:default_account) { budget.default_account }
-      let(:other_account) { FactoryGirl.create(:account, budget: budget) }
-      let!(:unreconciled_transaction) { FactoryGirl.create(:expense_transaction, account: default_account) }
-      let!(:reconciled_transaction) { FactoryGirl.create(:expense_transaction, account: other_account) }
+      let(:default_bucket) { budget.default_bucket }
+      let(:other_bucket) { FactoryGirl.create(:bucket, budget: budget) }
+      let!(:unreconciled_transaction) { FactoryGirl.create(:expense_transaction, bucket: default_bucket) }
+      let!(:reconciled_transaction) { FactoryGirl.create(:expense_transaction, bucket: other_bucket) }
 
-      it "returns transactions for which the account is the budget's default account" do
+      it "returns transactions for which the bucket is the budget's default bucket" do
         expect(budget.expenses.unreconciled).to eq([unreconciled_transaction])
       end
     end

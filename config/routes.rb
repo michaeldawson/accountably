@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :reconciliations, path: :reconcile, only: [:index, :new, :create]
   resource :budget, controller: :budget
-  resources :accounts, except: :index do
+  resources :buckets, except: :index do
     get :reconcile, on: :collection
   end
   namespace :transaction do
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :int do
-      resources :accounts, only: [:index, :create, :update]
+      resources :buckets, only: [:index, :create, :update]
     end
   end
 

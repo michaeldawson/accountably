@@ -2,15 +2,15 @@ require 'spec_helper'
 
 feature 'Transactions' do
   let!(:user) { FactoryGirl.create(:user) }
-  let!(:budget) { FactoryGirl.create(:budget, user: user, accounts: [account]) }
-  let(:account) { FactoryGirl.build(:account, name: 'Things', amount: 100) }
+  let!(:budget) { FactoryGirl.create(:budget, user: user, buckets: [bucket]) }
+  let(:bucket) { FactoryGirl.build(:bucket, name: 'Things', amount: 100) }
 
   before :each do
     login_as user
   end
 
-  scenario 'I can add transactions to a account', js: true do
-    visit account_path(account)
+  scenario 'I can add transactions to a bucket', js: true do
+    visit bucket_path(bucket)
     fill_in 'Description', with: 'A new transaction'
     fill_in 'Amount', with: 100
 
@@ -18,15 +18,15 @@ feature 'Transactions' do
       click_on 'Save'
       expect(page).to have_content 'Transaction was saved'
     }.to change {
-      account.reload.balance
+      bucket.reload.balance
     }.by(-100.0)
   end
 
-  context 'when a account has expenses' do
-    let!(:transaction) { FactoryGirl.create(:expense_transaction, account: account, description: 'Something') }
+  context 'when a bucket has expenses' do
+    let!(:transaction) { FactoryGirl.create(:expense_transaction, bucket: bucket, description: 'Something') }
 
-    scenario "I can see them on the account's page" do
-      visit account_path(account)
+    scenario "I can see them on the bucket's page" do
+      visit bucket_path(bucket)
       expect(page).to have_content(transaction.description)
     end
 
@@ -35,9 +35,9 @@ feature 'Transactions' do
       new_description = 'A new description'
       new_amount = 100.0
 
-      visit account_path(account)
+      visit bucket_path(bucket)
 
-      within '.account-transactions' do
+      within '.bucket-transactions' do
         within find('tr', text: transaction.description) do
           find('i.ion-edit').click
         end

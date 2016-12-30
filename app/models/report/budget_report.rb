@@ -7,7 +7,7 @@ class Report
       @cycle = cycle || budget.current_cycle
     end
 
-    def expenses_by_account
+    def expenses_by_bucket
       expenses.group(:account).sum(:amount)
     end
 
@@ -24,7 +24,7 @@ class Report
     end
 
     def reportable_balance
-      budget.accounts.sum(:balance)
+      budget.buckets.sum(:balance)
     end
   end
 end

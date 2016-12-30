@@ -1,11 +1,11 @@
-class AccountsController < ApplicationController
+class BucketsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_current_budget
 
   def update
-    if account.update(account_attributes)
-      flash[:notice] = 'Account was updated'
-      redirect_to account
+    if bucket.update(bucket_attributes)
+      flash[:notice] = 'Bucket was updated'
+      redirect_to bucket
     else
       flash[:error] = "Sorry, that didn't work"
       render 'edit'
@@ -13,22 +13,22 @@ class AccountsController < ApplicationController
   end
 
   def reconcile
-    @account = current_budget.default_account
+    @bucket = current_budget.default_bucket
     render 'show'
   end
 
   private
 
-  helper_method def account
-    @account ||= Account.find(params[:id])
+  helper_method def bucket
+    @bucket ||= Bucket.find(params[:id])
   end
 
   helper_method def budget_report
     @budget_report ||= Report::BudgetReport.new(current_budget, current_budget.current_cycle)
   end
 
-  def account_attributes
-    params.require(:account).permit(:name, :amount, :balance)
+  def bucket_attributes
+    params.require(:bucket).permit(:name, :amount, :balance)
   end
 
   helper_method def transaction

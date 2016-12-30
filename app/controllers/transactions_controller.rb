@@ -9,7 +9,7 @@ class TransactionsController < ApplicationController
 
     if transaction.save
       flash[:notice] = 'Transaction was saved'
-      redirect_to transaction.account
+      redirect_to transaction.bucket
     else
       flash[:error] = "Sorry, that didn't work."
       redirect_to request.referrer || root_path
@@ -19,7 +19,7 @@ class TransactionsController < ApplicationController
   def update
     if transaction.update(transaction_params)
       flash[:notice] = 'Transaction was updated'
-      redirect_to transaction.account
+      redirect_to transaction.bucket
     else
       flash[:error] = "Sorry, that didn't work."
       render 'edit'
@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
   def destroy
     if transaction.destroy
       flash[:notice] = 'Transaction was deleted'
-      redirect_to transaction.account
+      redirect_to transaction.bucket
     else
       flash[:error] = "Sorry, that didn't work"
       redirect_to edit_transaction_path(transaction)
@@ -43,6 +43,6 @@ class TransactionsController < ApplicationController
   end
 
   def permitted_attributes
-    [:account_id, :amount, :description, :effective_date]
+    [:bucket_id, :amount, :description, :effective_date]
   end
 end

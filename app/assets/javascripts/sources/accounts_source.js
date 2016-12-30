@@ -1,15 +1,15 @@
-var AccountsSource = {
+var BucketsSource = {
   fetch: {
     remote(state) {
       return new Promise(function (resolve, reject) {
-        $.get('/api/int/accounts', function(data){
+        $.get('/api/int/buckets', function(data){
           resolve(data);
         });
       });
     },
 
-    success: AccountActions.fetchSuccess,
-    error: AccountActions.fetchFailed,
+    success: BucketActions.fetchSuccess,
+    error: BucketActions.fetchFailed,
 
     shouldFetch(state) {
       return true

@@ -35,7 +35,7 @@ RSpec.describe Money do
 
   describe '#to_json' do
     it 'should return the amount in cents' do
-      expect(Money.new(10_000).to_json).to eq('100')
+      expect(Money.new(10_000).to_json).to eq('100.0')
     end
   end
 end

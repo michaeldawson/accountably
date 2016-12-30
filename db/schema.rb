@@ -12,19 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20160930015452) do
 
-  create_table "accounts", force: :cascade do |t|
-    t.integer  "budget_id"
-    t.string   "name"
-    t.integer  "amount",     default: 0,     null: false
-    t.integer  "balance",    default: 0,     null: false
-    t.boolean  "default",    default: false, null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["budget_id"], name: "index_accounts_on_budget_id"
-    t.index ["deleted_at"], name: "index_accounts_on_deleted_at"
-  end
-
   create_table "bank_accounts", force: :cascade do |t|
     t.integer  "login_id"
     t.string   "name"
@@ -43,6 +30,19 @@ ActiveRecord::Schema.define(version: 20160930015452) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["budget_id"], name: "index_bank_logins_on_budget_id"
+  end
+
+  create_table "buckets", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.string   "name"
+    t.integer  "amount",     default: 0,     null: false
+    t.integer  "balance",    default: 0,     null: false
+    t.boolean  "default",    default: false, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["budget_id"], name: "index_buckets_on_budget_id"
+    t.index ["deleted_at"], name: "index_buckets_on_deleted_at"
   end
 
   create_table "budgets", force: :cascade do |t|
@@ -64,15 +64,15 @@ ActiveRecord::Schema.define(version: 20160930015452) do
   end
 
   create_table "transaction_patterns", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "bucket_id"
     t.string   "pattern"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_transaction_patterns_on_account_id"
+    t.index ["bucket_id"], name: "index_transaction_patterns_on_bucket_id"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "bucket_id"
     t.string   "source_type"
     t.integer  "source_id"
     t.string   "description"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20160930015452) do
     t.string   "type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["account_id"], name: "index_transactions_on_account_id"
+    t.index ["bucket_id"], name: "index_transactions_on_bucket_id"
     t.index ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id"
   end
 

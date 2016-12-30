@@ -1,0 +1,2 @@
+- chart_data = budget_report.expenses_by_bucket.map { |k, v| { label: k.name, data: v.dollars} }
+#accountsPieChart.plotPieChart{ data: { chart: chart_data.to_json } }

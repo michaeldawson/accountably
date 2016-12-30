@@ -27,18 +27,18 @@ RSpec.describe Bank::Adapter::Selenium::NAB::Account::Transaction do
           end
 
           context 'when the budget has a transaction pattern that matches the transaction description' do
-            let(:account) { FactoryGirl.build_stubbed(:account) }
+            let(:bucket) { FactoryGirl.build_stubbed(:bucket) }
 
             before :each do
               transaction_attributes.merge!(
-                transaction_patterns: [TransactionPattern.new(account: account, pattern: 'EFTPOS DEBIT')],
+                transaction_patterns: [TransactionPattern.new(bucket: bucket, pattern: 'EFTPOS DEBIT')],
               )
             end
 
             it 'creates a transaction for that account' do
               transaction.parse!
               expense = Transaction::Expense.last
-              expect(expense.account_id).to eq(account.id)
+              expect(expense.bucket_id).to eq(bucket.id)
             end
           end
         end

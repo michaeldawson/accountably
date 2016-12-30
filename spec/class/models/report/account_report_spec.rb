@@ -1,19 +1,19 @@
 require 'spec_helper'
 
-RSpec.describe Report::AccountReport do
-  let(:report) { Report::AccountReport.new(account, cycle) }
-  let(:account) { FactoryGirl.build(:account) }
+RSpec.describe Report::BucketReport do
+  let(:report) { Report::BucketReport.new(bucket, cycle) }
+  let(:bucket) { FactoryGirl.build(:bucket) }
   let(:cycle) { Cycle.new(1.week.ago, 'fortnightly') }
 
   describe '#spend' do
     context 'with expenses in this cycle and outside of this cycle' do
-      before { account.save! }
+      before { bucket.save! }
 
       let!(:expense_1) {
-        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.start_date - 1.day, amount: 10)
+        FactoryGirl.create(:expense_transaction, bucket: bucket, effective_date: cycle.start_date - 1.day, amount: 10)
       }
       let!(:expense_2) {
-        FactoryGirl.create(:expense_transaction, account: account, effective_date: cycle.start_date + 1.day, amount: 12)
+        FactoryGirl.create(:expense_transaction, bucket: bucket, effective_date: cycle.start_date + 1.day, amount: 12)
       }
 
       it 'returns the amount of the expense in the cycle' do
@@ -32,10 +32,10 @@ RSpec.describe Report::AccountReport do
     end
 
     context 'when the cycle is current' do
-      context 'when the budget accounts have a negative balance' do
+      context 'when the budget buckets have a negative balance' do
         before do
-          account.balance = -100
-          account.save
+          bucket.balance = -100
+          bucket.save
         end
 
         it { expect(report.balance).to eq(-100) }

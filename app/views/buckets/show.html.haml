@@ -1,19 +1,19 @@
-- reconciling = account.default?
-- content_for :page_title, (reconciling ? 'Reconcile' : account.name)
+- reconciling = bucket.default?
+- content_for :page_title, (reconciling ? 'Reconcile' : bucket.name)
 
 .container
   - if reconciling
     %h3 Reconcile
   - else
-    %h3.account #{account.name} #{account.balance} available
-  - unless account.default
-    = link_to 'Edit', edit_account_path(account)
+    %h3.bucket #{bucket.name} #{bucket.balance} available
+  - unless bucket.default
+    = link_to 'Edit', edit_bucket_path(bucket)
     %hr
     %h4 New transaction
     = render 'transactions/form'
     %hr
 
-  %table.table.table-striped.table-hover.account-transactions
+  %table.table.table-striped.table-hover.bucket-transactions
     %thead
       %th Date
       %th.hidden-xs Source
@@ -21,13 +21,13 @@
       %th Amount
       %th
     %tbody
-      - account.expenses.order(effective_date: :desc).each do |transaction|
+      - bucket.expenses.order(effective_date: :desc).each do |transaction|
         %tr
           %td= transaction.effective_date.strftime('%d/%m/%Y')
           %td.hidden-xs= transaction.source
           %td
             - description = transaction.description.truncate(45)
-            - if transaction.account.default
+            - if transaction.bucket.default
               = link_to description, transaction
             - else
               = description

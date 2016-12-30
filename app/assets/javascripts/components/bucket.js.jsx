@@ -1,24 +1,24 @@
-class Account extends React.Component {
+class Bucket extends React.Component {
   constructor() {
     super();
 
     this.handleChange = () => {
-      AccountActions.update(this.properties());
+      BucketActions.update(this.properties());
       if(this.props.id) {
-        AccountActions.updateInAPI(this.properties());
+        BucketActions.updateInAPI(this.properties());
       }
     }
 
     this.handleSave = () => {
-      AccountActions.create(this.props.key, this.properties());
+      BucketActions.create(this.props.key, this.properties());
     }
 
     this.handleSliderSlide = (value) => {
-      AccountActions.update({ id: this._id.value, amount: parseInt(value) })
+      BucketActions.update({ id: this._id.value, amount: parseInt(value) })
     }
 
     this.handleSliderChange = (value) => {
-      AccountActions.updateInAPI({ id: this._id.value, amount: parseInt(value) })
+      BucketActions.updateInAPI({ id: this._id.value, amount: parseInt(value) })
     }
   }
 
@@ -48,7 +48,7 @@ class Account extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-6 col-sm-4">
-          <div className="form-group string optional budget_accounts_name">
+          <div className="form-group string optional budget_buckets_name">
             <input
               type='hidden'
               ref={(c) => this._id = c}
@@ -65,7 +65,7 @@ class Account extends React.Component {
           </div>
         </div>
         <div className="col-xs-6 col-sm-2">
-          <div className="form-group string required budget_accounts_amount">
+          <div className="form-group string required budget_buckets_amount">
             <input
               ref={(c) => this._amount = c}
               className="form-control string required sliderInput"

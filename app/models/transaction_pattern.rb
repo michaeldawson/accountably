@@ -1,14 +1,14 @@
 class TransactionPattern < ApplicationRecord
-  belongs_to :account, inverse_of: :transaction_patterns
+  belongs_to :bucket, inverse_of: :transaction_patterns
 
-  validates :account, presence: true
+  validates :bucket, presence: true
   validates :pattern, presence: true
 
   after_create :reconcile_all_for_budget
   def reconcile_all_for_budget
-    budget.default_account.transactions.each do |transaction|
+    budget.default_bucket.transactions.each do |transaction|
       next unless matches?(transaction.description)
-      Reconciliation.new(expense_id: transaction.id, account_id: account.id).perform
+      Reconciliation.new(expense_id: transaction.id, bucket_id: bucket.id).perform
     end
   end
 
@@ -23,6 +23,6 @@ class TransactionPattern < ApplicationRecord
   end
 
   def budget
-    @budget ||= account.budget
+    @budget ||= bucket.budget
   end
 end

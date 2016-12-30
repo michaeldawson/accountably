@@ -1,6 +1,6 @@
-class CreateAccounts < ActiveRecord::Migration
+class CreateBuckets < ActiveRecord::Migration
   def change
-    create_table :accounts do |t|
+    create_table :buckets do |t|
       t.references :budget, index: true, foreign_key: true
       t.string :name
       t.integer :amount, null: false, default: 0
@@ -11,6 +11,6 @@ class CreateAccounts < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :accounts, :deleted_at
+    add_index :buckets, :deleted_at
   end
 end

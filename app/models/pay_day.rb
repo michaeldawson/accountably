@@ -8,18 +8,18 @@ class PayDay < ApplicationRecord
   after_create :apply!
   def apply!
     Transaction.transaction do
-      budget.accounts.each do |account|
-        payday_transaction(account).save!
+      budget.buckets.each do |bucket|
+        payday_transaction(bucket).save!
       end
     end
   end
 
   private
 
-  def payday_transaction(account)
+  def payday_transaction(bucket)
     transactions.build(
-      account: account,
-      amount: account.amount,
+      bucket: bucket,
+      amount: bucket.amount,
       effective_date: effective_date,
       source: self
     )

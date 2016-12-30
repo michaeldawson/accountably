@@ -1,47 +1,46 @@
 (() => {
-  class AccountsStore {
+  class BucketsStore {
     constructor() {
-      this.accounts = []
+      this.buckets = []
 
       this.bindListeners({
-        handleNew: AccountActions.BUILD_NEW,
-        handleCreate: AccountActions.CREATE,
-        handleUpdate: AccountActions.UPDATE,
-        handleFetch: AccountActions.FETCH_SUCCESS,
+        handleNew: BucketActions.BUILD_NEW,
+        handleCreate: BucketActions.CREATE,
+        handleUpdate: BucketActions.UPDATE,
+        handleFetch: BucketActions.FETCH_SUCCESS,
       });
 
-      this.registerAsync(AccountsSource)
+      this.registerAsync(BucketsSource)
     }
 
     handleNew() {
-      this.accounts.push({ id: '', name: '', amount: 0 })
+      this.buckets.push({ id: '', name: '', amount: 0 })
     }
 
     handleCreate(key, id) {
-      this.accounts = this.accounts.map(function(account) {
-        if(account.key == key) {
-          return account
+      this.buckets = this.buckets.map(function(bucket) {
+        if(bucket.key == key) {
+          return bucket
         } else {
-          return { id: id, ...account.attributes };
+          return { id: id, ...bucket.attributes };
         }
       });
     }
 
-    handleFetch(accounts) {
-      debugger;
-      this.accounts = accounts;
+    handleFetch(buckets) {
+      this.buckets = buckets;
     }
 
-    handleUpdate(accountProps) {
-      this.accounts = this.accounts.map(function(account) {
-        if(account.id == accountProps.id) {
-          return { account, ...accountProps };
+    handleUpdate(bucketProps) {
+      this.buckets = this.buckets.map(function(bucket) {
+        if(bucket.id == bucketProps.id) {
+          return { bucket, ...bucketProps };
         } else {
-          return { id: account.id, ...account.attributes };
+          return { id: bucket.id, ...bucket.attributes };
         }
       });
     }
   }
 
-  this.AccountsStore = alt.createStore(AccountsStore, 'AccountsStore');
+  this.BucketsStore = alt.createStore(BucketsStore, 'BucketsStore');
 })();

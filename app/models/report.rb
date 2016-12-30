@@ -1,5 +1,5 @@
-# This class exposes reporting data to views and other classes. It can report on a budget (all accounts), or a single
-# account.
+# This class exposes reporting data to views and other classes. It can report on a budget (all buckets), or a single
+# bucket.
 
 class Report
   delegate :percent_through_period, :past?, :present?, to: :cycle

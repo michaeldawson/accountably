@@ -34,7 +34,7 @@ module Bank
                 effective_date: effective_date,
                 description: description,
                 amount: amount.abs,
-                account: best_account
+                bucket: best_bucket
               }
             end
 
@@ -69,20 +69,20 @@ module Bank
               [debit_amount, credit_amount].reject(&:zero?).first.to_i
             end
 
-            def best_account
-              @best_account ||= transaction_pattern_match_account || default_account
+            def best_bucket
+              @best_bucket ||= transaction_pattern_match_bucket || default_bucket
             end
 
             def effective_date_earlier_than_threshold?
               accept_transactions_since && effective_date < accept_transactions_since
             end
 
-            def transaction_pattern_match_account
-              transaction_patterns.detect { |pattern| pattern.matches?(description) }&.account
+            def transaction_pattern_match_bucket
+              transaction_patterns.detect { |pattern| pattern.matches?(description) }&.bucket
             end
 
-            def default_account
-              bank_account.login.budget.default_account
+            def default_bucket
+              bank_account.login.budget.default_bucket
             end
           end
         end

@@ -1,30 +1,30 @@
-class AccountsForm extends React.Component {
+class BucketsForm extends React.Component {
   constructor() {
     super();
 
-    this.state = AccountsStore.getState();
+    this.state = BucketsStore.getState();
     this.handleStoreChange = (state) => { this.setState(state); }
-    this.handleNew = () => { AccountActions.buildNew(); }
+    this.handleNew = () => { BucketActions.buildNew(); }
   }
 
   componentDidMount() {
-    AccountsStore.listen(this.handleStoreChange);
-    AccountActions.fetch();
+    BucketsStore.listen(this.handleStoreChange);
+    BucketActions.fetch();
   }
 
   componentWillUnmount() {
-    AccountsStore.unlisten(this.handleStoreChange);
+    BucketsStore.unlisten(this.handleStoreChange);
   }
 
   render() {
     return (<div>
       {
-        this.state.accounts.map(function(account, index) {
-          return <Account
-            {...account}
+        this.state.buckets.map(function(bucket, index) {
+          return <Bucket
+            {...bucket}
             key={index}
             onChange={this.handleViewChange}
-          ></Account>
+          ></Bucket>
         })
       }
       <a

@@ -1,10 +1,10 @@
 class Transaction < ApplicationRecord
   attribute :amount, MoneyType.new
 
-  belongs_to :account, inverse_of: :transactions
+  belongs_to :bucket, inverse_of: :transactions
   belongs_to :source, polymorphic: true
 
-  validates :account, presence: true
+  validates :bucket, presence: true
   validates :effective_date, presence: true
   validates :amount, presence: true
   validates :source, presence: true
@@ -13,14 +13,14 @@ class Transaction < ApplicationRecord
 
   before_create :apply
   def apply
-    account.balance += effective_amount
-    account.save!
+    bucket.balance += effective_amount
+    bucket.save!
   end
 
   before_destroy :revert
   def revert
-    account.balance -= effective_amount
-    account.save!
+    bucket.balance -= effective_amount
+    bucket.save!
   end
 
   def effective_amount

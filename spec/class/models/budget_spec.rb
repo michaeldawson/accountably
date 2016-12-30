@@ -37,16 +37,16 @@ RSpec.describe Budget, type: :model do
     end
   end
 
-  describe '#default_account' do
+  describe '#default_bucket' do
     context 'when the budget has a default account' do
       before :each do
         budget.save!
       end
 
-      let!(:default_account) { FactoryGirl.create(:account, budget: budget, default: true) }
+      let!(:default_bucket) { FactoryGirl.create(:bucket, budget: budget, default: true) }
 
       it 'returns that account' do
-        expect(budget.default_account).to eq(default_account)
+        expect(budget.default_bucket).to eq(default_bucket)
       end
     end
 
@@ -57,12 +57,12 @@ RSpec.describe Budget, type: :model do
 
       it 'creates a new account' do
         expect {
-          budget.default_account
+          budget.default_bucket
         }.to change {
-          Account.count
+          Bucket.count
         }.by(1)
 
-        account = Account.last
+        account = Bucket.last
         expect(account.amount).to eq(0)
         expect(account.balance).to eq(0)
         expect(account.name).to eq('Uncategorised')

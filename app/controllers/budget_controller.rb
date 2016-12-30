@@ -6,7 +6,6 @@ class BudgetController < ApplicationController
 
   def new
     redirect_to root_path and return if user_has_budget?
-    budget.accounts.build if budget.accounts.empty?
   end
 
   def create
@@ -54,6 +53,6 @@ class BudgetController < ApplicationController
   end
 
   def permitted_budget_attributes
-    [:cycle_length, :first_pay_day, :target, accounts_attributes: [:id, :name, :amount, :_destroy]]
+    %i(cycle_length first_pay_day target)
   end
 end

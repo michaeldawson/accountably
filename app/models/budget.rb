@@ -4,19 +4,17 @@ class Budget < ApplicationRecord
   attribute :target, MoneyType.new
 
   belongs_to :user
-  has_many :accounts, inverse_of: :budget
-  has_many :transaction_patterns, through: :accounts
+  has_many :buckets, inverse_of: :budget
+  has_many :expenses, through: :buckets
+  has_many :transaction_patterns, through: :buckets
   has_many :bank_logins, inverse_of: :budget, class_name: 'Bank::Login'
   has_many :bank_accounts, through: :bank_logins, inverse_of: :budget, source: :accounts, class_name: 'Bank::Account'
   has_many :pay_days, inverse_of: :budget
-  has_many :expenses, through: :accounts
 
   validates :user, presence: true
   validates :target, presence: true
   validates :first_pay_day, presence: true
   validates :cycle_length, inclusion: { in: CYCLE_LENGTHS }
-
-  accepts_nested_attributes_for :accounts, allow_destroy: true, reject_if: proc { |attrs| attrs['name'].blank? }
 
   def total
     Money.new(accounts.sum(:amount).to_f)
@@ -41,9 +39,9 @@ class Budget < ApplicationRecord
     pay_days.create(effective_date: first_pay_day)
   end
 
-  # Transactions go into this account before they're categorised.
-  def default_account
-    @default_account ||= accounts.uncategorised.first || accounts.uncategorised.create!(name: 'Uncategorised')
+  # Transactions go into this bucket before they're categorised.
+  def default_bucket
+    @default_bucket ||= buckets.uncategorised.first || buckets.uncategorised.create!(name: 'Uncategorised')
   end
 
   private

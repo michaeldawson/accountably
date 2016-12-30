@@ -4,7 +4,7 @@ RSpec.describe TransactionPattern, type: :model do
   let(:transaction_pattern) { TransactionPattern.new(valid_attributes) }
   let(:valid_attributes) {
     {
-      account: Account.new,
+      bucket: Bucket.new,
       pattern: 'Some string of words'
     }
   }
@@ -14,8 +14,8 @@ RSpec.describe TransactionPattern, type: :model do
       expect(transaction_pattern).to be_valid
     end
 
-    it "isn't valid without an account" do
-      valid_attributes[:account] = nil
+    it "isn't valid without an bucket" do
+      valid_attributes[:bucket] = nil
       expect(transaction_pattern).not_to be_valid
     end
 

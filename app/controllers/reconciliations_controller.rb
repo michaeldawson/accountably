@@ -2,7 +2,7 @@ class ReconciliationsController < ApplicationController
   def create
     if reconciliation.perform
       flash[:notice] = 'Transaction was reconciled'
-      redirect_to expense.account.budget.default_account
+      redirect_to expense.bucket.budget.default_bucket
     else
       flash[:error] = "Sorry, that didn't work: #{reconciliation.errors.full_messages.to_sentence}"
       redirect_to expense
@@ -26,6 +26,6 @@ class ReconciliationsController < ApplicationController
   end
 
   def permitted_attributes
-    [:expense_id, :account_id, :save_matching_pattern, :matching_pattern]
+    [:expense_id, :bucket_id, :save_matching_pattern, :matching_pattern]
   end
 end

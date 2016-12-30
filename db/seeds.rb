@@ -4,15 +4,15 @@ budget = Budget.create!(
   cycle_length: 'fortnightly',
   target: 1800.0,
   first_pay_day: Date.parse('2016-11-02'),
-  accounts: [
-    Account.new(
+  buckets: [
+    Bucket.new(
       name: 'Rent',
       amount: '870.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'HARRIS LEECH REN'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Groceries',
       amount: '200.0',
       transaction_patterns: [
@@ -22,7 +22,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'THE SOURCE BULK FOODS'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Cafes and Restaurants',
       amount: '200.0',
       transaction_patterns: [
@@ -59,29 +59,29 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'V0064 29/10 THE ORGNC FOOD & W D MELBOURNE 74564506305 MISCELLANEOUS DEBIT'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Home and funiture',
       amount: '100.0',
       transaction_patterns: [
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Long-term savings',
       amount: '500.0',
     ),
-    Account.new(
+    Bucket.new(
       name: 'Travel',
       amount: '200.0',
     ),
-    Account.new(
+    Bucket.new(
       name: 'Short-term savings',
       amount: '100.0',
     ),
-    Account.new(
+    Bucket.new(
       name: 'Gifts',
       amount: '40.0',
     ),
-    Account.new(
+    Bucket.new(
       name: 'Health and gym',
       amount: '140.0',
       transaction_patterns: [
@@ -90,25 +90,25 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'Personal training'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Auto registration and insurance',
       amount: '50.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'VICROADS ONLINE PAYMENT'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Electricity and Gas',
       amount: '30.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'ORIGINENERGY LTD AUTOMATIC DRAWING'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Water',
       amount: '5.0',
     ),
-    Account.new(
+    Bucket.new(
       name: 'Internet and phone',
       amount: '50.0',
       transaction_patterns: [
@@ -116,7 +116,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'TPG Internet'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Memberships',
       amount: '25.0',
       transaction_patterns: [
@@ -125,7 +125,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'ADOBE PHOTOGPHY PLAN'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Public transport',
       amount: '20.0',
       transaction_patterns: [
@@ -134,7 +134,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'V0064 29/09 7-ELEVEN 1053 FITZROY 74564456274 MISCELLANEOUS DEBIT'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Taxis',
       amount: '20.0',
       transaction_patterns: [
@@ -144,7 +144,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'GM CABS PTY. LTD. MASCOT'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'ATM Cash Out',
       amount: '50.0',
       transaction_patterns: [
@@ -152,7 +152,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'ATM DEBIT'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Bank Fees',
       amount: '5.0',
       transaction_patterns: [
@@ -161,7 +161,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'CARD PAYMENT FEE ATO SYDNEY'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Automotive',
       amount: '40.0',
       transaction_patterns: [
@@ -169,7 +169,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'PETER STEVENS MOTORCYCLESMELBOURNE'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Entertainment',
       amount: '40.0',
       transaction_patterns: [
@@ -179,7 +179,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'Jazz Party-Rock n'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Petrol',
       amount: '10.0',
       transaction_patterns: [
@@ -188,7 +188,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'LIBERTY FITZROY FITZROY'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Clothes',
       amount: '30.0',
       transaction_patterns: [
@@ -197,7 +197,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'AUSTRALIAN RED CROSS COLLINGWOO'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Income Tax',
       amount: '0.0',
       transaction_patterns: [
@@ -205,14 +205,14 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'ATO PAYMENT SYDNEY'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Alcohol',
       amount: '20.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'V/CELLARS'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Servers',
       amount: '12.0',
       transaction_patterns: [
@@ -220,7 +220,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'Amazon web services aws.amazon'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Cycling',
       amount: '10.0',
       transaction_patterns: [
@@ -228,7 +228,7 @@ budget = Budget.create!(
         TransactionPattern.new(pattern: 'J222228LWV37S PAYPAL AUSTRALIA AUTOMATIC DRAWING'),
       ],
     ),
-    Account.new(
+    Bucket.new(
       name: 'Donations',
       amount: '10.0',
       transaction_patterns: [

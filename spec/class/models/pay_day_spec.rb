@@ -21,13 +21,13 @@ RSpec.describe PayDay do
   end
 
   describe '#apply!' do
-    context 'with a budget with accounts' do
+    context 'with a budget with buckets' do
       before :each do
         pay_day.save!
-        pay_day.budget.accounts.create(FactoryGirl.attributes_for(:account))
+        pay_day.budget.buckets.create(FactoryGirl.attributes_for(:bucket))
       end
 
-      it 'creates income transactions for all accounts' do
+      it 'creates income transactions for all buckets' do
         expect {
           pay_day.apply!
         }.to change {

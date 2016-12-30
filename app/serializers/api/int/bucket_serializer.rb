@@ -1,6 +1,6 @@
 module API
   module Int
-    class AccountSerializer < ActiveModel::Serializer
+    class BucketSerializer < ActiveModel::Serializer
       attributes :id, :name, :amount
     end
   end

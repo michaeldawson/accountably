@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :transaction do
-    association(:account)
+    association(:bucket)
     description 'A sac of figs'
     effective_date { 1.day.ago }
     association(:source, factory: :bank_account)

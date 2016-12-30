@@ -1,10 +1,10 @@
 class Reconciliation
   include ActiveModel::Model
 
-  attr_accessor :expense_id, :account_id, :save_matching_pattern, :matching_pattern
+  attr_accessor :expense_id, :bucket_id, :save_matching_pattern, :matching_pattern
 
   validates :expense_id, presence: true
-  validates :account_id, presence: true
+  validates :bucket_id, presence: true
 
   def initialize(*args)
     super(*args)
@@ -23,20 +23,20 @@ class Reconciliation
   def transfer_transaction
     Transaction.transaction do
       expense.revert
-      expense.update!(account: account)
+      expense.update!(bucket: bucket)
       expense.apply
     end
   end
 
   def create_matching_pattern
-    TransactionPattern.create!(account: account, pattern: matching_pattern)
+    TransactionPattern.create!(bucket: bucket, pattern: matching_pattern)
   end
 
   def expense
     @expense ||= Transaction::Expense.find(expense_id)
   end
 
-  def account
-    @account ||= Account.find(account_id)
+  def bucket
+    @bucket ||= Bucket.find(bucket_id)
   end
 end

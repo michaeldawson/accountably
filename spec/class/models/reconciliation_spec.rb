@@ -6,23 +6,23 @@ RSpec.describe Reconciliation do
   describe '#perform' do
     context 'with an expense' do
       let!(:budget) { FactoryGirl.create(:budget) }
-      let!(:account1) { FactoryGirl.create(:account) }
-      let!(:account2) { FactoryGirl.create(:account) }
-      let!(:expense) { FactoryGirl.create(:expense_transaction, account: account1, amount: 1.0) }
+      let!(:bucket1) { FactoryGirl.create(:bucket) }
+      let!(:bucket2) { FactoryGirl.create(:bucket) }
+      let!(:expense) { FactoryGirl.create(:expense_transaction, bucket: bucket1, amount: 1.0) }
 
       let(:reconcilation_params) {
         {
           expense_id: expense.id,
-          account_id: account2.id,
+          bucket_id: bucket2.id,
         }
       }
 
-      it 'increments the previous account' do
-        expect { reconciliation.perform }.to change { account1.reload.balance.dollars }.by(1)
+      it 'increments the previous bucket' do
+        expect { reconciliation.perform }.to change { bucket1.reload.balance.dollars }.by(1)
       end
 
-      it 'decrements the new account' do
-        expect { reconciliation.perform }.to change { account2.reload.balance.dollars }.by(-1)
+      it 'decrements the new bucket' do
+        expect { reconciliation.perform }.to change { bucket2.reload.balance.dollars }.by(-1)
       end
 
       context 'and no matching pattern' do
@@ -30,7 +30,7 @@ RSpec.describe Reconciliation do
           reconcilation_params.merge!(save_matching_pattern: '0', matching_pattern: 'String')
         end
 
-        it "doesn't create a transaction pattern for the account" do
+        it "doesn't create a transaction pattern for the bucket" do
           expect {
             reconciliation.perform
           }.not_to change {
@@ -44,7 +44,7 @@ RSpec.describe Reconciliation do
           reconcilation_params.merge!(save_matching_pattern: '1', matching_pattern: 'Some pattern')
         end
 
-        it 'creates a transaction pattern for the account' do
+        it 'creates a transaction pattern for the bucket' do
           expect {
             reconciliation.perform
           }.to change {
@@ -52,7 +52,7 @@ RSpec.describe Reconciliation do
           }.by(1)
 
           transaction_pattern = TransactionPattern.last
-          expect(transaction_pattern.account).to eq(account2)
+          expect(transaction_pattern.bucket).to eq(bucket2)
           expect(transaction_pattern.pattern).to eq('Some pattern')
         end
       end
