@@ -4,18 +4,35 @@
       this.accounts = []
 
       this.bindListeners({
-        handleFetchAccounts: AccountActions.FETCH_ACCOUNTS_SUCCESS,
-        handleUpdateAccount: AccountActions.UPDATE_ACCOUNT,
+        handleNew: AccountActions.BUILD_NEW,
+        handleCreate: AccountActions.CREATE,
+        handleUpdate: AccountActions.UPDATE,
+        handleFetch: AccountActions.FETCH_SUCCESS,
       });
 
       this.registerAsync(AccountsSource)
     }
 
-    handleFetchAccounts(accounts) {
+    handleNew() {
+      this.accounts.push({ id: '', name: '', amount: 0 })
+    }
+
+    handleCreate(key, id) {
+      this.accounts = this.accounts.map(function(account) {
+        if(account.key == key) {
+          return account
+        } else {
+          return { id: id, ...account.attributes };
+        }
+      });
+    }
+
+    handleFetch(accounts) {
+      debugger;
       this.accounts = accounts;
     }
 
-    handleUpdateAccount(accountProps) {
+    handleUpdate(accountProps) {
       this.accounts = this.accounts.map(function(account) {
         if(account.id == accountProps.id) {
           return { account, ...accountProps };

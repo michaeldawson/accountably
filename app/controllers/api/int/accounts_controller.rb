@@ -5,6 +5,14 @@ module API
         render json: accounts
       end
 
+      def create
+        if account.save
+          render json: account
+        else
+          render json: account.errors
+        end
+      end
+
       def update
         account.update(account_params)
         head :ok
@@ -18,11 +26,12 @@ module API
       end
 
       def account
-        @account ||= current_budget.accounts.find(params[:id])
+        @account ||= current_budget.accounts.find(params[:id]) if params.key?(:id)
+        @account ||= current_budget.accounts.new(account_params)
       end
 
       def account_params
-        params.require(:account).permit(:name, :amount)
+        params.require(:account).permit(:id, :name, :amount) if params.key?(:account)
       end
     end
   end

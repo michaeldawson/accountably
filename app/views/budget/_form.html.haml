@@ -4,5 +4,5 @@
     .col-sm-4= form.input :target, label: 'Total amount'
     .col-sm-4= form.input :first_pay_day, label: 'First pay day', as: :date_picker
   = form.label 'Items'
-  = react_component "AccountContainer"
+  = react_component 'AccountsForm'
   = form.submit 'Save', class: 'btn btn-success'

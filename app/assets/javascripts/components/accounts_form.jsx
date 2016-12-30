@@ -1,17 +1,15 @@
-class AccountContainer extends React.Component {
+class AccountsForm extends React.Component {
   constructor() {
     super();
 
     this.state = AccountsStore.getState();
-
-    this.handleStoreChange = (state) => {
-      this.setState(state);
-    }
+    this.handleStoreChange = (state) => { this.setState(state); }
+    this.handleNew = () => { AccountActions.buildNew(); }
   }
 
   componentDidMount() {
     AccountsStore.listen(this.handleStoreChange);
-    AccountActions.fetchAccounts();
+    AccountActions.fetch();
   }
 
   componentWillUnmount() {
@@ -19,7 +17,7 @@ class AccountContainer extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       {
         this.state.accounts.map(function(account, index) {
           return <Account
@@ -29,6 +27,11 @@ class AccountContainer extends React.Component {
           ></Account>
         })
       }
-    </div>
+      <a
+        ref={(c) => this._newButton = c}
+        className='btn btn-default'
+        onClick={this.handleNew}
+      >Add new</a>
+    </div>)
   }
 }

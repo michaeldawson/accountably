@@ -8,8 +8,8 @@ var AccountsSource = {
       });
     },
 
-    success: AccountActions.fetchAccountsSuccess,
-    error: AccountActions.fetchAccountsFailed,
+    success: AccountActions.fetchSuccess,
+    error: AccountActions.fetchFailed,
 
     shouldFetch(state) {
       return true

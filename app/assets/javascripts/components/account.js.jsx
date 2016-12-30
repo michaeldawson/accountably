@@ -3,17 +3,22 @@ class Account extends React.Component {
     super();
 
     this.handleChange = () => {
-      var properties = this.properties();
-      AccountActions.updateAccountInAPI(properties);
-      AccountActions.updateAccountInAPI(properties);
+      AccountActions.update(this.properties());
+      if(this.props.id) {
+        AccountActions.updateInAPI(this.properties());
+      }
+    }
+
+    this.handleSave = () => {
+      AccountActions.create(this.props.key, this.properties());
     }
 
     this.handleSliderSlide = (value) => {
-      AccountActions.updateAccount({ id: this._id.value, amount: parseInt(value) })
+      AccountActions.update({ id: this._id.value, amount: parseInt(value) })
     }
 
     this.handleSliderChange = (value) => {
-      AccountActions.updateAccountInAPI({ id: this._id.value, amount: parseInt(value) })
+      AccountActions.updateInAPI({ id: this._id.value, amount: parseInt(value) })
     }
   }
 
@@ -22,6 +27,20 @@ class Account extends React.Component {
       id: this._id.value,
       name: this._name.value,
       amount: this._amount.value,
+    }
+  }
+
+  action() {
+    if(this.props.id) {
+      return (
+        <a className="remove_fields" href="#">
+          <i className="ion-ios-close-outline"></i>
+        </a>
+      )
+    } else {
+      return(
+        <a className='btn btn-default' onClick={this.handleSave}>Save</a>
+      )
     }
   }
 
@@ -57,7 +76,7 @@ class Account extends React.Component {
             />
           </div>
         </div>
-        <div className="col-xs-12 col-sm-6">
+        <div className="col-xs-12 col-sm-4">
           <Slider
             value={this.props.amount}
             onSlide={this.handleSliderSlide}
@@ -66,9 +85,7 @@ class Account extends React.Component {
           />
         </div>
         <div className="col-xs-2">
-          <a className="remove_fields" href="#">
-            <i className="ion-ios-close-outline"></i>
-          </a>
+          {this.action()}
         </div>
       </div>
     );

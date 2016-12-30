@@ -1,21 +1,34 @@
 (() => {
   class AccountActions {
-    fetchAccountsSuccess(accounts) {
+    buildNew() {
+      return true;
+    }
+
+    fetch() {
+      return (dispatch) => { AccountsStore.fetch() }
+    }
+
+    fetchSuccess(accounts) {
       return accounts;
     }
 
-    fetchAccountsFailed(error) {
+    fetchFailed(error) {
       return [];
     }
 
-    fetchAccounts() {
+    create(key, accountProps) {
       return (dispatch) => {
-        dispatch();
-        AccountsStore.fetch()
+        $.ajax({
+          url: '/api/int/accounts/',
+          method: 'POST',
+          data: { account: accountProps }
+        }).then(function(data){
+          dispatch(key, data.id);
+        })
       }
     }
 
-    updateAccountInAPI(accountProps) {
+    updateInAPI(accountProps) {
       var id = accountProps.id;
       delete accountProps.id;
 
@@ -26,9 +39,7 @@
       });
     }
 
-    updateAccount(accountProps) {
-      return accountProps;
-    }
+    update(accountProps) { return accountProps; }
   }
 
   this.AccountActions = alt.createActions(AccountActions);
