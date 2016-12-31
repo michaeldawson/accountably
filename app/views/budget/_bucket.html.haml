@@ -1,15 +1,15 @@
-- account_report = Report::AccountReport.new(account)
+- bucket_report = Report::BucketReport.new(bucket)
 
 .col-sm-6
-  .account-stat.clearfix.gray{ style: 'position:relative' }
+  .bucket-stat.clearfix.gray{ style: 'position:relative' }
     .details
-      .desc= account.name
+      .desc= bucket.name
       .number
-        #{account_report.spend} out of #{account_report.balance}
+        #{bucket_report.spend} out of #{bucket_report.balance}
     .visual
       .easy-pie-chart
-        .number{ data: { percent: [account_report.spend_as_percent_of_balance, 100].min } }
-          %span #{account_report.spend_as_percent_of_balance}%
-    = link_to account, class: 'more' do
+        .number{ data: { percent: [bucket_report.spend_as_percent_of_balance, 100].min } }
+          %span #{bucket_report.spend_as_percent_of_balance}%
+    = link_to bucket, class: 'more' do
       View transactions
       %i.ion-arrow-right-c

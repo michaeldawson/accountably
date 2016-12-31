@@ -1,16 +1,16 @@
 
-.account-stat {
+.bucket-stat {
   margin-bottom: 25px;
   border: 1px solid #e7ecf1;
   border-radius: 4px;
 }
 
-.account-stat .details {
+.bucket-stat .details {
   position: absolute;
   left: 15px;
 }
 
-.account-stat .details .desc {
+.bucket-stat .details .desc {
   padding-top: 15px;
   font-size: 30px;
   line-height: 30px;
@@ -20,14 +20,14 @@
   color: #8A959C;
 }
 
-.account-stat .details .number {
+.bucket-stat .details .number {
   font-size: 16px;
   letter-spacing: 0px;
   font-weight: 300;
   color: #AAB5BC;
 }
 
-.account-stat .visual {
+.bucket-stat .visual {
   width: 80px;
   height: 80px;
   display: block;
@@ -37,7 +37,7 @@
   margin-bottom: 10px;
 }
 
-.account-stat .more {
+.bucket-stat .more {
   background-color: #ddd;
   clear: both;
   display: block;
@@ -50,13 +50,13 @@
   filter: alpha(opacity=70);
 }
 
-.account-stat .more:hover {
+.bucket-stat .more:hover {
   text-decoration: none;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-.account-stat .more > i {
+.bucket-stat .more > i {
   display: inline-block;
   margin-top: 1px;
   float: right;
