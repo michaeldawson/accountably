@@ -3,50 +3,40 @@ require 'spec_helper'
 feature 'Budgets', js: true do
   describe 'setup' do
     context 'when logged in as a user without a budget' do
-      before :each do
-        @user = FactoryGirl.create(:user)
-        login_as @user
-      end
+      let!(:user) { FactoryGirl.create(:user) }
+      before { login_as user }
 
-      xscenario 'I can set up a budget, with a defined cycle length, and a pay day. Balances are applied to accounts.' do
+      scenario 'Step 1: I can set up a budget, with a defined cycle length, and a pay day.' do
         payday = Time.current.to_date
 
         visit root_path
 
-        expect(page).to have_content 'Setup budget'
+        expect(page).to have_css('.mt-step-col.done', text: 'BASICS')
 
         select 'weekly', from: 'Cycle length'
         fill_in 'Total amount', with: 100
         fill_in 'First pay day', with: payday.strftime("%d/%m/%Y")
 
-        fill_in 'Name', with: 'Rent'
-        fill_in 'Amount', with: 100
+        click_on 'Next'
 
-        click_on 'Save'
-
-        expect(page).to have_content('Budget was saved')
+        expect(page).to have_css('.mt-step-col.done', text: 'BANK ACCOUNTS')
 
         budget = Budget.last
-        account = budget.buckets.last
 
-        expect(budget.user).to eq(@user)
-        expect(account.name).to eq('Rent')
-        expect(account.amount).to eq(100.0)
-
-        expect(account.balance).to eq(100.0)
+        expect(budget.user).to eq(user)
+        expect(budget.target).to eq(100.0)
+        expect(budget.first_pay_day).to eq(payday)
       end
     end
 
     context 'when logged in as a user with a budget' do
-      before :each do
-        @user = FactoryGirl.create(:user)
-        @budget = FactoryGirl.create(:budget, user: @user)
-        login_as @user
-      end
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:budget) { FactoryGirl.create(:budget, user: user) }
+      before { login_as user }
 
-      scenario "the user can't create another budget" do
-        visit new_budget_path
-        expect(page).not_to have_content 'Setup budget'
+      scenario 'Step 1: I can link a bank account' do
+        visit edit_budget_path
+        expect(page).to have_css('.mt-step-col.done', text: 'BANK ACCOUNTS')
       end
     end
   end

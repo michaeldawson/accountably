@@ -17,21 +17,27 @@ class BucketsForm extends React.Component {
   }
 
   render() {
-    return (<div>
-      {
-        this.state.buckets.map(function(bucket, index) {
-          return <Bucket
-            {...bucket}
-            key={index}
-            onChange={this.handleViewChange}
-          ></Bucket>
-        })
-      }
-      <a
-        ref={(c) => this._newButton = c}
-        className='btn btn-default'
-        onClick={this.handleNew}
-      >Add new</a>
-    </div>)
+    const { target } = this.props;
+
+    return (
+      <form role="form" className="form-horizontal form-bordered">
+        <div className="form-body">
+          {
+            this.state.buckets.map(function(bucket, index) {
+              return <Bucket
+                {...bucket}
+                key={index}
+                max={target}
+              ></Bucket>
+            })
+          }
+          <a
+            ref={(c) => this._newButton = c}
+            className='btn btn-default'
+            onClick={this.handleNew}
+          >Add new</a>
+        </div>
+      </form>
+    )
   }
 }

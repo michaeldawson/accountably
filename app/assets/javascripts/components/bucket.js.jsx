@@ -45,43 +45,41 @@ class Bucket extends React.Component {
   }
 
   render() {
+    const { name, amount, max } = this.props;
+
     return (
-      <div className="row">
-        <div className="col-xs-6 col-sm-4">
-          <div className="form-group string optional budget_buckets_name">
-            <input
-              type='hidden'
-              ref={(c) => this._id = c}
-              value={this.props.id}
-            />
-            <input
-              ref={(c) => this._name = c}
-              className="form-control string optional"
-              placeholder="Name"
-              type="text"
-              value={this.props.name}
-              onChange={this.handleChange}
-            />
-          </div>
+      <div className="form-group">
+        <div className="col-md-4">
+          <input
+            type='hidden'
+            ref={(c) => this._id = c}
+            value={this.props.id}
+          />
+          <input
+            ref={(c) => this._name = c}
+            className="form-control"
+            placeholder="Name"
+            type="text"
+            value={name}
+            onChange={this.handleChange}
+          />
         </div>
-        <div className="col-xs-6 col-sm-2">
-          <div className="form-group string required budget_buckets_amount">
-            <input
-              ref={(c) => this._amount = c}
-              className="form-control string required sliderInput"
-              placeholder="Amount"
-              type="text"
-              value= {this.props.amount}
-              onChange={this.handleChange}
-            />
-          </div>
+        <div className="col-md-2">
+          <input
+            ref={(c) => this._amount = c}
+            className="form-control"
+            placeholder="Amount"
+            type="text"
+            value= {amount}
+            onChange={this.handleChange}
+          />
         </div>
-        <div className="col-xs-12 col-sm-4">
+        <div className="col-sm-4">
           <Slider
-            value={this.props.amount}
+            value={amount}
             onSlide={this.handleSliderSlide}
             onChange={this.handleSliderChange}
-            max={parseInt($('.budget_target input').val().replace(/[^0-9.]+/g, ''))}
+            max={max}
           />
         </div>
         <div className="col-xs-2">

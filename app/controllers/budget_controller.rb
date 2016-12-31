@@ -10,8 +10,7 @@ class BudgetController < ApplicationController
 
   def create
     if budget.save && budget.create_first_pay_day
-      flash[:notice] = 'Budget was saved'
-      redirect_to budget_path
+      redirect_to edit_budget_path
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
       render :new
@@ -21,7 +20,7 @@ class BudgetController < ApplicationController
   def update
     if budget.update(budget_params)
       flash[:notice] = 'Budget was updated'
-      redirect_to budget_path
+      redirect_to edit_budget_path if next_step_number.present?
     else
       flash[:error] = "Nope: #{budget.errors.full_messages.to_sentence}"
       render :new
@@ -29,6 +28,17 @@ class BudgetController < ApplicationController
   end
 
   private
+
+  helper_method def step_number
+    return params[:step].to_i if [1, 2, 3].include?(params[:step].to_i)
+    next_step_number
+  end
+
+  def next_step_number
+    return 1 unless user_has_budget?
+    return 2 unless current_budget.bank_accounts.exists?
+    return 3 unless current_budget.buckets.exists?
+  end
 
   def user_has_budget?
     current_user.budget.present?
