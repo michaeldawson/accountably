@@ -18,6 +18,11 @@ module API
         head :ok
       end
 
+      def destroy
+        bucket.destroy
+        render json: bucket
+      end
+
       private
 
       def buckets

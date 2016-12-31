@@ -8,6 +8,7 @@
         handleCreate: BucketActions.CREATE,
         handleUpdate: BucketActions.UPDATE,
         handleFetch: BucketActions.FETCH_SUCCESS,
+        handleDelete: BucketActions.DELETE,
       });
 
       this.registerAsync(BucketsSource)
@@ -38,6 +39,12 @@
         } else {
           return { id: bucket.id, ...bucket.attributes };
         }
+      });
+    }
+
+    handleDelete(id) {
+      this.buckets = this.buckets.filter(function(bucket) {
+        return bucket.id != id
       });
     }
   }

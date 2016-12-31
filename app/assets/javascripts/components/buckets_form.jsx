@@ -32,10 +32,11 @@ class BucketsForm extends React.Component {
             })
           }
           <a
+            href='#'
             ref={(c) => this._newButton = c}
             className='btn btn-default'
             onClick={this.handleNew}
-          >Add new</a>
+          >Add bucket</a>
         </div>
       </form>
     )

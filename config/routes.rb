@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :int do
-      resources :buckets, only: [:index, :create, :update]
+      resources :buckets, except: :new
     end
   end
 

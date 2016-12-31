@@ -20,6 +20,10 @@ class Bucket extends React.Component {
     this.handleSliderChange = (value) => {
       BucketActions.updateInAPI({ id: this._id.value, amount: parseInt(value) })
     }
+
+    this.handleDelete = () => {
+      BucketActions.delete(this._id.value);
+    }
   }
 
   properties() {
@@ -33,7 +37,7 @@ class Bucket extends React.Component {
   action() {
     if(this.props.id) {
       return (
-        <a className="remove_fields" href="#">
+        <a onClick={this.handleDelete}>
           <i className="ion-ios-close-outline"></i>
         </a>
       )
@@ -45,7 +49,7 @@ class Bucket extends React.Component {
   }
 
   render() {
-    const { name, amount, max } = this.props;
+    const { id, name, amount, max } = this.props;
 
     return (
       <div className="form-group">
@@ -53,7 +57,7 @@ class Bucket extends React.Component {
           <input
             type='hidden'
             ref={(c) => this._id = c}
-            value={this.props.id}
+            value={id}
           />
           <input
             ref={(c) => this._name = c}

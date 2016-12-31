@@ -40,6 +40,17 @@
     }
 
     update(bucketProps) { return bucketProps; }
+
+    delete(id) {
+      return (dispatch) => {
+        $.ajax({
+          url: '/api/int/buckets/' + id,
+          method: 'DELETE',
+        }).then(function(data){
+          dispatch(data.id);
+        });
+      }
+    }
   }
 
   this.BucketActions = alt.createActions(BucketActions);

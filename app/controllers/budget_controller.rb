@@ -1,4 +1,6 @@
 class BudgetController < ApplicationController
+  SETUP_STEPS = [1, 2, 3].freeze
+
   respond_to :js
 
   before_action :authenticate_user!
@@ -30,8 +32,8 @@ class BudgetController < ApplicationController
   private
 
   helper_method def step_number
-    return params[:step].to_i if [1, 2, 3].include?(params[:step].to_i)
-    next_step_number
+    return params[:step].to_i if SETUP_STEPS.include?(params[:step].to_i)
+    next_step_number || SETUP_STEPS.last
   end
 
   def next_step_number
