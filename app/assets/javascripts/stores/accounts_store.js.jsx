@@ -1,4 +1,23 @@
 (() => {
+  const BucketsSource = {
+    fetch: {
+      remote(state) {
+        return new Promise((resolve, reject) => {
+          $.get('/api/int/buckets', data => {
+            resolve(data);
+          });
+        });
+      },
+
+      success: BucketActions.fetchSuccess,
+      error: BucketActions.fetchFailed,
+
+      shouldFetch(state) {
+        return true
+      }
+    },
+  };
+
   class BucketsStore {
     constructor() {
       this.buckets = []
