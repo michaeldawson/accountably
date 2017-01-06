@@ -1,13 +1,11 @@
-<% user = User.first %>
-<% budget = user.budget %>
-
+<% user = User.first %><% budget = user.budget %># Generated using lib/tasks/seeds.rake
 user = User.create!(email: '<%= user.email %>', password: 'testtest')
 budget = Budget.create!(
   user: user,
   cycle_length: 'fortnightly',
-  first_pay_day: <%= budget.first_pay_day %>,
-  accounts: [<% budget.accounts.categorised.all.map do |a| %>
-    Account.new(
+  first_pay_day: Date.parse('<%= budget.first_pay_day.to_s %>'),
+  buckets: [<% budget.buckets.categorised.all.map do |a| %>
+    Bucket.new(
       name: '<%= a.name %>',
       amount: '<%= a.amount.dollars %>',<% if a.transaction_patterns.any? %>
       transaction_patterns: [<% a.transaction_patterns.map do |tp| %>

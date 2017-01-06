@@ -1,30 +1,13 @@
+# Generated using lib/tasks/seeds.rake
 user = User.create!(email: 'email.michaeldawson@gmail.com', password: 'testtest')
 budget = Budget.create!(
   user: user,
   cycle_length: 'fortnightly',
-  target: 1800.0,
   first_pay_day: Date.parse('2016-11-02'),
   buckets: [
     Bucket.new(
-      name: 'Rent',
-      amount: '870.0',
-      transaction_patterns: [
-        TransactionPattern.new(pattern: 'HARRIS LEECH REN'),
-      ],
-    ),
-    Bucket.new(
-      name: 'Groceries',
-      amount: '200.0',
-      transaction_patterns: [
-        TransactionPattern.new(pattern: 'COLES 7842 COLLINGWOO'),
-        TransactionPattern.new(pattern: 'COLES 0448 ST PETERS'),
-        TransactionPattern.new(pattern: 'COLES'),
-        TransactionPattern.new(pattern: 'THE SOURCE BULK FOODS'),
-      ],
-    ),
-    Bucket.new(
       name: 'Cafes and Restaurants',
-      amount: '200.0',
+      amount: '1212.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'LOVING HUT PTY LTD RICHMOND'),
         TransactionPattern.new(pattern: 'THE HOLY BEAN ROSEBUD'),
@@ -62,8 +45,6 @@ budget = Budget.create!(
     Bucket.new(
       name: 'Home and funiture',
       amount: '100.0',
-      transaction_patterns: [
-      ],
     ),
     Bucket.new(
       name: 'Long-term savings',
@@ -171,7 +152,7 @@ budget = Budget.create!(
     ),
     Bucket.new(
       name: 'Entertainment',
-      amount: '40.0',
+      amount: '1110.0',
       transaction_patterns: [
         TransactionPattern.new(pattern: 'SPOTIFY AUSTRALIA PL SURRY HILL'),
         TransactionPattern.new(pattern: 'HONEY BIRDETTE RUNDLE MALADELAIDE'),
