@@ -19,6 +19,9 @@ module Accountable
   class Application < Rails::Application
     config.assets.paths << "#{Rails}/app/assets/fonts"
     config.autoload_paths += Dir["#{config.root}/lib/accountably/**/"]
+    config.autoload_paths += [
+      Rails.root.join('app', 'pages')
+    ]
 
     config.generators do |g|
       g.template_engine nil
