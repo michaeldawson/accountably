@@ -41,8 +41,6 @@ group :development do
   gem 'rubocop', require: false
   gem 'haml-lint', require: false
 
-  gem 'chromedriver-helper'
-
   # Deployment
   gem 'capistrano', '~> 3.6'
   gem 'capistrano3-env', '~> 0.1.0'
