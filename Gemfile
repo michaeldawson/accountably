@@ -31,6 +31,7 @@ gem 'capybara'
 gem 'selenium-webdriver'
 gem 'poltergeist', '~> 1.8'
 gem 'headless'
+gem 'site_prism'
 
 # Background jobs
 gem 'sidekiq'
