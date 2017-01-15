@@ -8,6 +8,7 @@ module Bank
     attribute :credentials, EncryptedHashType.new
 
     validates :adapter_type, inclusion: { in: VALID_ADAPTER_TYPES }
+    validates :budget, presence: true
 
     delegate :reconcile, to: :adapter
 

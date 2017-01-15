@@ -1,1 +1,7 @@
-Placeholder for syncing with accounts
+= simple_form_for bank_login, remote: true do |form|
+  .row
+    .col-sm-4
+      = form.fields_for :credentials do |credentials_form|
+        = credentials_form.input :user_id, label: 'Customer ID'
+        = credentials_form.input :password, label: 'Password'
+  .clearfix= form.submit 'Next', class: 'btn btn-success pull-right'

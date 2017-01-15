@@ -17,6 +17,16 @@ RSpec.describe Bank::Login, type: :model do
     it 'should be valid with valid attributes' do
       expect(bank_login).to be_valid
     end
+
+    it "isn't valid without an adapter type" do
+      valid_attributes[:adapter_type] = nil
+      expect(bank_login).not_to be_valid
+    end
+
+    it "isn't valid without a budget" do
+      valid_attributes[:budget] = nil
+      expect(bank_login).not_to be_valid
+    end
   end
 
   describe '#credentials' do

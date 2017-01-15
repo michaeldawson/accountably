@@ -10,7 +10,7 @@ feature 'Logging in', js: true do
       fill_in 'Password', with: 'foobar'
 
       click_on 'Log in'
-      expect(page).to have_content('Setup budget')
+      expect(page).to have_content('BASICS')
     end
   end
 end

@@ -7,12 +7,14 @@ Rails.application.routes.draw do
   resources :buckets, except: :index do
     get :reconcile, on: :collection
   end
+
   namespace :transaction do
     resources :expenses
     resources :incomes
   end
 
   namespace :bank do
+    resources :logins
     resources :accounts
   end
 

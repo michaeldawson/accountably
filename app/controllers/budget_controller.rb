@@ -38,7 +38,7 @@ class BudgetController < ApplicationController
 
   def next_step_number
     return 1 unless user_has_budget?
-    return 2 unless current_budget.bank_accounts.exists?
+    return 2 unless current_budget.bank_logins.exists?
     return 3 unless current_budget.buckets.exists?
   end
 
@@ -52,6 +52,10 @@ class BudgetController < ApplicationController
 
   helper_method def budget_report
     @budget_report ||= Report::BudgetReport.new(budget)
+  end
+
+  helper_method def bank_login
+    @bank_login ||= budget.bank_logins.first_or_initialize
   end
 
   def budget_params

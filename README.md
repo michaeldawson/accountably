@@ -23,3 +23,12 @@ I can't edit someone else's accounts
 I can see how much I have in all of my accounts.
 I can see my expenses for this pay cycle.
 I can see if I'm on-track or tracking over budget.
+
+
+
+When you setup a budget, it should fetch balances from accounts.
+It should then split up your balances according to your budget.
+All your bucket balances should add up to your bank account balances.
+
+I can enter in my NAB username and password, then click 'Test connection'.
+This creates accounts.
