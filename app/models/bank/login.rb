@@ -19,7 +19,7 @@ module Bank
     end
 
     def adapter_class
-      "Bank::Adapter::Selenium::#{adapter_type}".constantize
+      "Bank::Adapter::#{adapter_type}".constantize
     end
   end
 end

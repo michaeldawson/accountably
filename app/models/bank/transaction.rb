@@ -1,12 +1,14 @@
-# Parse a bank a transaction from a bank adapter.
+# Parse a bank transaction, with details received from a bank adapter.
 
 module Bank
   class Transaction
-    def initialize(data:, bank_account:, accept_transactions_since: nil, transaction_patterns: [])
-      @data = data
+    def initialize(transaction_data:, bank_account:, accept_transactions_since: nil)
+      @amount = transaction_data.fetch(:amount)
+      @effective_date = transaction_data.fetch(:effective_date)
+      @description = transaction_data.fetch(:description)
+
       @bank_account = bank_account
       @accept_transactions_since = accept_transactions_since
-      @transaction_patterns = transaction_patterns
     end
 
     def parse!
@@ -14,16 +16,15 @@ module Bank
       return false if effective_date_earlier_than_threshold?
       return false if transaction_already_exists?
 
-      transaction = transaction_klass.new(transaction_attributes)
-      transaction.save
+      transaction_klass.new(transaction_attributes).save
     end
 
     private
 
-    attr_reader :data, :bank_account, :accept_transactions_since, :transaction_patterns
+    attr_reader :amount, :effective_date, :description, :bank_account, :accept_transactions_since
 
     def transaction_klass
-      debit_amount.zero? ? ::Transaction::Income : ::Transaction::Expense
+      amount.negative? ? ::Transaction::Expense : ::Transaction::Income
     end
 
     def transaction_attributes
