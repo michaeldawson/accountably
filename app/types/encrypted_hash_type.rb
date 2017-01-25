@@ -2,6 +2,8 @@
 # initialization vector (iv) for the Cipher that is needed to decrypt the data. When deserialized, wrap the data up in a
 # HiddenHash to obscure it (trivially!) from inspection.
 
+require_dependency 'hidden_hash'
+
 class EncryptedHashType < ActiveRecord::Type::Value
   def serialize(value)
     return nil if value.blank?
