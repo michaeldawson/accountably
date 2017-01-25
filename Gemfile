@@ -27,7 +27,7 @@ gem 'devise', github: 'plataformatec/devise' # Only until 4.2.0 is released
 gem 'simple_form'
 
 # Web scraping
-gem 'capybara'
+gem 'capybara', require: 'capybara/dsl'
 gem 'selenium-webdriver'
 gem 'poltergeist', '~> 1.8'
 gem 'headless'
